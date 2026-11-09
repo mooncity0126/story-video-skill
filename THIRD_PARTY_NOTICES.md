@@ -1,0 +1,31 @@
+# 来源与打包调整
+
+## video-harness
+
+运行模块取自用户 LightX2V 工作区的 video-harness 项目，包含接口客户端、参数契约、媒体处理、模板、测试与示例。LightX2V 来源为 https://github.com/ModelTC/LightX2V ，上游 Apache-2.0 文本保存在 `licenses/LightX2V-Apache-2.0.txt`。
+
+发布副本将本机路径改为包内路径，移除了示例中指向历史运行文件的路径；原工作区代码保持原样。
+
+## Prompt-Rewriter
+
+本地 `rewrite.py` 是已有 Windows CUDA/NF4 运行适配，发布时将模型目录默认值改为包内 models 目录或 `STORY_VIDEO_MODEL_ROOT` 环境变量。模型权重作为外部输入。
+
+官方提示词模板及来源说明取自：
+
+- https://huggingface.co/lightx2v/MiniMax-H3-Prompt-Rewriter-LoRA-8B
+- 来源 revision：`a795219bd1677df34259eb4f3a77e2ec282e154f`
+- 上游说明副本：`runtime/prompt-rewriter/upstream/README.md`
+- 基座： https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct
+
+第三方文件保留各自来源与适用授权，本次整理未为全部第三方内容重新指定统一许可证。
+
+## FFmpeg
+
+Release 附件为本地已有的 Gyan Windows x64 essentials 原始 ZIP，版本 `9.0.2-essentials_build`。附件内容保持原样。
+
+- 发行方：https://www.gyan.dev/ffmpeg/builds/
+- 原包声明：GPL v3
+- 原包提供的 FFmpeg 源码：https://github.com/FFmpeg/FFmpeg/commit/946fcce07b
+- 原始许可证和构建说明副本保存在 `licenses/FFmpeg-GPL-3.0.txt` 与 `licenses/FFmpeg-build-README.txt`。
+
+Python 第三方包通过各自包仓库安装，版本分别锁定在两套环境的 `requirements-lock.txt`。

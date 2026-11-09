@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "release": "runtime-v0.1.0",
+  "python": "3.12",
+  "platform": "windows-x86_64",
+  "ffmpeg": {
+    "version": "9.0.2-essentials_build",
+    "filename": "ffmpeg-9.0.2-essentials-windows-x64.zip",
+    "url": "https://github.com/mooncity0126/story-video-skill/releases/download/runtime-v0.1.0/ffmpeg-9.0.2-essentials-windows-x64.zip",
+    "sha256": "60f467265b1e312373dbcd92200c2618a74850f98d3d078e94296bb3fa2047ba",
+    "bytes": 114768076,
+    "source_commit": "946fcce07b",
+    "builder": "https://www.gyan.dev/ffmpeg/builds/"
+  },
+  "model_weights": "external",
+  "components": [
+    "runtime/video-harness",
+    "runtime/prompt-rewriter"
+  ],
+  "skill_directory": ".agents/skills"
+}
