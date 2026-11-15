@@ -29,3 +29,9 @@ Release 附件为本地已有的 Gyan Windows x64 essentials 原始 ZIP，版本
 - 原始许可证和构建说明副本保存在 `licenses/FFmpeg-GPL-3.0.txt` 与 `licenses/FFmpeg-build-README.txt`。
 
 Python 第三方包通过各自包仓库安装，版本分别锁定在两套环境的 `requirements-lock.txt`。
+
+## drama-skills 创作方法
+
+本仓库的 `produce-story-video` 在原有创作步骤中改编了 [zenstory-ai/drama-skills](https://github.com/zenstory-ai/drama-skills) 的剧本、对白、场景声音、整场分镜和空间调度方法，参考 revision 为 `8cf7404981b7095b498e061832bb3c9ffd6a42be`。
+
+上游采用 MIT 许可证，`Copyright (c) 2026 drama-skills contributors`。完整许可证随可单独安装的 skill 保存在 [.agents/skills/produce-story-video/licenses/drama-skills-MIT.txt](.agents/skills/produce-story-video/licenses/drama-skills-MIT.txt)，逐项来源及适配范围见 [skill 来源说明](.agents/skills/produce-story-video/references/provenance.md)。本次整合不引入上游运行依赖或外部服务。
