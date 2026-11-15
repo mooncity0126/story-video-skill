@@ -1,0 +1,588 @@
+{
+  "models": [
+    {
+      "task": "vsr",
+      "model_cls": "SwiftVR",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SwiftVR 画质增强",
+        "en": "SwiftVR"
+      },
+      "short_description": {
+        "zh": "视频与图片画质修复，保持原始比例",
+        "en": "Video and image restoration with preserved aspect ratio"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "isr",
+      "model_cls": "SwiftVR",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SwiftVR 画质增强",
+        "en": "SwiftVR"
+      },
+      "short_description": {
+        "zh": "视频与图片画质修复，保持原始比例",
+        "en": "Video and image restoration with preserved aspect ratio"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2v",
+      "model_cls": "Wan2.2_I2V_A14B_distilled",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Wan2.2 图生视频（蒸馏版）",
+        "en": "Wan2.2 I2V Distilled"
+      },
+      "short_description": {
+        "zh": "快速图生视频",
+        "en": "Fast image-to-video"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2v",
+      "model_cls": "Wan2.2_T2V_A14B_distilled",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Wan2.2 文生视频（蒸馏版）",
+        "en": "Wan2.2 T2V Distilled"
+      },
+      "short_description": {
+        "zh": "快速文生视频",
+        "en": "Fast text-to-video"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "s2v",
+      "model_cls": "SekoTalk-V3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SekoTalk V3 数字人",
+        "en": "SekoTalk V3"
+      },
+      "short_description": {
+        "zh": "最自然最稳定，强烈推荐",
+        "en": "Most natural and stable, highly recommended"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "s2v",
+      "model_cls": "SekoTalk-V3-Multi",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SekoTalk V3 Multi 多人数字人",
+        "en": "SekoTalk V3 Multi"
+      },
+      "short_description": {
+        "zh": "v3对应的多人版本",
+        "en": "Best for multi-speaker avatars"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "s2v",
+      "model_cls": "SekoTalk",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SekoTalk 数字人",
+        "en": "SekoTalk"
+      },
+      "short_description": {
+        "zh": "经典灵动数字人",
+        "en": "Classic expressive avatars"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "s2v",
+      "model_cls": "SekoTalk-V2.7",
+      "stage": "single_stage",
+      "name": {
+        "zh": "SekoTalk V2.7 数字人",
+        "en": "SekoTalk V2.7"
+      },
+      "short_description": {
+        "zh": "稳定固定机位口播",
+        "en": "Stable locked-frame presenters"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "flf2v",
+      "model_cls": "Wan2.2_I2V_A14B_distilled",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Wan2.2 图生视频（蒸馏版）",
+        "en": "Wan2.2 I2V Distilled"
+      },
+      "short_description": {
+        "zh": "快速图生视频",
+        "en": "Fast image-to-video"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "gpt-image-2.5-flare",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2.5 Flare",
+        "en": "GPT Image 2.5 Flare"
+      },
+      "short_description": {
+        "zh": "默认推荐的快速高质量图像生成与编辑模型",
+        "en": "Fast, high-quality default for image generation and editing"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "gpt-image-2.5-sunburst",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2.5 Sunburst",
+        "en": "GPT Image 2.5 Sunburst"
+      },
+      "short_description": {
+        "zh": "精品精修图像模型，适合复杂构图与连续优化",
+        "en": "Premium refinement model for precise, iterative image work"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "gpt-image-2",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2",
+        "en": "GPT Image 2"
+      },
+      "short_description": {
+        "zh": "成熟通用图像模型，擅长信息图、排版与参考图编辑",
+        "en": "Mature general-purpose model for infographics, layout, and reference-image edits"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "Qwen-Image-Edit-2511",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Qwen Image Edit 2511",
+        "en": "Qwen Image Edit 2511"
+      },
+      "short_description": {
+        "zh": "高性价比改图",
+        "en": "Cost-effective image editing"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "Gemini-2.5-Flash-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana",
+        "en": "Nano Banana"
+      },
+      "short_description": {
+        "zh": "快速低成本出图",
+        "en": "Fast, low-cost images"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "Gemini-3-Pro-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana Pro",
+        "en": "Nano Banana Pro"
+      },
+      "short_description": {
+        "zh": "复杂构图与精修",
+        "en": "Complex layouts and refinement"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2i",
+      "model_cls": "Gemini-3.1-Flash-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana 2",
+        "en": "Nano Banana 2"
+      },
+      "short_description": {
+        "zh": "擅长手办、角色设计",
+        "en": "Good at character design"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "gpt-image-2.5-flare",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2.5 Flare",
+        "en": "GPT Image 2.5 Flare"
+      },
+      "short_description": {
+        "zh": "默认推荐的快速高质量图像生成与编辑模型",
+        "en": "Fast, high-quality default for image generation and editing"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "gpt-image-2.5-sunburst",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2.5 Sunburst",
+        "en": "GPT Image 2.5 Sunburst"
+      },
+      "short_description": {
+        "zh": "精品精修图像模型，适合复杂构图与连续优化",
+        "en": "Premium refinement model for precise, iterative image work"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "gpt-image-2",
+      "stage": "single_stage",
+      "name": {
+        "zh": "GPT Image 2",
+        "en": "GPT Image 2"
+      },
+      "short_description": {
+        "zh": "成熟通用图像模型，擅长信息图、排版与参考图编辑",
+        "en": "Mature general-purpose model for infographics, layout, and reference-image edits"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "Qwen-Image-2512",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Qwen Image 2512",
+        "en": "Qwen Image 2512"
+      },
+      "short_description": {
+        "zh": "最快、成本最低",
+        "en": "Fastest and lowest cost"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "Gemini-2.5-Flash-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana",
+        "en": "Nano Banana"
+      },
+      "short_description": {
+        "zh": "快速低成本出图",
+        "en": "Fast, low-cost images"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "Gemini-3-Pro-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana Pro",
+        "en": "Nano Banana Pro"
+      },
+      "short_description": {
+        "zh": "复杂构图与精修",
+        "en": "Complex layouts and refinement"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2i",
+      "model_cls": "Gemini-3.1-Flash-Image",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Nano Banana 2",
+        "en": "Nano Banana 2"
+      },
+      "short_description": {
+        "zh": "擅长手办、角色设计",
+        "en": "Good at character design"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2av",
+      "model_cls": "MiniMax-H3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "MiniMax-H3",
+        "en": "MiniMax-H3"
+      },
+      "short_description": {
+        "zh": "高质量文生、首尾帧与全能参考生视频短片",
+        "en": "High-quality text, first/last-frame and multi-reference audio-video clips"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "t2av",
+      "model_cls": "LTX-2.3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "LTX-2.3（蒸馏版）",
+        "en": "LTX-2.3 (Distilled)"
+      },
+      "short_description": {
+        "zh": "音画同步短片",
+        "en": "Audio-synced short videos"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2av",
+      "model_cls": "MiniMax-H3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "MiniMax-H3",
+        "en": "MiniMax-H3"
+      },
+      "short_description": {
+        "zh": "高质量文生、首尾帧与全能参考生视频短片",
+        "en": "High-quality text, first/last-frame and multi-reference audio-video clips"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "i2av",
+      "model_cls": "LTX-2.3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "LTX-2.3（蒸馏版）",
+        "en": "LTX-2.3 (Distilled)"
+      },
+      "short_description": {
+        "zh": "音画同步短片",
+        "en": "Audio-synced short videos"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "animate",
+      "model_cls": "wan2.2_animate2_distilled",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Wan2.2-Animate-2",
+        "en": "Wan2.2-Animate-2"
+      },
+      "short_description": {
+        "zh": "保留原视频音频的动作迁移",
+        "en": "Motion transfer with preserved source audio"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "animate",
+      "model_cls": "wan2.2_animate",
+      "stage": "single_stage",
+      "name": {
+        "zh": "Wan2.2-Animate",
+        "en": "Wan2.2 Animate"
+      },
+      "short_description": {
+        "zh": "角色替换与动作迁移",
+        "en": "Character replacement and motion transfer"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    },
+    {
+      "task": "ref2av",
+      "model_cls": "MiniMax-H3",
+      "stage": "single_stage",
+      "name": {
+        "zh": "MiniMax-H3",
+        "en": "MiniMax-H3"
+      },
+      "short_description": {
+        "zh": "高质量文生、首尾帧与全能参考生视频短片",
+        "en": "High-quality text, first/last-frame and multi-reference audio-video clips"
+      },
+      "supported_plans": [
+        "free",
+        "lite",
+        "standard",
+        "pro"
+      ]
+    }
+  ],
+  "default_model_cls": {
+    "vsr": "SwiftVR",
+    "isr": "SwiftVR",
+    "i2v": "Wan2.2_I2V_A14B_distilled",
+    "t2v": "Wan2.2_T2V_A14B_distilled",
+    "s2v": "SekoTalk-V3",
+    "flf2v": "Wan2.2_I2V_A14B_distilled",
+    "i2i": "gpt-image-2.5-flare",
+    "t2i": "gpt-image-2.5-flare",
+    "t2av": "MiniMax-H3",
+    "i2av": "MiniMax-H3",
+    "animate": "wan2.2_animate2_distilled",
+    "ref2av": "MiniMax-H3"
+  }
+}

@@ -1,16 +1,17 @@
 # Story Video Skill
 
-剧情视频 skill 的运行依赖发布仓库。当前版本先交付运行环境，后续 skill 放入 `.agents/skills/`。
+剧情视频 skill 与可重建运行环境。当前源码已包含本地实际使用的 `produce-story-video`、视频任务工具，以及对白句尾和完整原生音轨的保留逻辑。
 
-本次采用可重建环境：源码、锁定的 Python 依赖清单和安装脚本随运行包分发，FFmpeg 原始发行包作为 Release 附件。模型权重由使用者在外部目录准备。
+源码、锁定的 Python 依赖清单和安装脚本随仓库分发，FFmpeg 原始发行包作为 Release 附件。模型权重由使用者在外部目录准备。密钥、本机配置、虚拟环境、缓存、生成素材和历史制作记录不进入版本库。
 
 ## 下载
 
-- [运行依赖 ZIP](./story-video-runtime-v0.1.0.zip)：源码、配置示例、测试、环境安装入口、第三方说明。
+- 当前版本：克隆本仓库，或使用 GitHub 的 Code → Download ZIP。
+- [历史运行依赖 ZIP](./story-video-runtime-v0.1.0.zip)：保留的 v0.1.0 环境包，不含后续 skill 与运行代码更新；新安装使用当前仓库源码。
 - [FFmpeg Windows x64](https://github.com/mooncity0126/story-video-skill/releases/download/runtime-v0.1.0/ffmpeg-9.0.2-essentials-windows-x64.zip)：9.0.2 essentials 原始 ZIP，保留发行方许可证和说明。
 - [Release](https://github.com/mooncity0126/story-video-skill/releases/tag/runtime-v0.1.0)：版本与附件。
 
-下载运行依赖 ZIP 后解压，进入其中的 `story-video-skill` 文件夹。以下命令均在解压目录执行。
+以下命令在当前仓库根目录执行。
 
 ## 重建环境
 
@@ -46,16 +47,27 @@ story-video-skill/
   config/skill-runtime.example.json
   runtime-manifest.json       工具版本、Release 地址和校验值
   licenses/                   上游许可证与发行说明
-  .agents/skills/              后续 skill 的放置位置
+  .agents/skills/produce-story-video/  当前剧情视频 skill、规则与原子操作
+  scripts/media.py             项目统一入口
+  config/api-keys.example.json 空白密钥模板
 ```
 
 `video-harness` 的主要依赖为 httpx、pydantic、Pillow、jsonschema；本地改写依赖 PyTorch 2.7.1 CUDA 11.8、Transformers 4.57.6、PEFT、Accelerate 和 bitsandbytes。两个环境各自使用 `requirements-lock.txt`，避免 Pillow 等版本约束互相影响。
 
-## 接入后续 skill
+## 使用 skill
 
-把 skill 目录放入 `.agents/skills/`，使用生成的 `config/local-settings.json` 作为配置。它已绑定本仓库内的两个解释器、video-harness 源码、Rewriter 脚本、FFmpeg 和外部模型目录。默认保留本地改写、视频并发 4、图片并发 2。
+skill 已位于 `.agents/skills/produce-story-video/`。安装脚本生成 `config/local-settings.json`，绑定本仓库内的两个解释器、video-harness 源码、Rewriter 脚本、FFmpeg 和外部模型目录。默认本地改写、视频并发 4、图片并发 2；每候选一轮视频检查、默认 6 帧，每镜共享一次内容返工。
 
-媒体服务读取 `X2V_API_KEY`；可选文本/视觉服务读取 `QWEN_API_KEY`。密钥通过进程环境变量配置。
+安装后直接在 `config/api-keys.local.json` 填入 `X2V_API_KEY` 和可选的 `QWEN_API_KEY`，无需设置系统环境变量。该文件受 `.gitignore` 排除；重建环境不会覆盖已有密钥文件。
+
+```powershell
+& .\runtime\video-harness\.venv\Scripts\python.exe scripts/media.py doctor
+& .\runtime\video-harness\.venv\Scripts\python.exe scripts/media.py init --output runs/my-story
+```
+
+从项目调用 `$produce-story-video`，让 AI 根据创意/剧本推进制作。API、模型、预算和路径均在配置里修改。若本机已经安装另一份 skill，可在被忽略的 `config/skill-location.json` 中指定 `skill_root`，或设置当前进程的 `STORY_VIDEO_SKILL_DIR`；默认使用仓库内的版本。
+
+对白按自然语速规划，最后一句后预留 0.8–1 秒。视频模型同时生成对白与音效；合成保留完整原生音轨，声音长于画面时延续最后一帧。请求时长之和与最终实长分开记录，用户片长上限不用于硬切声音。
 
 外部模型目录结构：
 
@@ -69,6 +81,6 @@ Prompt-Rewriter/
 
 ## 验证与来源
 
-发布前执行源码编译检查、离线测试、安装计划检查和压缩包完整性检查。本地 Rewriter 推理与真实云端生成未作为发布验证执行。
+发布前执行源码语法检查、离线测试和安装计划检查。已有本地视频制作验证；本次源码整理仅执行离线测试，不新增付费生成。
 
-来源和打包调整见 `THIRD_PARTY_NOTICES.md`；具体测试结果随 Release 记录。FFmpeg 发行文件按 SHA256 校验。当前运行包以原 video-harness 的完整模块集合支持后续 skill；由 AI 主导的 skill 本体将另行加入。
+来源和打包调整见 `THIRD_PARTY_NOTICES.md`，当前测试结果见 `VALIDATION.md`。FFmpeg 发行文件按 SHA256 校验；历史 ZIP 和对应校验文件保持原版本。

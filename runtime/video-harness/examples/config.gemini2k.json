@@ -1,0 +1,54 @@
+{
+  "aspect_ratio": "9:16",
+  "visual_style": "写实",
+  "target_duration_ms": null,
+  "image": {
+    "task": "t2i",
+    "model_cls": "gpt-image-2.5-flare",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "1080p"
+    },
+    "media_field": "input_image"
+  },
+  "edit": {
+    "task": "i2i",
+    "model_cls": "Gemini-3.1-Flash-Image",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "2K"
+    },
+    "media_field": "input_image"
+  },
+  "video": {
+    "task": "i2av",
+    "model_cls": "LTX-2.3",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "720p",
+      "negative_prompt": "subtitles, captions, text overlays, typography, watermark, logos, credits, gibberish text, extra dialogue, unwanted speech, distorted hands, extra fingers"
+    },
+    "media_field": "input_image"
+  },
+  "concurrency": 2,
+  "request_interval_seconds": 0.2,
+  "poll_interval_seconds": 5,
+  "wait_timeout_seconds": 1800,
+  "request_timeout_seconds": 60,
+  "retries": 3,
+  "budget_credits": null,
+  "execute_enabled": false,
+  "bindings": {},
+  "fps": 24,
+  "export_width": 720,
+  "export_height": 1280,
+  "fit": "pad",
+  "ffmpeg": "ffmpeg",
+  "ffprobe": "ffprobe",
+  "text": {
+    "endpoint": null,
+    "model": null,
+    "key_env": "TEXT_LLM_API_KEY",
+    "timeout": 120
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "aspect_ratio": "9:16",
+  "visual_style": "写实",
+  "target_duration_ms": null,
+  "image": {
+    "task": "t2i",
+    "model_cls": "gpt-image-2",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "1080p",
+      "quality": "high"
+    },
+    "media_field": "input_image"
+  },
+  "edit": {
+    "task": "i2i",
+    "model_cls": "gpt-image-2",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "1080p",
+      "quality": "high"
+    },
+    "media_field": "input_image"
+  },
+  "video": {
+    "task": "i2av",
+    "model_cls": "MiniMax-H3",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "768p",
+      "enhance_prompt": false
+    },
+    "media_field": "input_image"
+  },
+  "image_fallback": {
+    "task": "t2i",
+    "model_cls": "Qwen-Image-2512",
+    "stage": "single_stage",
+    "parameters": {
+      "resolution_level": "720p"
+    },
+    "media_field": "input_image"
+  },
+  "edit_fallback": {
+    "task": "i2i",
+    "model_cls": "Qwen-Image-Edit-2511",
+    "stage": "single_stage",
+    "parameters": {},
+    "media_field": "input_image"
+  },
+  "sequential_shots": true,
+  "shot_scheduling": "dependency",
+  "duration_planning": {
+    "enabled": true,
+    "minimum_ms": 5000,
+    "maximum_ms": 15000,
+    "step_ms": 1000
+  },
+  "rewrite_ahead": true,
+  "quality": {
+    "enabled": true,
+    "model": "qwen3.8-max",
+    "causal_motion_planning": true,
+    "independent_physics_review": true,
+    "require_operator_review": false,
+    "samples_per_second": 4,
+    "sample_max_edge": 512,
+    "frames_per_review": 24,
+    "max_calls": 80,
+    "max_total_tokens": 300000,
+    "max_output_tokens": 2048
+  },
+  "require_object_states": false,
+  "character_reference_board": true,
+  "concurrency": 2,
+  "request_interval_seconds": 0.2,
+  "poll_interval_seconds": 5,
+  "wait_timeout_seconds": 1800,
+  "request_timeout_seconds": 60,
+  "retries": 3,
+  "budget_credits": null,
+  "execute_enabled": false,
+  "bindings": {},
+  "fps": 24,
+  "export_width": 720,
+  "export_height": 1280,
+  "fit": "pad",
+  "ffmpeg": "../.tools/ffmpeg.exe",
+  "ffprobe": "../.tools/ffprobe.exe",
+  "media_timeout_seconds": 600,
+  "max_media_bytes": 536870912,
+  "text": {
+    "endpoint": "https://maas.qianwenaiapi.com/compatible-mode/v1/chat/completions",
+    "model": "qwen3.7-plus",
+    "key_env": "QWEN_API_KEY",
+    "timeout": 300,
+    "enable_thinking": false,
+    "temperature": 0.2,
+    "max_tokens": 32768,
+    "max_calls": 5
+  },
+  "prompt_rewriter": {
+    "enabled": true,
+    "input_mode": "first_frame",
+    "image_max_pixels": 262144,
+    "content_policy": "block",
+    "python": "../../prompt-rewriter/.venv/Scripts/python.exe",
+    "script": "../../prompt-rewriter/rewrite.py",
+    "model_root": "../../../models/Prompt-Rewriter",
+    "max_new_tokens": 1024,
+    "max_input_tokens": 4096,
+    "cpu_layers": 4,
+    "timeout_seconds": 1200
+  }
+}

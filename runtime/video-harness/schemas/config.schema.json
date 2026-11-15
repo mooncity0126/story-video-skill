@@ -1,0 +1,564 @@
+{
+  "$defs": {
+    "DurationPlanningConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "minimum_ms": {
+          "default": 5000,
+          "exclusiveMinimum": 0,
+          "maximum": 15000,
+          "title": "Minimum Ms",
+          "type": "integer"
+        },
+        "maximum_ms": {
+          "default": 15000,
+          "exclusiveMinimum": 0,
+          "maximum": 15000,
+          "title": "Maximum Ms",
+          "type": "integer"
+        },
+        "step_ms": {
+          "default": 1000,
+          "exclusiveMinimum": 0,
+          "maximum": 15000,
+          "title": "Step Ms",
+          "type": "integer"
+        },
+        "chinese_chars_per_second": {
+          "default": 3.5,
+          "exclusiveMinimum": 0,
+          "title": "Chinese Chars Per Second",
+          "type": "number"
+        },
+        "words_per_second": {
+          "default": 2.5,
+          "exclusiveMinimum": 0,
+          "title": "Words Per Second",
+          "type": "number"
+        }
+      },
+      "title": "DurationPlanningConfig",
+      "type": "object"
+    },
+    "ImageRefinement": {
+      "additionalProperties": false,
+      "properties": {
+        "instructions": {
+          "maxLength": 6000,
+          "minLength": 1,
+          "title": "Instructions",
+          "type": "string"
+        },
+        "check_fixed_camera": {
+          "default": false,
+          "title": "Check Fixed Camera",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "instructions"
+      ],
+      "title": "ImageRefinement",
+      "type": "object"
+    },
+    "ModelChoice": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "title": "Task",
+          "type": "string"
+        },
+        "model_cls": {
+          "title": "Model Cls",
+          "type": "string"
+        },
+        "stage": {
+          "default": "single_stage",
+          "title": "Stage",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": true,
+          "title": "Parameters",
+          "type": "object"
+        },
+        "media_field": {
+          "default": "input_image",
+          "title": "Media Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task",
+        "model_cls"
+      ],
+      "title": "ModelChoice",
+      "type": "object"
+    },
+    "PromptRewriterConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "python": {
+          "default": "../../prompt-rewriter/.venv/Scripts/python.exe",
+          "title": "Python",
+          "type": "string"
+        },
+        "script": {
+          "default": "../../prompt-rewriter/rewrite.py",
+          "title": "Script",
+          "type": "string"
+        },
+        "model_root": {
+          "default": "../../../models/Prompt-Rewriter",
+          "title": "Model Root",
+          "type": "string"
+        },
+        "max_new_tokens": {
+          "default": 768,
+          "maximum": 1024,
+          "minimum": 1,
+          "title": "Max New Tokens",
+          "type": "integer"
+        },
+        "max_input_tokens": {
+          "default": 4096,
+          "maximum": 8192,
+          "minimum": 1,
+          "title": "Max Input Tokens",
+          "type": "integer"
+        },
+        "cpu_layers": {
+          "default": 4,
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Cpu Layers",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 1200,
+          "exclusiveMinimum": 0,
+          "title": "Timeout Seconds",
+          "type": "number"
+        },
+        "input_mode": {
+          "default": "text_only",
+          "enum": [
+            "text_only",
+            "first_frame",
+            "first_last_frame"
+          ],
+          "title": "Input Mode",
+          "type": "string"
+        },
+        "image_max_pixels": {
+          "default": 262144,
+          "maximum": 1048576,
+          "minimum": 65536,
+          "title": "Image Max Pixels",
+          "type": "integer"
+        },
+        "content_policy": {
+          "default": "warn",
+          "enum": [
+            "warn",
+            "block"
+          ],
+          "title": "Content Policy",
+          "type": "string"
+        }
+      },
+      "title": "PromptRewriterConfig",
+      "type": "object"
+    },
+    "QualityConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "end_frame_conditioning": {
+          "default": false,
+          "title": "End Frame Conditioning",
+          "type": "boolean"
+        },
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "model": {
+          "default": "qwen3-vl-plus",
+          "title": "Model",
+          "type": "string"
+        },
+        "samples_per_second": {
+          "default": 4,
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Samples Per Second",
+          "type": "integer"
+        },
+        "sample_max_edge": {
+          "default": 512,
+          "maximum": 1024,
+          "minimum": 256,
+          "title": "Sample Max Edge",
+          "type": "integer"
+        },
+        "frames_per_review": {
+          "default": 12,
+          "maximum": 24,
+          "minimum": 4,
+          "title": "Frames Per Review",
+          "type": "integer"
+        },
+        "max_calls": {
+          "default": 80,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Max Calls",
+          "type": "integer"
+        },
+        "max_total_tokens": {
+          "default": 300000,
+          "minimum": 1000,
+          "title": "Max Total Tokens",
+          "type": "integer"
+        },
+        "max_output_tokens": {
+          "default": 2048,
+          "maximum": 4096,
+          "minimum": 512,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "causal_motion_planning": {
+          "default": false,
+          "title": "Causal Motion Planning",
+          "type": "boolean"
+        },
+        "independent_physics_review": {
+          "default": false,
+          "title": "Independent Physics Review",
+          "type": "boolean"
+        },
+        "require_operator_review": {
+          "default": false,
+          "title": "Require Operator Review",
+          "type": "boolean"
+        }
+      },
+      "title": "QualityConfig",
+      "type": "object"
+    },
+    "TextConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "endpoint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endpoint"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "key_env": {
+          "default": "TEXT_LLM_API_KEY",
+          "title": "Key Env",
+          "type": "string"
+        },
+        "timeout": {
+          "default": 120,
+          "exclusiveMinimum": 0,
+          "title": "Timeout",
+          "type": "number"
+        },
+        "max_tokens": {
+          "default": 24576,
+          "maximum": 65536,
+          "minimum": 256,
+          "title": "Max Tokens",
+          "type": "integer"
+        },
+        "enable_thinking": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enable Thinking"
+        },
+        "temperature": {
+          "default": 0.2,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Temperature",
+          "type": "number"
+        },
+        "max_calls": {
+          "default": 2,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Calls",
+          "type": "integer"
+        }
+      },
+      "title": "TextConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "aspect_ratio": {
+      "default": "9:16",
+      "title": "Aspect Ratio",
+      "type": "string"
+    },
+    "visual_style": {
+      "default": "写实",
+      "title": "Visual Style",
+      "type": "string"
+    },
+    "target_duration_ms": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Duration Ms"
+    },
+    "image": {
+      "$ref": "#/$defs/ModelChoice"
+    },
+    "edit": {
+      "$ref": "#/$defs/ModelChoice"
+    },
+    "video": {
+      "$ref": "#/$defs/ModelChoice"
+    },
+    "image_fallback": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelChoice"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "edit_fallback": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelChoice"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sequential_shots": {
+      "default": true,
+      "title": "Sequential Shots",
+      "type": "boolean"
+    },
+    "shot_scheduling": {
+      "default": "legacy",
+      "enum": [
+        "legacy",
+        "dependency"
+      ],
+      "title": "Shot Scheduling",
+      "type": "string"
+    },
+    "duration_planning": {
+      "$ref": "#/$defs/DurationPlanningConfig"
+    },
+    "rewrite_ahead": {
+      "default": false,
+      "title": "Rewrite Ahead",
+      "type": "boolean"
+    },
+    "require_object_states": {
+      "default": true,
+      "title": "Require Object States",
+      "type": "boolean"
+    },
+    "character_reference_board": {
+      "default": true,
+      "title": "Character Reference Board",
+      "type": "boolean"
+    },
+    "concurrency": {
+      "default": 2,
+      "maximum": 32,
+      "minimum": 1,
+      "title": "Concurrency",
+      "type": "integer"
+    },
+    "request_interval_seconds": {
+      "default": 0.2,
+      "minimum": 0,
+      "title": "Request Interval Seconds",
+      "type": "number"
+    },
+    "poll_interval_seconds": {
+      "default": 5,
+      "exclusiveMinimum": 0,
+      "title": "Poll Interval Seconds",
+      "type": "number"
+    },
+    "wait_timeout_seconds": {
+      "default": 1800,
+      "exclusiveMinimum": 0,
+      "title": "Wait Timeout Seconds",
+      "type": "number"
+    },
+    "request_timeout_seconds": {
+      "default": 60,
+      "exclusiveMinimum": 0,
+      "title": "Request Timeout Seconds",
+      "type": "number"
+    },
+    "retries": {
+      "default": 3,
+      "maximum": 8,
+      "minimum": 0,
+      "title": "Retries",
+      "type": "integer"
+    },
+    "budget_credits": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Budget Credits"
+    },
+    "execute_enabled": {
+      "default": false,
+      "title": "Execute Enabled",
+      "type": "boolean"
+    },
+    "bindings": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Bindings",
+      "type": "object"
+    },
+    "image_refinements": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "maxLength": 6000,
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/ImageRefinement"
+          }
+        ]
+      },
+      "title": "Image Refinements",
+      "type": "object"
+    },
+    "fps": {
+      "default": 24,
+      "maximum": 120,
+      "minimum": 1,
+      "title": "Fps",
+      "type": "integer"
+    },
+    "export_width": {
+      "default": 720,
+      "minimum": 16,
+      "title": "Export Width",
+      "type": "integer"
+    },
+    "export_height": {
+      "default": 1280,
+      "minimum": 16,
+      "title": "Export Height",
+      "type": "integer"
+    },
+    "fit": {
+      "default": "pad",
+      "enum": [
+        "pad",
+        "crop"
+      ],
+      "title": "Fit",
+      "type": "string"
+    },
+    "ffmpeg": {
+      "default": "ffmpeg",
+      "title": "Ffmpeg",
+      "type": "string"
+    },
+    "ffprobe": {
+      "default": "ffprobe",
+      "title": "Ffprobe",
+      "type": "string"
+    },
+    "media_timeout_seconds": {
+      "default": 600,
+      "exclusiveMinimum": 0,
+      "title": "Media Timeout Seconds",
+      "type": "number"
+    },
+    "max_media_bytes": {
+      "default": 536870912,
+      "exclusiveMinimum": 0,
+      "title": "Max Media Bytes",
+      "type": "integer"
+    },
+    "text": {
+      "$ref": "#/$defs/TextConfig"
+    },
+    "prompt_rewriter": {
+      "$ref": "#/$defs/PromptRewriterConfig"
+    },
+    "quality": {
+      "$ref": "#/$defs/QualityConfig"
+    }
+  },
+  "title": "Config",
+  "type": "object"
+}

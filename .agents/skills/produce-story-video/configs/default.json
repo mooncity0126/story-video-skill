@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "credentials_file": "../../../../config/api-keys.local.json",
+  "runtime": {
+    "harness_root": "../../../../runtime/video-harness",
+    "python": "../../../../runtime/video-harness/.venv/Scripts/python.exe"
+  },
+  "providers": {
+    "media": {
+      "protocol": "lightx2v_cloud",
+      "base_url": "https://x2v.light-ai.top",
+      "key_env": "X2V_API_KEY"
+    },
+    "text": {
+      "protocol": "chat_completions",
+      "endpoint": "https://maas.qianwenaiapi.com/compatible-mode/v1/chat/completions",
+      "key_env": "QWEN_API_KEY",
+      "model": "qwen3.7-plus",
+      "timeout": 300,
+      "max_tokens": 8192,
+      "enable_thinking": false,
+      "temperature": 0.2,
+      "max_calls": 1
+    },
+    "vision": {
+      "protocol": "chat_completions",
+      "endpoint": "https://maas.qianwenaiapi.com/compatible-mode/v1/chat/completions",
+      "key_env": "QWEN_API_KEY",
+      "model": "qwen3.8-max",
+      "timeout": 180,
+      "max_tokens": 1536,
+      "enable_thinking": false,
+      "temperature": 0,
+      "max_calls": 1
+    }
+  },
+  "models": {
+    "image": {
+      "provider": "media",
+      "task": "t2i",
+      "model_cls": "gpt-image-2",
+      "stage": "single_stage",
+      "parameters": {
+        "resolution_level": "1080p",
+        "quality": "high"
+      },
+      "media_field": "input_image"
+    },
+    "edit": {
+      "provider": "media",
+      "task": "i2i",
+      "model_cls": "gpt-image-2",
+      "stage": "single_stage",
+      "parameters": {
+        "resolution_level": "1080p",
+        "quality": "high"
+      },
+      "media_field": "input_image"
+    },
+    "video": {
+      "provider": "media",
+      "task": "i2av",
+      "model_cls": "MiniMax-H3",
+      "stage": "single_stage",
+      "parameters": {
+        "resolution_level": "768p",
+        "enhance_prompt": false
+      },
+      "media_field": "input_image"
+    }
+  },
+  "rewriter": {
+    "enabled": true,
+    "compatible_models": [
+      "MiniMax-H3"
+    ],
+    "local": {
+      "python": "../../../../runtime/prompt-rewriter/.venv/Scripts/python.exe",
+      "script": "../../../../runtime/prompt-rewriter/rewrite_local.py",
+      "model_root": "../../../../models/Prompt-Rewriter",
+      "max_new_tokens": 1024,
+      "max_input_tokens": 4096,
+      "cpu_layers": 0,
+      "timeout_seconds": 1200,
+      "image_max_pixels": 262144,
+      "content_policy": "warn"
+    }
+  },
+  "production": {
+    "aspect_ratio": "9:16",
+    "visual_style": "写实",
+    "target_duration_ms": null,
+    "max_duration_ms": null,
+    "duration_tolerance_ms": 3000,
+    "target_end_frames": "adaptive",
+    "audio": "native",
+    "subtitles": "on_request",
+    "maximum_parallel_media_jobs": 6,
+    "maximum_parallel_video_jobs": 4,
+    "maximum_parallel_image_jobs": 2
+  },
+  "review": {
+    "mode": "agent",
+    "vision_provider": "vision",
+    "content_check_rounds": 1,
+    "frame_check": "on_demand",
+    "frame_check_rounds": 1,
+    "prompt_check": "on_demand",
+    "prompt_check_rounds": 1,
+    "video_check_rounds": 1,
+    "sampling": "uniform_count",
+    "include_endpoints": true,
+    "sample_frames": 6,
+    "sample_max_edge": 512,
+    "max_content_repairs_per_shot": 1
+  },
+  "execution": {
+    "budget_credits": null,
+    "request_timeout_seconds": 60,
+    "request_interval_seconds": 0.2,
+    "wait_timeout_seconds": 60,
+    "retries": 2,
+    "max_media_bytes": 536870912,
+    "max_text_calls": 20,
+    "max_text_tokens": 100000
+  },
+  "media": {
+    "ffmpeg": "../../../../runtime/video-harness/.tools/ffmpeg.exe",
+    "ffprobe": "../../../../runtime/video-harness/.tools/ffprobe.exe",
+    "fps": 24,
+    "export_width": 720,
+    "export_height": 1280,
+    "fit": "pad",
+    "media_timeout_seconds": 600
+  }
+}

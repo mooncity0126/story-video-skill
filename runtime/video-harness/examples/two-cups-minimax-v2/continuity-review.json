@@ -1,0 +1,405 @@
+{
+  "status": "passed",
+  "method": "adjacent structured object declarations; semantic prose reviewed by plan author",
+  "pairs": [
+    {
+      "previous_shot_id": "U001",
+      "shot_id": "U002",
+      "carried_objects": [
+        "PROP_MOLD",
+        "PROP_PLATE"
+      ],
+      "entered_objects": [
+        "PROP_CAKE"
+      ],
+      "left_objects": [
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_SPOON"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_CUP_A": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CUP_B": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CANDLE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_SPOON": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM_BOWL": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRIES": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRY_DISH": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U002",
+      "shot_id": "U003",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_MOLD",
+        "PROP_PLATE"
+      ],
+      "entered_objects": [],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U003",
+      "shot_id": "U004",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_PLATE"
+      ],
+      "entered_objects": [],
+      "left_objects": [
+        "PROP_MOLD"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_MOLD": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U004",
+      "shot_id": "U005",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_PLATE"
+      ],
+      "entered_objects": [
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U005",
+      "shot_id": "U006",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_PLATE"
+      ],
+      "entered_objects": [
+        "PROP_SPOON"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U006",
+      "shot_id": "U007",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "entered_objects": [],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U007",
+      "shot_id": "U008",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_SPOON"
+      ],
+      "entered_objects": [
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL"
+      ],
+      "left_objects": [
+        "PROP_PLATE"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_PLATE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U008",
+      "shot_id": "U009",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "entered_objects": [
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH"
+      ],
+      "left_objects": [
+        "PROP_CREAM_BOWL",
+        "PROP_SPOON"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_CREAM_BOWL": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U009",
+      "shot_id": "U010",
+      "carried_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "entered_objects": [
+        "PROP_CANDLE"
+      ],
+      "left_objects": [
+        "PROP_BERRY_DISH"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_BERRY_DISH": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U010",
+      "shot_id": "U011",
+      "carried_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "entered_objects": [
+        "PROP_IGNITER"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U011",
+      "shot_id": "U012",
+      "carried_objects": [],
+      "entered_objects": [],
+      "left_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_IGNITER"
+      ],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U012",
+      "shot_id": "U013",
+      "carried_objects": [],
+      "entered_objects": [
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_MOLD",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U013",
+      "shot_id": "U014",
+      "carried_objects": [
+        "PROP_CAKE",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "entered_objects": [],
+      "left_objects": [
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_MOLD"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_CUP_A": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CUP_B": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRIES": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CANDLE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_MOLD": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM_BOWL": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRY_DISH": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U014",
+      "shot_id": "U015",
+      "carried_objects": [
+        "PROP_CAKE"
+      ],
+      "entered_objects": [
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "left_objects": [
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_PLATE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_SPOON": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U015",
+      "shot_id": "U016",
+      "carried_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "entered_objects": [
+        "PROP_BERRY_DISH",
+        "PROP_CREAM_BOWL",
+        "PROP_MOLD",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U016",
+      "shot_id": "U017",
+      "carried_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "entered_objects": [],
+      "left_objects": [
+        "PROP_BERRY_DISH",
+        "PROP_CREAM_BOWL",
+        "PROP_MOLD",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_PLATE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_MOLD": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_SPOON": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM_BOWL": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRY_DISH": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U017",
+      "shot_id": "U018",
+      "carried_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A"
+      ],
+      "entered_objects": [
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "left_objects": [
+        "PROP_CUP_B"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_CUP_B": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U018",
+      "shot_id": "U019",
+      "carried_objects": [],
+      "entered_objects": [],
+      "left_objects": [
+        "PROP_BERRIES",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CUP_A",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "out_of_frame_by_reframing": {
+        "PROP_CUP_A": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CAKE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CREAM": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_BERRIES": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_CANDLE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_PLATE": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。",
+        "PROP_SPOON": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+      },
+      "status": "passed"
+    },
+    {
+      "previous_shot_id": "U019",
+      "shot_id": "U020",
+      "carried_objects": [],
+      "entered_objects": [
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH",
+        "PROP_CAKE",
+        "PROP_CANDLE",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_MOLD",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "left_objects": [],
+      "out_of_frame_by_reframing": {},
+      "status": "passed"
+    }
+  ]
+}

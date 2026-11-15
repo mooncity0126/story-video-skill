@@ -1,0 +1,6889 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LightX2V API",
+    "version": "1.0.0",
+    "description": "LightX2V OpenAPI for AI image and video generation. Create an API key at the platform user menu. API channel credits cost 2x web UI pricing. Human-readable docs: https://x2v.light-ai.top/api-docs",
+    "contact": {
+      "name": "LightX2V",
+      "url": "https://x2v.light-ai.top"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://x2v.light-ai.top",
+      "description": "Production"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Models",
+      "description": "Available task/model combinations"
+    },
+    {
+      "name": "Billing",
+      "description": "Credit quotes"
+    },
+    {
+      "name": "Tasks",
+      "description": "Submit, poll, and download generation tasks"
+    },
+    {
+      "name": "Workflows",
+      "description": "Saved workflows owned by the API user"
+    },
+    {
+      "name": "Workflow Runs",
+      "description": "Start, monitor, inspect, and cancel workflow runs"
+    }
+  ],
+  "paths": {
+    "/api/v1/model/list": {
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "List available models",
+        "description": "No authentication required. This endpoint contains display summaries only; retrieve submit constraints from the task-scoped model specs endpoint.",
+        "operationId": "model_list",
+        "responses": {
+          "200": {
+            "description": "Model list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelListResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/model/specs": {
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "Get active model submission specs for a task",
+        "description": "No authentication required. Returns an array in active pipeline order, even when model_cls selects a single model.",
+        "operationId": "model_specs",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "model_cls",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task-scoped model specs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelSpecsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown task, model, or stage",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Missing required task query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/quote": {
+      "post": {
+        "tags": [
+          "Billing"
+        ],
+        "summary": "Quote task credits",
+        "description": "Estimate credits before submit. Body matches task submit; use `input_meta` instead of file fields when quoting.",
+        "operationId": "billing_quote",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters or insufficient credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "API access not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/submit": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Submit a generation task",
+        "description": "Submit an async image/video generation task. Poll with GET /api/v1/task/query until status is SUCCEED.",
+        "operationId": "task_submit",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskSubmitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskSubmitResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/query": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Query task status",
+        "operationId": "task_query",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/list": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "List tasks (paginated)",
+        "operationId": "task_list",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ALL"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "task_types",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "Comma-separated task types"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/cancel": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Cancel a running task",
+        "operationId": "task_cancel",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskIdBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cancelled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/resume": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Resume a failed or cancelled task",
+        "operationId": "task_resume",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskIdBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resumed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "msg": {
+                      "type": "string"
+                    },
+                    "billing_info": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/result_url": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get presigned result download URL",
+        "description": "After status is SUCCEED. Use `output_video` for video tasks or `output_image` for image tasks.",
+        "operationId": "task_result_url",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "output_image"
+            }
+          },
+          {
+            "name": "is_cloud",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Download URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUrlResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/task/delete": {
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a finished task",
+        "operationId": "task_delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Only finished tasks can be deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/list": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "List saved workflows",
+        "description": "List workflows owned by the authenticated user. Presets must be copied to the account before API execution.",
+        "operationId": "workflow_list",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "description": "Return compact workflow records when true.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned workflows",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}": {
+      "get": {
+        "tags": [
+          "Workflows"
+        ],
+        "summary": "Get a saved workflow",
+        "description": "Return the saved graph for a workflow owned by the authenticated user.",
+        "operationId": "workflow_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow graph",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Workflow not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/inputs": {
+      "get": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Describe workflow inputs",
+        "description": "Call this before starting a run. Required inputs are calculated for the selected run scope.",
+        "operationId": "workflow_inputs",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "full",
+                "single",
+                "downstream",
+                "upstream"
+              ],
+              "default": "full"
+            }
+          },
+          {
+            "name": "node_ids",
+            "in": "query",
+            "description": "Comma-separated processor node ids for scoped modes.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_upstream",
+            "in": "query",
+            "description": "Include dependencies required by the selected nodes.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow input contract for this run scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowInputsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid run mode or node scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Workflow not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs": {
+      "post": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Start a workflow run",
+        "description": "Run all or part of an owned saved workflow. Discover required inputs with GET /inputs first.",
+        "operationId": "workflow_run_start",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowRunRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Run started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunStartResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid scope or missing inputs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Workflow not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Run claim conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Concurrency limit reached",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "List workflow runs",
+        "operationId": "workflow_run_list",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "running"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workflow runs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Workflow not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Get workflow run status",
+        "operationId": "workflow_run_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Run status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs/{run_id}/stream": {
+      "get": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Stream workflow run events",
+        "operationId": "workflow_run_stream",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Server-sent events named run_status and run_outputs. Each data field contains JSON.",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "example": "event: run_status\ndata: {\"status\":\"running\"}\n\n"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs/{run_id}/outputs": {
+      "get": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Get workflow run outputs",
+        "operationId": "workflow_run_outputs",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Outputs. While the run is active, pending is true and outputs is empty.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowRunOutputsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Output storage unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs/{run_id}/cancel": {
+      "post": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Cancel a workflow run",
+        "operationId": "workflow_run_cancel",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cancellation accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowCancelRunResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/{workflow_id}/runs/{run_id}/cancel-node": {
+      "post": {
+        "tags": [
+          "Workflow Runs"
+        ],
+        "summary": "Cancel a workflow node and downstream work",
+        "description": "Cancel the selected node plus dependent nodes that can no longer run.",
+        "operationId": "workflow_run_cancel_node",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "workflow_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowCancelNodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Node cancellation accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowCancelNodeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Node cannot be cancelled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Run not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "API Key created at the LightX2V platform. Format: `apikey_...`"
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "description": "Structured API error. The exact detail depends on the endpoint.",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object",
+            "description": "Machine-readable error context. Parameter validation errors may include field, expected, actual, allowed, minimum, maximum, or related fields.",
+            "additionalProperties": true
+          },
+          "detail": {}
+        },
+        "additionalProperties": true
+      },
+      "S2VMultiTalkObject": {
+        "type": "object",
+        "description": "One driven person in a multi-role S2V package. The audio and mask filenames must refer to files in the same top-level directory map.",
+        "properties": {
+          "audio": {
+            "type": "string",
+            "pattern": "^[^/\\\\]+$",
+            "description": "Top-level filename of this person's timeline-preserving audio track."
+          },
+          "mask": {
+            "type": "string",
+            "pattern": "^[^/\\\\]+$",
+            "description": "Top-level filename of this person's black-and-white mask image."
+          }
+        },
+        "required": [
+          "audio",
+          "mask"
+        ]
+      },
+      "S2VMultiConfig": {
+        "type": "object",
+        "description": "Decoded UTF-8 contents of config.json. One talk object is valid and drives only the selected person in a group image; multiple objects drive multiple people.",
+        "properties": {
+          "talk_objects": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/S2VMultiTalkObject"
+            }
+          }
+        },
+        "required": [
+          "talk_objects"
+        ]
+      },
+      "S2VMultiDirectoryData": {
+        "type": "object",
+        "description": "S2V multi-role package as a top-level filename-to-raw-Base64 map. It must contain config.json, one original_audio.* final mixed soundtrack, and every audio/mask file referenced by config.json. Values do not include data URL prefixes. Masks must match the input image dimensions (selected person white, everything else black). Role tracks must keep the original timeline and total duration, with other speakers silenced rather than removed or concatenated.",
+        "minProperties": 4,
+        "propertyNames": {
+          "pattern": "^[^/\\\\]+$"
+        },
+        "properties": {
+          "config.json": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "contentMediaType": "application/json",
+            "contentSchema": {
+              "$ref": "#/components/schemas/S2VMultiConfig"
+            },
+            "description": "Base64-encoded UTF-8 JSON matching S2VMultiConfig."
+          }
+        },
+        "required": [
+          "config.json"
+        ],
+        "additionalProperties": {
+          "type": "string",
+          "contentEncoding": "base64"
+        },
+        "examples": [
+          {
+            "config.json": "eyJ0YWxrX29iamVjdHMiOlt7ImF1ZGlvIjoicDEud2F2IiwibWFzayI6InAxX21hc2sucG5nIn1dfQ==",
+            "original_audio.mp3": "AA==",
+            "p1.wav": "AA==",
+            "p1_mask.png": "AA=="
+          },
+          {
+            "config.json": "eyJ0YWxrX29iamVjdHMiOlt7ImF1ZGlvIjoicDEud2F2IiwibWFzayI6InAxX21hc2sucG5nIn0seyJhdWRpbyI6InAyLndhdiIsIm1hc2siOiJwMl9tYXNrLnBuZyJ9XX0=",
+            "original_audio.mp3": "AA==",
+            "p1.wav": "AA==",
+            "p1_mask.png": "AA==",
+            "p2.wav": "AA==",
+            "p2_mask.png": "AA=="
+          }
+        ]
+      },
+      "MediaInput": {
+        "type": "object",
+        "description": "Image, video, or audio input. Use base64 for local files, url for public links, or directory for an S2V multi-role package.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "base64",
+              "url",
+              "directory"
+            ]
+          },
+          "data": {
+            "description": "Media content matching type: a string for base64/url or an S2V directory map.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/S2VMultiDirectoryData"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "data"
+        ]
+      },
+      "MediaInputOrList": {
+        "description": "One media input, or a list of media inputs for tasks that accept several references in the same slot (i2i / i2av multi-image, ref2av references).",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/MediaInput"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaInput"
+            },
+            "minItems": 1
+          }
+        ]
+      },
+      "ImageInputMeta": {
+        "type": "object",
+        "description": "Source image dimensions used for quote calculation.",
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "width",
+          "height"
+        ],
+        "additionalProperties": true
+      },
+      "VideoInputMeta": {
+        "type": "object",
+        "description": "Source video dimensions and duration used for quote calculation.",
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "duration_seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "width",
+          "height",
+          "duration_seconds"
+        ],
+        "additionalProperties": true
+      },
+      "InputMeta": {
+        "type": "object",
+        "description": "Media dimensions and duration for billing/quote (no file upload).",
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/ImageInputMeta"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageInputMeta"
+            },
+            "minItems": 1
+          },
+          "last_frame": {
+            "$ref": "#/components/schemas/ImageInputMeta"
+          },
+          "video": {
+            "$ref": "#/components/schemas/VideoInputMeta"
+          },
+          "videos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VideoInputMeta"
+            },
+            "minItems": 1
+          },
+          "audio_seconds": {
+            "oneOf": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "minItems": 1
+              }
+            ],
+            "description": "Driving audio duration in seconds, including S2V multi-role audio."
+          }
+        },
+        "additionalProperties": true
+      },
+      "TaskSubmitRequest": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "vsr"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SwiftVR"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "video quality restoration"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999999
+              },
+              "vsr_preset": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p"
+              },
+              "input_video": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "video",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "input_video",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "isr"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SwiftVR"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "image super resolution"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999999
+              },
+              "vsr_preset": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p"
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_I2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_T2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "maximum": 1
+                }
+              },
+              "input_video": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "video",
+                  "maximum": 1
+                }
+              },
+              "input_audio": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "audio",
+                  "minimum": 1
+                }
+              }
+            },
+            "required": [
+              "input_audio",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "required": [
+                      "input_image"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "input_video"
+                    ]
+                  }
+                ]
+              },
+              {
+                "not": {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "input_image",
+                        "input_video"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V3-Multi"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_audio": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "audio",
+                  "minimum": 1
+                }
+              }
+            },
+            "required": [
+              "input_audio",
+              "input_image",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_audio": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "audio",
+                  "minimum": 1
+                }
+              }
+            },
+            "required": [
+              "input_audio",
+              "input_image",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V2.7"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_audio": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "audio",
+                  "minimum": 1
+                }
+              }
+            },
+            "required": [
+              "input_audio",
+              "input_image",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "flf2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_I2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_last_frame": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "input_last_frame",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-flare"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 16
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 16
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-sunburst"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 16
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 16
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "default": "medium"
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 16
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 16
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Qwen-Image-Edit-2511"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 3
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 3
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-2.5-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 3
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 3
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3-Pro-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 14
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 14
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3.1-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "512",
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "512": "512",
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 14
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 14
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-flare"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-sunburst"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "default": "medium"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Qwen-Image-2512"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-2.5-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3-Pro-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3.1-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "512",
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "512": "512",
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4",
+                  "21:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "LTX-2.3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3"
+                ],
+                "default": "4:3"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30,
+                "default": 5
+              },
+              "lora_style_plugins": {
+                "type": "array"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "adaptive"
+                ],
+                "default": "adaptive"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "maximum": 1
+                }
+              },
+              "input_last_frame": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "required": [
+                      "input_image"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "input_last_frame"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "LTX-2.3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3"
+                ],
+                "default": "4:3"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30,
+                "default": 5
+              },
+              "lora_style_plugins": {
+                "type": "array"
+              },
+              "image_keyframe_times": {
+                "type": "array"
+              },
+              "image_strength": {
+                "type": "array"
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 10
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "minimum": 1,
+                  "maximum": 10
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "animate"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "wan2.2_animate2_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 42
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_video": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "video",
+                  "minimum": 1,
+                  "maximum": 1,
+                  "duration_seconds": {
+                    "maximum_per_item": 60
+                  }
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "input_video",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "required": [
+                    "enhance_prompt"
+                  ],
+                  "properties": {
+                    "enhance_prompt": {
+                      "const": false
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "prompt"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "animate"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "wan2.2_animate"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": " "
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "replace_flag": {
+                "type": "boolean",
+                "default": false
+              },
+              "retarget_flag": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_image": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              },
+              "input_video": {
+                "$ref": "#/components/schemas/MediaInput",
+                "x-media-constraints": {
+                  "media_type": "video",
+                  "minimum": 1,
+                  "maximum": 1
+                }
+              }
+            },
+            "required": [
+              "input_image",
+              "input_video",
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "required": [
+                    "replace_flag"
+                  ],
+                  "properties": {
+                    "replace_flag": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "not": {
+                    "required": [
+                      "retarget_flag"
+                    ],
+                    "properties": {
+                      "retarget_flag": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "ref2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4",
+                  "21:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_image": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 9
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "image",
+                  "multiple": true,
+                  "maximum": 9,
+                  "dimensions": {
+                    "positive": true,
+                    "aspect_ratio": {
+                      "minimum": 0.25,
+                      "maximum": 4,
+                      "repair": "explicit_crop"
+                    }
+                  }
+                }
+              },
+              "input_video": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 3
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "video",
+                  "multiple": true,
+                  "maximum": 3,
+                  "duration_seconds": {
+                    "minimum_per_item": 2,
+                    "maximum_per_item": 15,
+                    "maximum_total": 15
+                  }
+                }
+              },
+              "input_audio": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MediaInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/MediaInput"
+                    },
+                    "minItems": 1,
+                    "maxItems": 3
+                  }
+                ],
+                "x-media-constraints": {
+                  "media_type": "audio",
+                  "multiple": true,
+                  "maximum": 3,
+                  "duration_seconds": {
+                    "minimum_per_item": 2,
+                    "maximum_per_item": 15,
+                    "maximum_total": 15
+                  }
+                }
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "required": [
+                      "input_image"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "input_video"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "input_audio"
+                    ]
+                  }
+                ]
+              },
+              {
+                "anyOf": [
+                  {
+                    "required": [
+                      "input_image"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "input_video"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "TaskSubmitResponse": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "workers": {
+            "type": "object"
+          },
+          "params": {
+            "type": "object"
+          },
+          "wait_time": {
+            "type": "number"
+          },
+          "quoted_credits": {
+            "type": "integer",
+            "description": "Estimated credits (API channel is 2x web pricing)"
+          }
+        },
+        "required": [
+          "task_id",
+          "quoted_credits"
+        ]
+      },
+      "QuoteResponse": {
+        "type": "object",
+        "properties": {
+          "quoted_credits": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "quoted_credits"
+        ]
+      },
+      "TaskIdBody": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "task_id"
+        ]
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string"
+          },
+          "task_type": {
+            "type": "string"
+          },
+          "model_cls": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "PENDING",
+              "RUNNING",
+              "SUCCEED",
+              "FAILED",
+              "CANCEL"
+            ]
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "params": {
+            "type": "object"
+          },
+          "subtasks": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "TaskListResponse": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              },
+              "total_pages": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "ModelSummary": {
+        "type": "object",
+        "required": [
+          "task",
+          "model_cls",
+          "stage",
+          "name",
+          "short_description",
+          "supported_plans"
+        ],
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "model_cls": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "name": {
+            "type": "object",
+            "properties": {
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "short_description": {
+            "type": "object",
+            "properties": {
+              "zh": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "supported_plans": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicModelParameter": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "string",
+              "integer",
+              "number",
+              "boolean",
+              "array",
+              "object"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "minimum": {
+            "type": "number"
+          },
+          "maximum": {
+            "type": "number"
+          },
+          "default": {},
+          "description": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PublicModelParameter"
+            }
+          },
+          "available_when": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "not_equals": {}
+              },
+              "required": [
+                "field"
+              ]
+            }
+          },
+          "required_when": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "equals": {}
+              },
+              "required": [
+                "field",
+                "equals"
+              ]
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicModelInput": {
+        "type": "object",
+        "required": [
+          "type",
+          "multiple"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video",
+              "audio"
+            ]
+          },
+          "multiple": {
+            "type": "boolean"
+          },
+          "minimum": {
+            "type": "integer"
+          },
+          "maximum": {
+            "type": "integer"
+          },
+          "aspect_ratio": {
+            "type": "object",
+            "properties": {
+              "minimum": {
+                "type": "number"
+              },
+              "maximum": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          },
+          "duration_seconds": {
+            "type": "object",
+            "properties": {
+              "minimum": {
+                "type": "number"
+              },
+              "maximum": {
+                "type": "number"
+              },
+              "maximum_total": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicModelSpec": {
+        "type": "object",
+        "required": [
+          "task",
+          "model_cls",
+          "stage",
+          "parameters",
+          "inputs",
+          "input_policy",
+          "output",
+          "capabilities"
+        ],
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "model_cls": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PublicModelParameter"
+            }
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PublicModelInput"
+            }
+          },
+          "input_policy": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "output": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "prompt_enhancement": {
+                "type": "boolean"
+              },
+              "custom_size": {
+                "type": "boolean"
+              },
+              "lora": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "prompt_enhancement",
+              "custom_size",
+              "lora"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "ModelListResponse": {
+        "type": "object",
+        "properties": {
+          "models": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModelSummary"
+            }
+          },
+          "default_model_cls": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ModelSpecsResponse": {
+        "type": "object",
+        "required": [
+          "specs"
+        ],
+        "properties": {
+          "specs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicModelSpec"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResultUrlResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "MessageResponse": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "WorkflowSummary": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "update_t": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "workflow_id",
+          "name"
+        ]
+      },
+      "WorkflowListResponse": {
+        "type": "object",
+        "properties": {
+          "workflows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowSummary"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": {
+                "type": "integer"
+              },
+              "page_size": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              },
+              "total_pages": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "workflows"
+        ]
+      },
+      "WorkflowInputDescriptor": {
+        "type": "object",
+        "description": "One exposed Input node. Supply its value under body.inputs[node_id].",
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video"
+            ]
+          },
+          "tool_id": {
+            "type": "string",
+            "example": "image-input"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "default_preview": {},
+          "value_formats": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "node_id",
+          "name",
+          "type",
+          "tool_id",
+          "required",
+          "value_formats"
+        ]
+      },
+      "WorkflowInputsResponse": {
+        "type": "object",
+        "properties": {
+          "workflow_id": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "single",
+              "downstream",
+              "upstream"
+            ]
+          },
+          "node_ids": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "include_upstream": {
+            "type": "boolean"
+          },
+          "run_modes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowInputDescriptor"
+            }
+          },
+          "hint": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "workflow_id",
+          "mode",
+          "include_upstream",
+          "run_modes",
+          "inputs"
+        ]
+      },
+      "WorkflowRunRequest": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "single",
+              "downstream",
+              "upstream"
+            ],
+            "default": "full"
+          },
+          "node_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "include_upstream": {
+            "type": "boolean",
+            "default": true
+          },
+          "inputs": {
+            "type": "object",
+            "description": "Input values keyed by Input node id. Read the required keys from GET /inputs.",
+            "additionalProperties": true
+          },
+          "save_as_default": {
+            "type": "boolean",
+            "default": false,
+            "description": "Persist supplied inputs as this workflow's defaults. Leave false for one-off runs."
+          }
+        }
+      },
+      "WorkflowRunStartResponse": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "full",
+              "single",
+              "downstream",
+              "upstream"
+            ]
+          },
+          "run_modes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "save_default_warning": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "status",
+          "mode",
+          "run_modes"
+        ]
+      },
+      "WorkflowRunResponse": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "type": "string"
+          },
+          "workflow_id": {
+            "type": "string"
+          },
+          "workflow_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running",
+              "cancelling",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "mode": {
+            "type": "string"
+          },
+          "progress": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "nodes": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "nodes_to_run": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "run_id",
+          "status"
+        ]
+      },
+      "WorkflowRunListResponse": {
+        "type": "object",
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowRunResponse"
+            }
+          }
+        },
+        "required": [
+          "runs"
+        ]
+      },
+      "WorkflowOutputItem": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "type": "string"
+          },
+          "node_name": {
+            "type": "string"
+          },
+          "port_id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "audio",
+              "video",
+              "file"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "file_id": {
+            "type": "string"
+          },
+          "media_descriptor": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "node_id",
+          "node_name",
+          "port_id",
+          "kind"
+        ]
+      },
+      "WorkflowRunOutputsResponse": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "pending": {
+            "type": "boolean"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowOutputItem"
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "node_id": {
+                  "type": "string"
+                },
+                "node_name": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "run_id",
+          "status",
+          "pending",
+          "outputs",
+          "errors"
+        ]
+      },
+      "WorkflowCancelRunResponse": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "cancelling"
+            ]
+          },
+          "accepted": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "run_id",
+          "status",
+          "accepted"
+        ]
+      },
+      "WorkflowCancelNodeRequest": {
+        "type": "object",
+        "properties": {
+          "node_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "node_id"
+        ]
+      },
+      "WorkflowCancelNodeResponse": {
+        "type": "object",
+        "properties": {
+          "run_id": {
+            "type": "string"
+          },
+          "node_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "cancelled"
+            ]
+          },
+          "cancelled_node_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "run_id",
+          "node_id",
+          "status",
+          "cancelled_node_ids"
+        ]
+      },
+      "QuoteRequest": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "vsr"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SwiftVR"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "video quality restoration"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999999
+              },
+              "vsr_preset": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "isr"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SwiftVR"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "image super resolution"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 999999
+              },
+              "vsr_preset": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_I2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_T2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V3-Multi"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "s2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "SekoTalk-V2.7"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "caption_config": {
+                "type": "object",
+                "description": "Burned-in captions for digital-human output. When captions are requested, include {\"enabled\":true} in the original s2v submission. For a trusted voice asset URI, the server binds its trusted subtitle track automatically; do not generate an uncaptioned video first or substitute an exported subtitle file.",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Set to true when the user requests burned-in captions."
+                  },
+                  "language_hint": {
+                    "type": "string",
+                    "description": "Optional ASR language hint used only when a subtitle track must be created, such as zh-CN or en."
+                  }
+                }
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": "A person talking naturally."
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "s2v_multi_role_mode": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "flf2v"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Wan2.2_I2V_A14B_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ]
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-flare"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-sunburst"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Qwen-Image-Edit-2511"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-2.5-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3-Pro-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3.1-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "auto"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "512",
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "512": "512",
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-flare"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2.5-sunburst"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high",
+                  "xhigh",
+                  "max"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "gpt-image-2"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1080p",
+                  "2k",
+                  "4k",
+                  "auto"
+                ],
+                "default": "1080p",
+                "labels": {
+                  "1080p": "1080P",
+                  "2k": "2K",
+                  "4k": "4K",
+                  "auto": "Auto"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ],
+                "default": "medium"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Qwen-Image-2512"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "480p",
+                  "720p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-2.5-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3-Pro-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2i"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "Gemini-3.1-Flash-Image"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "9:16",
+                  "16:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "512",
+                  "1K",
+                  "2K",
+                  "4K"
+                ],
+                "default": "1K",
+                "labels": {
+                  "512": "512",
+                  "1K": "1K",
+                  "2K": "2K",
+                  "4K": "4K"
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4",
+                  "21:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "t2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "LTX-2.3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3"
+                ],
+                "default": "4:3"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30,
+                "default": 5
+              },
+              "lora_style_plugins": {
+                "type": "array"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "adaptive"
+                ],
+                "default": "adaptive"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "i2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "LTX-2.3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3"
+                ],
+                "default": "4:3"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "720p",
+                  "1080p"
+                ],
+                "default": "720p"
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 30,
+                "default": 5
+              },
+              "lora_style_plugins": {
+                "type": "array"
+              },
+              "image_keyframe_times": {
+                "type": "array"
+              },
+              "image_strength": {
+                "type": "array"
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "animate"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "wan2.2_animate2_distilled"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 42
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "required": [
+                    "enhance_prompt"
+                  ],
+                  "properties": {
+                    "enhance_prompt": {
+                      "const": false
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "prompt"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "animate"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "wan2.2_animate"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "prompt": {
+                "type": "string",
+                "required": false,
+                "default": " "
+              },
+              "negative_prompt": {
+                "type": "string"
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "replace_flag": {
+                "type": "boolean",
+                "default": false
+              },
+              "retarget_flag": {
+                "type": "boolean",
+                "default": false
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "task"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "required": [
+                    "replace_flag"
+                  ],
+                  "properties": {
+                    "replace_flag": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "not": {
+                    "required": [
+                      "retarget_flag"
+                    ],
+                    "properties": {
+                      "retarget_flag": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "const": "ref2av"
+              },
+              "model_cls": {
+                "type": "string",
+                "const": "MiniMax-H3"
+              },
+              "stage": {
+                "type": "string",
+                "const": "single_stage",
+                "default": "single_stage"
+              },
+              "wait": {
+                "type": "boolean",
+                "default": true
+              },
+              "aspect_ratio": {
+                "type": "string",
+                "enum": [
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4",
+                  "21:9"
+                ],
+                "default": "16:9"
+              },
+              "resolution_level": {
+                "type": "string",
+                "enum": [
+                  "544p",
+                  "768p"
+                ],
+                "default": "768p"
+              },
+              "video_duration_seconds": {
+                "type": "integer",
+                "minimum": 5,
+                "maximum": 15,
+                "default": 5
+              },
+              "prompt": {
+                "type": "string",
+                "required": true
+              },
+              "seed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "enhance_prompt": {
+                "type": "boolean",
+                "default": true
+              },
+              "input_meta": {
+                "$ref": "#/components/schemas/InputMeta"
+              }
+            },
+            "required": [
+              "model_cls",
+              "prompt",
+              "task"
+            ],
+            "additionalProperties": false
+          }
+        ],
+        "description": "Quote parameters for a generation task. Describe source media with input_meta; do not include media bytes or URLs."
+      }
+    }
+  }
+}

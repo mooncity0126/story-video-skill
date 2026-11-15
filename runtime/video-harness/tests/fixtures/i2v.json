@@ -1,0 +1,103 @@
+{
+  "specs": [
+    {
+      "task": "i2v",
+      "model_cls": "Wan2.2_I2V_A14B_distilled",
+      "stage": "single_stage",
+      "parameters": {
+        "resolution_level": {
+          "type": "string",
+          "default": "720p",
+          "options": [
+            "480p",
+            "720p"
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "required": true
+        },
+        "negative_prompt": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "options": [
+            "16:9",
+            "9:16",
+            "1:1",
+            "4:3",
+            "3:4"
+          ]
+        }
+      },
+      "inputs": {
+        "input_image": {
+          "type": "image",
+          "multiple": false,
+          "minimum": 1,
+          "maximum": 1
+        }
+      },
+      "input_policy": {},
+      "output": {
+        "type": "video",
+        "resolutions": {
+          "480p": {
+            "16:9": [
+              480,
+              832
+            ],
+            "9:16": [
+              832,
+              480
+            ],
+            "1:1": [
+              576,
+              576
+            ],
+            "4:3": [
+              480,
+              640
+            ],
+            "3:4": [
+              640,
+              480
+            ]
+          },
+          "720p": {
+            "16:9": [
+              720,
+              1280
+            ],
+            "9:16": [
+              1280,
+              720
+            ],
+            "1:1": [
+              960,
+              960
+            ],
+            "4:3": [
+              720,
+              960
+            ],
+            "3:4": [
+              960,
+              720
+            ]
+          }
+        }
+      },
+      "capabilities": {
+        "prompt_enhancement": false,
+        "custom_size": false,
+        "lora": false
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@
 
 ## Prompt-Rewriter
 
-本地 `rewrite.py` 是已有 Windows CUDA/NF4 运行适配，发布时将模型目录默认值改为包内 models 目录或 `STORY_VIDEO_MODEL_ROOT` 环境变量。模型权重作为外部输入。
+本地 `rewrite.py` 与当前使用的 `rewrite_local.py` 是已有 Windows CUDA/NF4 运行适配，发布时将模型目录默认值改为包内 models 目录或 `STORY_VIDEO_MODEL_ROOT` 环境变量。模型权重作为外部输入。
 
 官方提示词模板及来源说明取自：
 

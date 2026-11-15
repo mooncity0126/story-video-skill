@@ -1,0 +1,755 @@
+{
+  "$defs": {
+    "Audio": {
+      "additionalProperties": true,
+      "properties": {
+        "dialogue": {
+          "items": {
+            "$ref": "#/$defs/Dialogue"
+          },
+          "title": "Dialogue",
+          "type": "array"
+        },
+        "sound_effects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Sound Effects",
+          "type": "array"
+        },
+        "music": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Music"
+        }
+      },
+      "required": [
+        "dialogue",
+        "sound_effects",
+        "music"
+      ],
+      "title": "Audio",
+      "type": "object"
+    },
+    "Camera": {
+      "additionalProperties": true,
+      "properties": {
+        "shot_size": {
+          "title": "Shot Size",
+          "type": "string"
+        },
+        "angle": {
+          "title": "Angle",
+          "type": "string"
+        },
+        "movement": {
+          "title": "Movement",
+          "type": "string"
+        },
+        "composition": {
+          "title": "Composition",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shot_size",
+        "angle",
+        "movement",
+        "composition"
+      ],
+      "title": "Camera",
+      "type": "object"
+    },
+    "Dialogue": {
+      "additionalProperties": true,
+      "properties": {
+        "speaker_character_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Speaker Character Id"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "delivery": {
+          "enum": [
+            "on_screen",
+            "off_screen",
+            "voice_over"
+          ],
+          "title": "Delivery",
+          "type": "string"
+        }
+      },
+      "required": [
+        "speaker_character_id",
+        "text",
+        "delivery"
+      ],
+      "title": "Dialogue",
+      "type": "object"
+    },
+    "FramingExclusion": {
+      "additionalProperties": true,
+      "properties": {
+        "prop_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Prop Id",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prop_id",
+        "reason"
+      ],
+      "title": "FramingExclusion",
+      "type": "object"
+    },
+    "GenerationPlan": {
+      "additionalProperties": true,
+      "properties": {
+        "relation": {
+          "enum": [
+            "continuous",
+            "shared_reference",
+            "independent",
+            "uncertain"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "confidence": {
+          "default": "low",
+          "enum": [
+            "high",
+            "low"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/VisualReference"
+          },
+          "title": "References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "relation",
+        "reason"
+      ],
+      "title": "GenerationPlan",
+      "type": "object"
+    },
+    "Prop": {
+      "additionalProperties": true,
+      "properties": {
+        "prop_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Prop Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "appearance": {
+          "title": "Appearance",
+          "type": "string"
+        },
+        "initial_state": {
+          "title": "Initial State",
+          "type": "string"
+        },
+        "basis": {
+          "default": "",
+          "title": "Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prop_id",
+        "name",
+        "appearance",
+        "initial_state"
+      ],
+      "title": "Prop",
+      "type": "object"
+    },
+    "ReferencePlan": {
+      "additionalProperties": true,
+      "properties": {
+        "strategy": {
+          "enum": [
+            "independent_keyframe",
+            "reuse_composition",
+            "continue_from_previous"
+          ],
+          "title": "Strategy",
+          "type": "string"
+        },
+        "based_on_shot_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Based On Shot Id"
+        },
+        "notes": {
+          "default": "",
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy"
+      ],
+      "title": "ReferencePlan",
+      "type": "object"
+    },
+    "Scene": {
+      "additionalProperties": true,
+      "properties": {
+        "scene_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "location": {
+          "title": "Location",
+          "type": "string"
+        },
+        "environment": {
+          "title": "Environment",
+          "type": "string"
+        },
+        "layout_anchors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Layout Anchors",
+          "type": "array"
+        },
+        "lighting": {
+          "title": "Lighting",
+          "type": "string"
+        },
+        "time_of_day": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Of Day"
+        }
+      },
+      "required": [
+        "scene_id",
+        "location",
+        "environment",
+        "layout_anchors",
+        "lighting"
+      ],
+      "title": "Scene",
+      "type": "object"
+    },
+    "Shot": {
+      "additionalProperties": true,
+      "properties": {
+        "shot_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Shot Id",
+          "type": "string"
+        },
+        "scene_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "visible_characters": {
+          "items": {
+            "$ref": "#/$defs/VisibleCharacter"
+          },
+          "title": "Visible Characters",
+          "type": "array"
+        },
+        "duration_ms": {
+          "exclusiveMinimum": 0,
+          "maximum": 15000,
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "timeline_in_ms": {
+          "minimum": 0,
+          "title": "Timeline In Ms",
+          "type": "integer"
+        },
+        "camera": {
+          "$ref": "#/$defs/Camera"
+        },
+        "first_frame_description": {
+          "minLength": 1,
+          "title": "First Frame Description",
+          "type": "string"
+        },
+        "start_state": {
+          "minLength": 1,
+          "title": "Start State",
+          "type": "string"
+        },
+        "action_description": {
+          "minLength": 1,
+          "title": "Action Description",
+          "type": "string"
+        },
+        "end_state": {
+          "minLength": 1,
+          "title": "End State",
+          "type": "string"
+        },
+        "audio": {
+          "$ref": "#/$defs/Audio"
+        },
+        "continuity_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Continuity Notes",
+          "type": "array"
+        },
+        "focus_prop_ids": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "title": "Focus Prop Ids",
+          "type": "array"
+        },
+        "objects": {
+          "items": {
+            "$ref": "#/$defs/ShotObject"
+          },
+          "title": "Objects",
+          "type": "array"
+        },
+        "no_objects_reason": {
+          "default": "",
+          "title": "No Objects Reason",
+          "type": "string"
+        },
+        "framing_exclusions": {
+          "items": {
+            "$ref": "#/$defs/FramingExclusion"
+          },
+          "title": "Framing Exclusions",
+          "type": "array"
+        },
+        "first_frame_reference_policy": {
+          "default": "legacy",
+          "enum": [
+            "legacy",
+            "planned_frame"
+          ],
+          "title": "First Frame Reference Policy",
+          "type": "string"
+        },
+        "video_prompt": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Video Prompt"
+        },
+        "video_prompt_version": {
+          "default": "authored-v1",
+          "minLength": 1,
+          "title": "Video Prompt Version",
+          "type": "string"
+        },
+        "transition_from_previous": {
+          "default": "same_scene",
+          "enum": [
+            "first_shot",
+            "same_scene",
+            "scene_change",
+            "time_jump"
+          ],
+          "title": "Transition From Previous",
+          "type": "string"
+        },
+        "reference_plan": {
+          "$ref": "#/$defs/ReferencePlan"
+        },
+        "generation_plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GenerationPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timing": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimingPlan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "shot_id",
+        "scene_id",
+        "visible_characters",
+        "duration_ms",
+        "timeline_in_ms",
+        "camera",
+        "first_frame_description",
+        "start_state",
+        "action_description",
+        "end_state",
+        "audio",
+        "continuity_notes"
+      ],
+      "title": "Shot",
+      "type": "object"
+    },
+    "ShotObject": {
+      "additionalProperties": true,
+      "properties": {
+        "prop_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Prop Id",
+          "type": "string"
+        },
+        "start_visible": {
+          "default": true,
+          "title": "Start Visible",
+          "type": "boolean"
+        },
+        "end_visible": {
+          "default": true,
+          "title": "End Visible",
+          "type": "boolean"
+        },
+        "start_state_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Start State Id",
+          "type": "string"
+        },
+        "end_state_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "End State Id",
+          "type": "string"
+        },
+        "start_description": {
+          "minLength": 1,
+          "title": "Start Description",
+          "type": "string"
+        },
+        "end_description": {
+          "minLength": 1,
+          "title": "End Description",
+          "type": "string"
+        },
+        "entry_reason": {
+          "default": "",
+          "title": "Entry Reason",
+          "type": "string"
+        },
+        "exit_reason": {
+          "default": "",
+          "title": "Exit Reason",
+          "type": "string"
+        },
+        "transition_reason": {
+          "default": "",
+          "title": "Transition Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prop_id",
+        "start_state_id",
+        "end_state_id",
+        "start_description",
+        "end_description"
+      ],
+      "title": "ShotObject",
+      "type": "object"
+    },
+    "TimingBeat": {
+      "additionalProperties": true,
+      "properties": {
+        "beat_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Beat Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "duration_ms": {
+          "exclusiveMinimum": 0,
+          "maximum": 15000,
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "after": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "title": "After",
+          "type": "array"
+        },
+        "kind": {
+          "default": "action",
+          "enum": [
+            "action",
+            "dialogue",
+            "camera",
+            "hold"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "dialogue_index": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dialogue Index"
+        }
+      },
+      "required": [
+        "beat_id",
+        "description",
+        "duration_ms"
+      ],
+      "title": "TimingBeat",
+      "type": "object"
+    },
+    "TimingPlan": {
+      "additionalProperties": true,
+      "properties": {
+        "beats": {
+          "items": {
+            "$ref": "#/$defs/TimingBeat"
+          },
+          "minItems": 1,
+          "title": "Beats",
+          "type": "array"
+        },
+        "start_hold_ms": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Start Hold Ms",
+          "type": "integer"
+        },
+        "end_hold_ms": {
+          "default": 500,
+          "minimum": 0,
+          "title": "End Hold Ms",
+          "type": "integer"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "beats",
+        "reason"
+      ],
+      "title": "TimingPlan",
+      "type": "object"
+    },
+    "VisibleCharacter": {
+      "additionalProperties": true,
+      "properties": {
+        "character_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Character Id",
+          "type": "string"
+        },
+        "variant_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Variant Id"
+        }
+      },
+      "required": [
+        "character_id",
+        "variant_id"
+      ],
+      "title": "VisibleCharacter",
+      "type": "object"
+    },
+    "VisualReference": {
+      "additionalProperties": true,
+      "properties": {
+        "shot_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Shot Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "tail",
+          "enum": [
+            "tail",
+            "frame"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "shot_id",
+        "reason"
+      ],
+      "title": "VisualReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "const": "storyboard.v1",
+      "default": "storyboard.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "needs_input",
+        "needs_review"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "aspect_ratio": {
+      "default": "9:16",
+      "title": "Aspect Ratio",
+      "type": "string"
+    },
+    "visual_style": {
+      "default": "写实",
+      "minLength": 1,
+      "title": "Visual Style",
+      "type": "string"
+    },
+    "total_duration_ms": {
+      "minimum": 0,
+      "title": "Total Duration Ms",
+      "type": "integer"
+    },
+    "scenes": {
+      "items": {
+        "$ref": "#/$defs/Scene"
+      },
+      "title": "Scenes",
+      "type": "array"
+    },
+    "props": {
+      "items": {
+        "$ref": "#/$defs/Prop"
+      },
+      "title": "Props",
+      "type": "array"
+    },
+    "shots": {
+      "items": {
+        "$ref": "#/$defs/Shot"
+      },
+      "title": "Shots",
+      "type": "array"
+    },
+    "open_questions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Open Questions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "total_duration_ms",
+    "scenes",
+    "props",
+    "shots"
+  ],
+  "title": "Storyboard",
+  "type": "object"
+}

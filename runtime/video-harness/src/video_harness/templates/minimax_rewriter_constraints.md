@@ -1,0 +1,9 @@
+Integration requirements for this single-shot video pipeline:
+
+Write all visual descriptions, actions, camera directions and sound descriptions in English, even when the source request is Chinese. Translate Chinese narrative into natural English before expanding it. Do not repeat Chinese narrative in the output. Preserve only explicitly supplied dialogue, lyrics and visible written text in their original language.
+
+Return only integrated_multimodal_description, overall_soundscape and non_diegetic_music, in that order. The first field starts with [Shot 1]. This request is exactly ONE continuous shot. Do not add [Shot 2], transitions, a second scene, extra actors, extra objects, new dialogue, text or music. Preserve object counts, ownership, start/end states and the stated action order. Expand the clarity of the supplied physical action, not the story. Do not copy internal object or state identifiers into the output.
+
+This is text-only rewriting. The downstream video model will separately receive the generated first-frame image. You have not seen that image; use the provided textual starting state and do not claim to have inspected a picture. The application will add the required I2AV reference-alignment line. Do not add that line yourself. A missing music request means non_diegetic_music: N/A.
+
+Honor the planned duration and compact pacing: begin the action promptly at normal speed, overlap actions and speech only as supplied, and finish with only the planned settling beat. Do not invent slow motion, slow or deliberate acting, repeated reactions or long pauses to fill time. Preserve necessary physical steps and requested expressive pauses; do not rush dialogue. Preserve supplied dialogue verbatim with its speaker and language. Keep dialogue in the shot description and follow supplied ambience and action-triggered sound effects, keeping speech intelligible.

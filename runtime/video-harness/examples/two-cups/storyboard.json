@@ -1,0 +1,1113 @@
+{
+  "schema_version": "storyboard.v1",
+  "status": "ok",
+  "story_summary": "小林的生日蛋糕意外碎裂，她把失败改成两杯甜点。妈妈接纳这份心意，母女共同庆生。",
+  "aspect_ratio": "9:16",
+  "visual_style": "写实",
+  "total_duration_ms": 84000,
+  "scenes": [
+    {
+      "scene_id": "SCENE_001",
+      "location": "家庭开放式厨房与餐桌",
+      "time_of_day": "傍晚（设计建议）",
+      "environment": "温暖简洁的家庭空间，后方厨房台面与前方木质餐桌相连。",
+      "layout_anchors": [
+        "厨房台面在餐桌后方",
+        "入口在餐桌右后方",
+        "两张椅子分别位于餐桌两侧",
+        "窗户在餐桌左侧"
+      ],
+      "lighting": "左侧窗户柔和暮光，室内暖色灯补光",
+      "script_evidence": "她布置好餐桌，摆上蜡烛",
+      "environment_initial_state": "木质餐桌上放着两只同款空玻璃杯和一根未点燃蜡烛，完整的海绵蛋糕仍在后方台面的模具中。材料碗盛有白色奶油和草莓，白色平盘尚未使用。桌边和厨房里完全无人。"
+    },
+    {
+      "scene_id": "SCENE_002",
+      "location": "家庭入户玄关",
+      "time_of_day": "同一傍晚",
+      "environment": "玄关通向同一餐桌，简洁鞋柜与入户门。",
+      "layout_anchors": [
+        "门朝室内打开",
+        "餐桌在玄关左前方",
+        "鞋柜靠入户门右侧"
+      ],
+      "lighting": "室内暖色灯，方向与餐区一致",
+      "script_evidence": "妈妈回家",
+      "environment_initial_state": "入户门向室内打开，玄关空无一人，右侧鞋柜与通向左前方餐桌的通道保持畅通。"
+    }
+  ],
+  "props": [
+    {
+      "prop_id": "PROP_001",
+      "name": "生日蛋糕",
+      "appearance": "浅金色海绵蛋糕",
+      "initial_state": "完整蛋糕仍在模具内",
+      "script_evidence": "给蛋糕脱模"
+    },
+    {
+      "prop_id": "PROP_002",
+      "name": "两个玻璃杯",
+      "appearance": "两个同款透明矮直筒玻璃杯",
+      "initial_state": "空杯并排放在餐桌靠窗一侧",
+      "script_evidence": "两个透明玻璃杯"
+    },
+    {
+      "prop_id": "PROP_003",
+      "name": "奶油与草莓",
+      "appearance": "白色奶油，鲜红草莓",
+      "initial_state": "材料碗内待用",
+      "script_evidence": "抹上剩下的奶油，放上草莓"
+    },
+    {
+      "prop_id": "PROP_004",
+      "name": "蜡烛",
+      "appearance": "一根细的浅色生日蜡烛",
+      "initial_state": "未点燃，放在桌面",
+      "script_evidence": "摆上蜡烛"
+    },
+    {
+      "prop_id": "PROP_005",
+      "name": "盘子",
+      "appearance": "白色圆形平盘",
+      "initial_state": "放在模具下，等待脱模",
+      "script_evidence": "散在盘子里"
+    }
+  ],
+  "shots": [
+    {
+      "shot_id": "U001",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 0,
+      "duration_ms": 4000,
+      "narrative_purpose": "布置惊喜",
+      "script_excerpt": "她布置好餐桌，摆上蜡烛",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "餐桌上有未点燃蜡烛、两只空杯；完整蛋糕仍在后方模具内。小林站在桌边。",
+      "start_state": "餐桌上有未点燃蜡烛、两只空杯；完整蛋糕仍在后方模具内。小林站在桌边。",
+      "action_description": "小林将桌边一处摆放轻轻调整整齐。",
+      "end_state": "桌面布置完成，蜡烛仍未点燃。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "first_shot",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U002",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 4000,
+      "duration_ms": 5000,
+      "narrative_purpose": "蛋糕破碎",
+      "script_excerpt": "蛋糕裂成几块，散在盘子里",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "小林双手托着倒扣在白盘上的模具，蛋糕尚未脱出。",
+      "start_state": "小林双手托着倒扣在白盘上的模具，蛋糕尚未脱出。",
+      "action_description": "小林抬起模具时失手，蛋糕裂为几块落在盘子上。",
+      "end_state": "碎块散在白盘中，小林僵住，空模具仍在手边。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U003",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 9000,
+      "duration_ms": 5000,
+      "narrative_purpose": "修复失败",
+      "script_excerpt": "小林试着把碎块拼回去，越弄越乱",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "轻微推近",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "盘中蛋糕碎裂，小林俯身，双手停在盘子两边。",
+      "start_state": "盘中蛋糕碎裂，小林俯身，双手停在盘子两边。",
+      "action_description": "小林试着拼拢碎块，碎屑越推越散。",
+      "end_state": "碎块凌乱，小林停手，眼眶泛红。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U004",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 14000,
+      "duration_ms": 4000,
+      "narrative_purpose": "准备放弃",
+      "script_excerpt": "她端起盘子准备倒掉",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "中近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "小林低头看着碎蛋糕，双手搭在白盘边缘。",
+      "start_state": "小林低头看着碎蛋糕，双手搭在白盘边缘。",
+      "action_description": "小林端起白盘朝厨房垃圾桶方向微移，但尚未倾倒。",
+      "end_state": "她端着水平的盘子停住，蛋糕仍在盘中。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U005",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 18000,
+      "duration_ms": 3000,
+      "narrative_purpose": "看到新办法",
+      "script_excerpt": "目光却落在桌上的两个透明玻璃杯上",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_002",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "缓慢随视线小幅摇摄",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "小林端着盘子停在桌旁，两个空玻璃杯清楚可见。",
+      "start_state": "小林端着盘子停在桌旁，两个空玻璃杯清楚可见。",
+      "action_description": "小林把目光转向两个玻璃杯，迟疑的神情渐渐专注。",
+      "end_state": "她注视杯子，保持端盘，碎蛋糕未被丢弃。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U006",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 21000,
+      "duration_ms": 5000,
+      "narrative_purpose": "重新装杯",
+      "script_excerpt": "将碎蛋糕一层层装进杯子",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_002",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "特写",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "白盘已放回餐桌，两只杯子为空，小林拿着小勺。",
+      "start_state": "白盘已放回餐桌，两只杯子为空，小林拿着小勺。",
+      "action_description": "小林把碎蛋糕逐层舀入第一只杯子。",
+      "end_state": "第一只杯有蛋糕层，第二只仍为空。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "省略准备动作；工具、材料与人物位置的衔接属于拍摄调度设计。"
+      ]
+    },
+    {
+      "shot_id": "U007",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 26000,
+      "duration_ms": 4000,
+      "narrative_purpose": "完成第二杯蛋糕层",
+      "script_excerpt": "将碎蛋糕一层层装进杯子",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_002",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "特写",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "第一杯已有蛋糕层，第二杯为空，盘中还有碎蛋糕。",
+      "start_state": "第一杯已有蛋糕层，第二杯为空，盘中还有碎蛋糕。",
+      "action_description": "小林继续把碎蛋糕装进第二只杯子。",
+      "end_state": "两只杯都有蛋糕层，盘中只余少量碎屑。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U008",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 30000,
+      "duration_ms": 5000,
+      "narrative_purpose": "抹上奶油",
+      "script_excerpt": "抹上剩下的奶油",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_003"
+      ],
+      "camera": {
+        "shot_size": "特写",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "两杯蛋糕层在桌中央，奶油碗在旁，小林持勺准备涂抹。",
+      "start_state": "两杯蛋糕层在桌中央，奶油碗在旁，小林持勺准备涂抹。",
+      "action_description": "小林把剩余奶油抹到两杯蛋糕的表面。",
+      "end_state": "两杯表面覆盖白色奶油，桌面仍有材料和碎屑。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "省略准备动作；工具、材料与人物位置的衔接属于拍摄调度设计。"
+      ]
+    },
+    {
+      "shot_id": "U009",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 35000,
+      "duration_ms": 4000,
+      "narrative_purpose": "草莓装饰",
+      "script_excerpt": "放上草莓",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_003"
+      ],
+      "camera": {
+        "shot_size": "特写",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "两杯表面已有奶油，草莓在旁。",
+      "start_state": "两杯表面已有奶油，草莓在旁。",
+      "action_description": "小林逐一将草莓放在两杯奶油上。",
+      "end_state": "两杯甜点完成，形态小巧，草莓留在各自杯顶。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "省略准备动作；工具、材料与人物位置的衔接属于拍摄调度设计。"
+      ]
+    },
+    {
+      "shot_id": "U010",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 39000,
+      "duration_ms": 3000,
+      "narrative_purpose": "插蜡烛",
+      "script_excerpt": "她在其中一杯上插好蜡烛",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "两杯甜点并排，小林拿着未点燃的蜡烛。",
+      "start_state": "两杯甜点并排，小林拿着未点燃的蜡烛。",
+      "action_description": "小林在靠近自己的第一杯上插好蜡烛。",
+      "end_state": "第一杯插着未点燃的蜡烛，第二杯没有蜡烛。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U011",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 42000,
+      "duration_ms": 4000,
+      "narrative_purpose": "紧张等候",
+      "script_excerpt": "紧张地等着",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "两杯成品在桌面，第一杯蜡烛已点燃；小林站在桌旁，厨房材料和模具未收拾。",
+      "start_state": "两杯成品在桌面，第一杯蜡烛已点燃；小林站在桌旁，厨房材料和模具未收拾。",
+      "action_description": "小林略显紧张地望向入口，双手在围裙前轻轻交握。",
+      "end_state": "小林仍在等候，烛火轻晃。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "time_jump",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "从插好蜡烛到等候存在短暂时间跳跃，省略点烛操作；燃烧状态是为后文共同吹灭所需的制作衔接建议。"
+      ]
+    },
+    {
+      "shot_id": "U012",
+      "scene_id": "SCENE_002",
+      "timeline_in_ms": 46000,
+      "duration_ms": 5000,
+      "narrative_purpose": "妈妈回家",
+      "script_excerpt": "妈妈回家",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [],
+      "camera": {
+        "shot_size": "中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "入户门刚打开，妈妈站在门外一侧，室内暖光清晰。",
+      "start_state": "入户门刚打开，妈妈站在门外一侧，室内暖光清晰。",
+      "action_description": "妈妈从门口走进玄关，朝餐桌方向望去。",
+      "end_state": "妈妈已进门，目光转向餐区。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "scene_change",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U013",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 51000,
+      "duration_ms": 4000,
+      "narrative_purpose": "看见心意与狼藉",
+      "script_excerpt": "看见桌上的蛋糕和厨房里的一片狼藉",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_002",
+        "PROP_003",
+        "PROP_004",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "双人中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "妈妈站在餐桌入口，小林在桌边；两杯甜点与后方未收拾的厨房同框。",
+      "start_state": "妈妈站在餐桌入口，小林在桌边；两杯甜点与后方未收拾的厨房同框。",
+      "action_description": "妈妈的目光从两杯甜点移向厨房台面，神情柔和。",
+      "end_state": "妈妈看向小林，甜点和凌乱台面保持原位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "scene_change",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U014",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 55000,
+      "duration_ms": 5000,
+      "narrative_purpose": "不好意思地解释",
+      "script_excerpt": "小林不好意思地解释，自己没能做好那个完整的蛋糕",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_001",
+        "PROP_002",
+        "PROP_005"
+      ],
+      "camera": {
+        "shot_size": "中近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "小林站在桌边低着头，妈妈安静看着她，两杯甜点在二人之间。",
+      "start_state": "小林站在桌边低着头，妈妈安静看着她，两杯甜点在二人之间。",
+      "action_description": "小林指向盘中碎屑，不好意思地向妈妈解释，妈妈耐心听。",
+      "end_state": "小林说完收回手，仍有些局促。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "原剧本只有间接叙述，没有明确对白原句；不虚构台词，声音内容待后续审看或作者补充。"
+      ]
+    },
+    {
+      "shot_id": "U015",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 60000,
+      "duration_ms": 4000,
+      "narrative_purpose": "妈妈接受新的蛋糕",
+      "script_excerpt": "妈妈把另一杯摆到小林的位置上",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "妈妈站在桌边，两杯甜点并排在桌中央；带蜡烛杯留在妈妈侧。",
+      "start_state": "妈妈站在桌边，两杯甜点并排在桌中央；带蜡烛杯留在妈妈侧。",
+      "action_description": "妈妈把没有蜡烛的另一杯轻轻移到小林的座位前。",
+      "end_state": "无蜡烛杯在小林位置，带蜡烛杯在妈妈位置。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U016",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 64000,
+      "duration_ms": 5000,
+      "narrative_purpose": "一起坐下",
+      "script_excerpt": "拉着她一起坐下",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "双人中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "两杯已分别摆到母女座位前，妈妈与小林站在各自椅旁。",
+      "start_state": "两杯已分别摆到母女座位前，妈妈与小林站在各自椅旁。",
+      "action_description": "妈妈温柔地牵着小林，两人一同在相邻座位坐下。",
+      "end_state": "两人坐定，带蜡烛杯在妈妈前，另一杯在小林前。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。",
+        "省略准备动作；工具、材料与人物位置的衔接属于拍摄调度设计。"
+      ]
+    },
+    {
+      "shot_id": "U017",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 69000,
+      "duration_ms": 4000,
+      "narrative_purpose": "共同吹灭蜡烛",
+      "script_excerpt": "两人共同吹灭蜡烛",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "双人近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "母女坐在桌旁，带蜡烛的杯子在二人之间偏妈妈一侧，烛火亮着。",
+      "start_state": "母女坐在桌旁，带蜡烛的杯子在二人之间偏妈妈一侧，烛火亮着。",
+      "action_description": "母女靠近一点，同时轻轻吹灭蜡烛。",
+      "end_state": "火焰熄灭，母女仍靠近，甜点没有移位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U018",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 73000,
+      "duration_ms": 4000,
+      "narrative_purpose": "妈妈品尝",
+      "script_excerpt": "妈妈尝了一口",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "蜡烛已熄灭，妈妈拿着小勺，小林注视她。",
+      "start_state": "蜡烛已熄灭，妈妈拿着小勺，小林注视她。",
+      "action_description": "妈妈舀起自己杯中的甜点，尝一小口。",
+      "end_state": "妈妈放低小勺，开始露出笑意，小林等待反应。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U019",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 77000,
+      "duration_ms": 3000,
+      "narrative_purpose": "认可心意",
+      "script_excerpt": "笑着点头",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002"
+      ],
+      "camera": {
+        "shot_size": "近景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "固定",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "妈妈刚尝完甜点，小勺停在杯边，小林目光紧张。",
+      "start_state": "妈妈刚尝完甜点，小勺停在杯边，小林目光紧张。",
+      "action_description": "妈妈看向小林，微笑着轻轻点头。",
+      "end_state": "妈妈保持温柔的笑容，小林表情开始放松。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    },
+    {
+      "shot_id": "U020",
+      "scene_id": "SCENE_001",
+      "timeline_in_ms": 80000,
+      "duration_ms": 4000,
+      "narrative_purpose": "释怀结局",
+      "script_excerpt": "小林终于松了一口气，也笑了起来",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "focus_prop_ids": [
+        "PROP_002",
+        "PROP_004"
+      ],
+      "camera": {
+        "shot_size": "双人中景",
+        "angle": "平视或依桌面操作轻微俯视",
+        "movement": "缓慢拉远",
+        "composition": "保留清楚的手部与关键道具关系，同场景入口和窗户方向保持一致"
+      },
+      "first_frame_description": "母女相对而坐，两杯甜点在各自面前，妈妈微笑，小林刚收到肯定。",
+      "start_state": "母女相对而坐，两杯甜点在各自面前，妈妈微笑，小林刚收到肯定。",
+      "action_description": "小林轻轻呼出一口气，肩膀放松，终于也笑了起来。",
+      "end_state": "母女相视微笑，烛火已灭，桌上是两杯甜点。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [
+          "轻微室内环境声",
+          "玻璃杯轻触桌面声"
+        ],
+        "music": null
+      },
+      "on_screen_text": [],
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "独立首帧，绑定角色和场景参考"
+      },
+      "continuity_notes": [
+        "同一角色沿用基础外观和服装；不以表情变化创建外观变体。",
+        "道具状态遵循本镜起始状态，不把破碎蛋糕恢复为完整蛋糕。"
+      ]
+    }
+  ],
+  "design_additions": [
+    {
+      "target_id": "project",
+      "field": "aspect_ratio",
+      "proposed_value": "9:16",
+      "reason": "默认画幅"
+    },
+    {
+      "target_id": "SCENE_001",
+      "field": "layout_anchors",
+      "proposed_value": [
+        "厨房台面在餐桌后方",
+        "入口在餐桌右后方",
+        "两张椅子分别位于餐桌两侧",
+        "窗户在餐桌左侧"
+      ],
+      "reason": "统一空间布局设计"
+    },
+    {
+      "target_id": "U011",
+      "field": "start_state",
+      "proposed_value": "等候时蜡烛已点燃",
+      "reason": "省略点烛操作以衔接原剧本共同吹灭蜡烛，不声称原文明确叙述点烛"
+    },
+    {
+      "target_id": "PROP_001",
+      "field": "appearance",
+      "proposed_value": "浅金色海绵蛋糕",
+      "reason": "剧本未具体规定的外观为可修改制作建议"
+    },
+    {
+      "target_id": "PROP_002",
+      "field": "appearance",
+      "proposed_value": "两个同款透明矮直筒玻璃杯",
+      "reason": "剧本未具体规定的外观为可修改制作建议"
+    },
+    {
+      "target_id": "PROP_003",
+      "field": "appearance",
+      "proposed_value": "白色奶油，鲜红草莓",
+      "reason": "剧本未具体规定的外观为可修改制作建议"
+    },
+    {
+      "target_id": "PROP_004",
+      "field": "appearance",
+      "proposed_value": "一根细的浅色生日蜡烛",
+      "reason": "剧本未具体规定的外观为可修改制作建议"
+    },
+    {
+      "target_id": "PROP_005",
+      "field": "appearance",
+      "proposed_value": "白色圆形平盘",
+      "reason": "剧本未具体规定的外观为可修改制作建议"
+    }
+  ],
+  "open_questions": [
+    "剧本未给出直接对白，U014没有擅自编造对白，若需要清晰表达具体句子，后续需提供或确认对白。",
+    "规划是本次助手依据剧本撰写的外部输入，未调用配置的文本API，未声称生成了实际画面。"
+  ]
+}

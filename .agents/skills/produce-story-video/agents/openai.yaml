@@ -1,0 +1,3 @@
+interface:
+  display_name: "剧情视频制作"
+  short_description: "AI 编排剧情视频，4 路视频并行，按候选检查 1 次、抽取 6 帧"

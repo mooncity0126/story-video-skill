@@ -1,0 +1,2773 @@
+{
+  "schema_version": "storyboard.v1",
+  "status": "ok",
+  "aspect_ratio": "9:16",
+  "visual_style": "写实",
+  "total_duration_ms": 104000,
+  "scenes": [
+    {
+      "scene_id": "SCENE_001",
+      "location": "家庭开放式厨房与餐桌",
+      "environment": "温暖简洁的家庭空间，后方厨房台面与前方木质餐桌相连。",
+      "layout_anchors": [
+        "厨房固定台面在木质餐桌后方",
+        "入口在餐桌右后方",
+        "妈妈座位在画面左侧，小林座位在右侧；两张原木椅与桌子属于固定场景",
+        "窗户在餐桌左侧"
+      ],
+      "lighting": "左侧窗户柔和暮光，室内暖色灯补光",
+      "time_of_day": "傍晚（设计建议）",
+      "script_evidence": "她布置好餐桌，摆上蜡烛",
+      "environment_initial_state": "完全无人，木质餐桌表面和厨房固定台面均为空，只有固定桌椅、橱柜、窗和灯；可移动道具由分镜对象表另行添加，环境参考图不提前烘焙蛋糕或甜点状态。"
+    },
+    {
+      "scene_id": "SCENE_002",
+      "location": "家庭入户玄关",
+      "environment": "玄关通向同一餐桌，简洁鞋柜与入户门。",
+      "layout_anchors": [
+        "门朝室内打开",
+        "餐桌在玄关左前方",
+        "鞋柜靠入户门右侧"
+      ],
+      "lighting": "室内暖色灯，方向与餐区一致",
+      "time_of_day": "同一傍晚",
+      "script_evidence": "妈妈回家",
+      "environment_initial_state": "无人玄关，只有原入户门、门框和鞋柜固定结构，门向室内打开，通道畅通；不添加包、钥匙、手机或餐具。"
+    }
+  ],
+  "props": [
+    {
+      "prop_id": "PROP_CAKE",
+      "name": "同一份海绵蛋糕",
+      "appearance": "浅金色、质地疏松的海绵蛋糕；碎块边缘不规则，有自然细碎屑。",
+      "initial_state": "完整蛋糕在倒扣模具内，被完全遮挡。",
+      "basis": "脱模、破碎、装杯、品尝均来自剧本"
+    },
+    {
+      "prop_id": "PROP_CUP_A",
+      "name": "妈妈侧玻璃杯A",
+      "appearance": "一只透明矮直筒玻璃杯，无把手、无底座，平底薄壁。",
+      "initial_state": "空杯，位于餐桌前部偏左的妈妈座位一侧，与杯B分开放置。",
+      "basis": "剧本的两个透明玻璃杯，按可独立移动物品分配ID"
+    },
+    {
+      "prop_id": "PROP_CUP_B",
+      "name": "小林侧玻璃杯B",
+      "appearance": "一只与左杯同款的透明矮直筒玻璃杯，无把手、平底薄壁。",
+      "initial_state": "空杯，位于餐桌前部中央偏右、杯A右侧，尚未移到最右侧的小林座位前。",
+      "basis": "剧本的两个透明玻璃杯，按可独立移动物品分配ID"
+    },
+    {
+      "prop_id": "PROP_CANDLE",
+      "name": "生日蜡烛",
+      "appearance": "唯一一根细的浅黄色生日蜡烛，普通棉芯，无数字或文字。",
+      "initial_state": "未点燃，平放在餐桌前缘，尚未插入任一杯。",
+      "basis": "摆蜡烛、插蜡烛、共同吹灭来自剧本；颜色属制作设计"
+    },
+    {
+      "prop_id": "PROP_PLATE",
+      "name": "接蛋糕的白盘",
+      "appearance": "唯一一个白色陶瓷圆形平盘，浅盘沿，无花纹。",
+      "initial_state": "平放在餐桌中央偏左，倒扣模具置于盘中央，盘外无蛋糕碎屑。",
+      "basis": "蛋糕碎块散在盘子里来自剧本"
+    },
+    {
+      "prop_id": "PROP_MOLD",
+      "name": "脱模模具",
+      "appearance": "唯一一个小圆形银灰金属蛋糕模具，无把手，金属壁完整。",
+      "initial_state": "倒扣在白平盘中央，内部的完整蛋糕完全被模具遮挡。",
+      "basis": "给蛋糕脱模来自剧本；材质形状属制作设计"
+    },
+    {
+      "prop_id": "PROP_SPOON",
+      "name": "小勺",
+      "appearance": "唯一一把不锈钢小勺，细长柄、椭圆勺头。",
+      "initial_state": "静置在白盘右侧盘沿，勺柄朝小林，不在任何人手中。",
+      "basis": "装杯与品尝的必要工具，明确标为制作设计建议"
+    },
+    {
+      "prop_id": "PROP_CREAM",
+      "name": "剩余奶油",
+      "appearance": "纯白色、柔软蓬松的打发奶油。",
+      "initial_state": "白色奶油只在后右侧奶油碗内，两只玻璃杯内尚无奶油。",
+      "basis": "抹上剩下的奶油来自剧本"
+    },
+    {
+      "prop_id": "PROP_CREAM_BOWL",
+      "name": "奶油碗",
+      "appearance": "唯一一个米白色小号陶瓷深碗，无花纹。",
+      "initial_state": "放在餐桌后右侧，盛有白色剩余奶油。",
+      "basis": "盛放剩余奶油的必要容器，制作设计建议"
+    },
+    {
+      "prop_id": "PROP_BERRIES",
+      "name": "两颗草莓",
+      "appearance": "红色整草莓，绿色叶蒂，大小相近。",
+      "initial_state": "两颗完整草莓均放在后右侧草莓小碟内，未放入玻璃杯。",
+      "basis": "放上草莓来自剧本；两颗、每杯一颗为制作设计建议"
+    },
+    {
+      "prop_id": "PROP_BERRY_DISH",
+      "name": "草莓小碟",
+      "appearance": "唯一一个小号白色陶瓷浅碟，无花纹。",
+      "initial_state": "固定放在奶油碗旁，内有两颗红草莓。",
+      "basis": "草莓的必要暂存容器，制作设计建议"
+    },
+    {
+      "prop_id": "PROP_IGNITER",
+      "name": "长柄厨房点火器",
+      "appearance": "唯一一只灰黑色手柄、细长金属嘴的长柄厨房点火器。",
+      "initial_state": "在画外，直到点火镜头才由小林手持入画。",
+      "basis": "明确的制作补充：提供原剧本吹灭蜡烛前所需的可见点火因果；用后随手退出画面。"
+    }
+  ],
+  "shots": [
+    {
+      "shot_id": "U001",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 0,
+      "camera": {
+        "shot_size": "中广景，保持原房间和桌椅布局",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "小林独自在桌右侧；两杯为空；蜡烛未点燃并平放；蛋糕藏在倒扣模具内。奶油留在碗里，两颗草莓留在小碟里。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "小林独自在桌右侧；两杯为空；蜡烛未点燃并平放；蛋糕藏在倒扣模具内。奶油留在碗里，两颗草莓留在小碟里。",
+      "start_state": "小林独自在桌右侧；两杯为空；蜡烛未点燃并平放；蛋糕藏在倒扣模具内。奶油留在碗里，两颗草莓留在小碟里。",
+      "action_description": "固定中景。小林只用指尖把平放的蜡烛摆正，松手后手指退出。杯子、模具和原料维持原位；本镜不开始做甜点。",
+      "end_state": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。；空玻璃杯，平放在桌面前部中右，位于左杯右侧。；原蜡烛平放并与桌前缘平行，未点燃，烛芯暗。；原白盘平放桌中左，倒扣模具位于盘中央。；原金属模具倒扣在白盘中央，内部蛋糕被遮住。；同一金属小勺静置在原白盘右侧盘沿，勺柄朝小林。；原白奶油全部位于米白奶油碗中。；原米白深碗位于桌后右侧，内有白奶油。；原来的两颗红草莓均在小碟内。；原白色小碟在奶油碗旁，碟内恰有两颗草莓。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CANDLE",
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_SPOON",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_INITIAL",
+          "end_state_id": "STATE_CUP_A_INITIAL",
+          "start_description": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。",
+          "end_description": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_INITIAL",
+          "end_state_id": "STATE_CUP_B_INITIAL",
+          "start_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "end_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_INITIAL",
+          "end_state_id": "STATE_CANDLE_001",
+          "start_description": "未点燃，平放在桌面前缘，烛芯暗。",
+          "end_description": "原蜡烛平放并与桌前缘平行，未点燃，烛芯暗。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_INITIAL",
+          "end_state_id": "STATE_PLATE_INITIAL",
+          "start_description": "原白盘平放桌中左，倒扣模具位于盘中央。",
+          "end_description": "原白盘平放桌中左，倒扣模具位于盘中央。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_INITIAL",
+          "end_state_id": "STATE_MOLD_INITIAL",
+          "start_description": "原金属模具倒扣在白盘中央，内部蛋糕被遮住。",
+          "end_description": "原金属模具倒扣在白盘中央，内部蛋糕被遮住。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_INITIAL",
+          "end_state_id": "STATE_SPOON_INITIAL",
+          "start_description": "同一金属小勺静置在原白盘右侧盘沿，勺柄朝小林。",
+          "end_description": "同一金属小勺静置在原白盘右侧盘沿，勺柄朝小林。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_INITIAL",
+          "end_state_id": "STATE_CREAM_INITIAL",
+          "start_description": "原白奶油全部位于米白奶油碗中。",
+          "end_description": "原白奶油全部位于米白奶油碗中。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_BOWL_INITIAL",
+          "end_state_id": "STATE_CREAM_BOWL_INITIAL",
+          "start_description": "原米白深碗位于桌后右侧，内有白奶油。",
+          "end_description": "原米白深碗位于桌后右侧，内有白奶油。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_INITIAL",
+          "end_state_id": "STATE_BERRIES_INITIAL",
+          "start_description": "原来的两颗红草莓均在小碟内。",
+          "end_description": "原来的两颗红草莓均在小碟内。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRY_DISH_INITIAL",
+          "end_state_id": "STATE_BERRY_DISH_INITIAL",
+          "start_description": "原白色小碟在奶油碗旁，碟内恰有两颗草莓。",
+          "end_description": "原白色小碟在奶油碗旁，碟内恰有两颗草莓。",
+          "entry_reason": "该物品已在原剧本/制作登记中；首次画面按声明摆放。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A naturalistic kitchen scene continues from Picture 1. Warm light\nfalls from the left window onto a wooden table. Xiaolin, with shoulder-length black hair, a pale-yellow\nT-shirt and an ivory apron, stands at the right. Two matching transparent tumblers stand empty at the front of\nthe table. An inverted silver cake mold rests on a white plate behind them, with one metal teaspoon at the\nplate's right edge. A bowl of white cream and a small dish holding exactly two red strawberries sit farther\nright. One unlit pale-yellow candle lies horizontally near Xiaolin's fingertips. The camera remains fixed. She\nplaces one fingertip against the side of the candle and gently rolls it through a small angle until it lies\nstraight along the table edge. She lifts her finger clear and draws her hand back. The candle settles flat and\nunlit. Both glasses remain empty and untouched; the cream stays in its bowl and the two strawberries stay on\ntheir dish throughout the shot.\n\noverall_soundscape: Quiet indoor room tone continues beneath a faint fingertip brush and the soft friction of\nwax against wood. Xiaolin's sleeve rustles as she withdraws her hand.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "first_shot",
+      "reference_plan": {
+        "strategy": "independent_keyframe",
+        "based_on_shot_id": null,
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "布置惊喜",
+      "script_excerpt": "她布置好餐桌，摆上蜡烛",
+      "on_screen_text": [],
+      "source_preview_sha256": "20fc86cfdde478b34e4e616519b4012f3fe536de406c9a348b7c15a612439fb6"
+    },
+    {
+      "shot_id": "U002",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 5000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "近景取白盘、倒扣模具和小林双手；模具仍遮住蛋糕。玻璃杯与原料在取景之外，不在视频正文里重复描述。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "近景取白盘、倒扣模具和小林双手；模具仍遮住蛋糕。玻璃杯与原料在取景之外，不在视频正文里重复描述。",
+      "start_state": "近景取白盘、倒扣模具和小林双手；模具仍遮住蛋糕。玻璃杯与原料在取景之外，不在视频正文里重复描述。",
+      "action_description": "双手抬起同一个模具；蛋糕失去模具支撑，分成几块落入下方白盘。空模具随后被放到盘后左侧，手才松开。",
+      "end_state": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。；原模具已空，正放在白盘后左侧桌面。；同一份蛋糕已经碎成几块和少量碎屑，全部在原白盘内。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_CAKE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_INITIAL",
+          "end_state_id": "STATE_PLATE_002",
+          "start_description": "原白盘平放桌中左，倒扣模具位于盘中央。",
+          "end_description": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_INITIAL",
+          "end_state_id": "STATE_MOLD_002",
+          "start_description": "原金属模具倒扣在白盘中央，内部蛋糕被遮住。",
+          "end_description": "原模具已空，正放在白盘后左侧桌面。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": false,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_INITIAL",
+          "end_state_id": "STATE_CAKE_002",
+          "start_description": "同一份完整海绵蛋糕完全藏在倒扣模具内，未露出。",
+          "end_description": "同一份蛋糕已经碎成几块和少量碎屑，全部在原白盘内。",
+          "entry_reason": "原碎蛋糕从本镜可见的倒扣原模具下脱出，落在原白盘内。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] In a steady close view matching Picture 1, Xiaolin's apron and\nforearms frame a single inverted silver cake mold on a white ceramic plate. The plate rests flat on the wooden\ntable. Her fingers already grip opposite sides of the mold's outer rim. The camera holds its position as both\nhands lift the mold vertically. As its lower edge clears the plate, the small golden sponge cake releases\nunevenly from inside, splits into several soft chunks and drops a short distance onto the plate below. A few\ncrumbs scatter within the plate's rim. Xiaolin pauses with the now-empty mold still held above the fragments,\nthen carries it a short distance to the rear-left of the plate. Its base meets the tabletop before her fingers\nopen. Her hands hover beside the broken cake as her shoulders become still. The fragments remain loose on the\nsame plate.\n\noverall_soundscape: A faint metal scrape accompanies the mold lifting away. Soft cake pieces land on ceramic,\nfollowed by one light metallic contact as the empty mold meets the wood.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U001",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "脱模时蛋糕碎裂",
+      "script_excerpt": "蛋糕裂成几块，散在盘子里",
+      "on_screen_text": [],
+      "source_preview_sha256": "8a629eff3781af2fbab957e9b851e783ef38dbf3af7253b27cfb2441b9ac1c60"
+    },
+    {
+      "shot_id": "U003",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 10000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "碎块已经在白盘里；空模具在后左侧；小林双手在盘边。近景包含她低下的脸与桌面操作。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "碎块已经在白盘里；空模具在后左侧；小林双手在盘边。近景包含她低下的脸与桌面操作。",
+      "start_state": "碎块已经在白盘里；空模具在后左侧；小林双手在盘边。近景包含她低下的脸与桌面操作。",
+      "action_description": "她把两个松散碎块往一起推，碎屑从接触处剥落；手停住，表情变得委屈。蛋糕始终保持破碎。",
+      "end_state": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。；原模具已空，正放在白盘后左侧桌面。；原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_CAKE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_002",
+          "end_state_id": "STATE_PLATE_002",
+          "start_description": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。",
+          "end_description": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_002",
+          "end_state_id": "STATE_MOLD_002",
+          "start_description": "原模具已空，正放在白盘后左侧桌面。",
+          "end_description": "原模具已空，正放在白盘后左侧桌面。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_002",
+          "end_state_id": "STATE_CAKE_003",
+          "start_description": "同一份蛋糕已经碎成几块和少量碎屑，全部在原白盘内。",
+          "end_description": "原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] The close composition begins with Xiaolin leaning over the white\nplate shown in Picture 1. Several irregular golden sponge-cake chunks and loose crumbs lie on it; the empty\nsilver mold stands on the table behind its left edge. Her hands approach from opposite sides of the plate.\nWith the camera fixed, she nudges two loose pieces toward one another using her fingertips. Their rough edges\ntouch, crumble slightly and separate again, leaving a small trail of crumbs between them. She tries one\nsmaller adjustment, then stops with her fingers resting near the pieces. Her gaze stays on the plate, her\nbrows draw together and her lower lip tightens. The cake remains visibly broken, with the same chunks and\nadded loose crumbs still on the plate. The empty mold stays behind it.\n\noverall_soundscape: Soft fingertip contact and a light granular rustle of crumbs are audible over subdued room\ntone. Her apron shifts as she leans closer and comes to rest.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U002",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "修复失败",
+      "script_excerpt": "小林试着把碎块拼回去，越弄越乱",
+      "on_screen_text": [],
+      "source_preview_sha256": "7ebff7f06e54a916d418bc893a9f00f0b271718b0e265c1210dffc300b197372"
+    },
+    {
+      "shot_id": "U004",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 15000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "中近景只取小林、白盘与盘内碎蛋糕；双手在盘沿，盘底尚在桌上。垃圾桶不出镜。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "中近景只取小林、白盘与盘内碎蛋糕；双手在盘沿，盘底尚在桌上。垃圾桶不出镜。",
+      "start_state": "中近景只取小林、白盘与盘内碎蛋糕；双手在盘沿，盘底尚在桌上。垃圾桶不出镜。",
+      "action_description": "她双手托起盘子，向桌外侧挪一小段后停住。盘子始终水平，碎蛋糕随盘移动，而非悬在原处。",
+      "end_state": "原白盘由小林双手水平托在腰部附近，盘内碎块全部保留。；原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_CAKE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_002",
+          "end_state_id": "STATE_PLATE_004",
+          "start_description": "原白盘平放桌中左，内有原蛋糕碎块和碎屑。",
+          "end_description": "原白盘由小林双手水平托在腰部附近，盘内碎块全部保留。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_003",
+          "end_state_id": "STATE_CAKE_003",
+          "start_description": "原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+          "end_description": "原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_MOLD",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A still medium-close view frames Xiaolin from the waist up and the\nwhite plate of broken sponge cake directly in front of her. Her yellow sleeves and ivory apron match Picture\n1. Both hands curl beneath opposite edges of the plate while it is still supported by the wooden table. She\nlifts it smoothly to just above waist height, keeping the rim level. The cake fragments rise with the plate\nand remain supported by its surface. She turns her upper body slightly toward the open side of the table and\nbegins a small step away, then hesitates. Her elbows stop close to her body and the plate comes to rest\nhorizontally in her hands. Her eyes remain lowered toward the cake. The shot ends with the fragments still on\nthe plate and both hands continuing to support its weight.\n\noverall_soundscape: A small ceramic contact is heard as the plate leaves the table, followed by fabric\nmovement and one soft footstep. The sounds settle back into quiet indoor ambience when she stops.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U003",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "端起盘子，准备放弃",
+      "script_excerpt": "她端起盘子准备倒掉",
+      "on_screen_text": [],
+      "source_preview_sha256": "3bbfd74da71f9bafdd4e8d9d8bcb5c5bf4e2152da498e654b63b468413b48573"
+    },
+    {
+      "shot_id": "U005",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 20000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "小林仍端着同一盘碎蛋糕；画面下方有两只原空杯。其余工具和材料位于画外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "小林仍端着同一盘碎蛋糕；画面下方有两只原空杯。其余工具和材料位于画外。",
+      "start_state": "小林仍端着同一盘碎蛋糕；画面下方有两只原空杯。其余工具和材料位于画外。",
+      "action_description": "她先看盘子，再看空杯，眼神逐渐专注；手和盘不动。本镜只有视线与表情变化，不把“想到装杯”提前画成装杯。",
+      "end_state": "原白盘由小林双手水平托在腰部附近，盘内碎块全部保留。；原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。；空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。；空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_004",
+          "end_state_id": "STATE_PLATE_004",
+          "start_description": "原白盘由小林双手水平托在腰部附近，盘内碎块全部保留。",
+          "end_description": "原白盘由小林双手水平托在腰部附近，盘内碎块全部保留。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_003",
+          "end_state_id": "STATE_CAKE_003",
+          "start_description": "原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+          "end_description": "原蛋糕碎块被推拢后更凌乱，边缘碎屑增多，仍为松散碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_INITIAL",
+          "end_state_id": "STATE_CUP_A_INITIAL",
+          "start_description": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。",
+          "end_description": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_INITIAL",
+          "end_state_id": "STATE_CUP_B_INITIAL",
+          "start_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "end_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Picture 1 establishes Xiaolin holding the white plate of broken\ngolden cake level in both hands. Two matching empty glass tumblers stand separately on the wooden tabletop\nbelow her, their clear walls and empty bottoms visible. The camera holds a static medium-close composition\nthat includes her face, the supported plate and both glasses. Her eyes move from the irregular cake pieces\ndown to the nearer glass, then across to the second glass. Her brows ease and her lips part slightly as her\nattention settles on the pair. Her hands keep their grip on the plate, which stays level at the same height.\nThe cake remains on the plate; both glasses remain empty and stationary. She ends the shot looking at the\nglasses with a quieter, more focused expression.\n\noverall_soundscape: Low room tone and a small, steady breath are audible. There is only slight clothing\nmovement as her posture relaxes.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U004",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "看见两个空杯，想到新办法",
+      "script_excerpt": "目光却落在桌上的两个透明玻璃杯上",
+      "on_screen_text": [],
+      "source_preview_sha256": "caa51bc2bdd41aef5e0f2865b0e3780462d74242b502c50019f2cfdd85ffd4cd"
+    },
+    {
+      "shot_id": "U006",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 25000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "操作近景；白盘已放回桌面，两杯为空。小林右手持唯一小勺，勺头已装一小堆碎蛋糕并停在盘上方，左手靠近左杯底部。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "操作近景；白盘已放回桌面，两杯为空。小林右手持唯一小勺，勺头已装一小堆碎蛋糕并停在盘上方，左手靠近左杯底部。",
+      "start_state": "操作近景；白盘已放回桌面，两杯为空。小林右手持唯一小勺，勺头已装一小堆碎蛋糕并停在盘上方，左手靠近左杯底部。",
+      "action_description": "展示一次完整的“从盘上方移动→越过杯口→倾勺落料→空勺退出”。左杯得到一层碎蛋糕，右杯保持空；不要求五秒内填满半杯。",
+      "end_state": "原白盘平放桌中左，内有装杯后剩余的原蛋糕碎块。；同一批蛋糕一小部分已在左杯形成浅底层，余料留在原白盘。；左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。；空玻璃杯，平放在桌面前部中右，位于左杯右侧。；原勺已空，由小林右手握持，已从左杯开口上方退出。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_SPOON"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_PRE_006",
+          "end_state_id": "STATE_PLATE_006",
+          "start_description": "原白盘已被水平放回原桌中左位置，碎蛋糕全部保留。",
+          "end_description": "原白盘平放桌中左，内有装杯后剩余的原蛋糕碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "镜间省略将同一盘放回桌面、取勺的准备；未倒掉蛋糕。"
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_PRE_006",
+          "end_state_id": "STATE_CAKE_006",
+          "start_description": "同批碎蛋糕大部分仍在原盘，一小勺已在原勺中，两杯仍空。",
+          "end_description": "同一批蛋糕一小部分已在左杯形成浅底层，余料留在原白盘。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "第一勺从原盘取出，准备过程位于镜间，不新增材料。"
+        },
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_INITIAL",
+          "end_state_id": "STATE_CUP_A_006",
+          "start_description": "空玻璃杯，平放在桌面前部偏左，杯底与杯内均清楚可见。",
+          "end_description": "左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_INITIAL",
+          "end_state_id": "STATE_CUP_B_INITIAL",
+          "start_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "end_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_PRE_006",
+          "end_state_id": "STATE_SPOON_006",
+          "start_description": "原小勺由小林右手握持，已装一勺碎料，停在原白盘上方。",
+          "end_description": "原勺已空，由小林右手握持，已从左杯开口上方退出。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": "镜间从原盘沿取同一勺并从盘中装好第一勺；两杯仍空。"
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A fixed close view shows a white plate of loose golden cake pieces\nbeside two matching clear tumblers. Both tumblers are empty at the opening. Xiaolin's right hand holds one\nmetal teaspoon carrying a rounded spoonful of crumbs above the plate; her left fingertips touch the lower\noutside wall of the left glass. Following the position in Picture 1, she lifts the loaded spoon clear of the\nplate, carries it through the air above the left glass rim and lowers the spoon bowl just inside the open top.\nShe rotates her wrist, letting the crumbs fall from the spoon onto the visible glass bottom. Once the spoon is\nempty, she turns it upright and withdraws it through the same open top. A shallow golden layer remains inside\nthe left glass. Her left fingers release the glass after the spoon clears it. The right glass stays empty, and\nthe remaining cake stays on the plate.\n\noverall_soundscape: A soft crumb fall and a faint metal touch at the glass rim accompany the transfer. Quiet\nroom tone continues underneath.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U005",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "把碎蛋糕舀入左杯",
+      "script_excerpt": "将碎蛋糕一层层装进杯子",
+      "on_screen_text": [],
+      "source_preview_sha256": "7ddb1bd875318639c64eebb96b3253bf2576de61e51da3af3a45cf7e8b6c2f60"
+    },
+    {
+      "shot_id": "U007",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 30000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "左杯已有薄蛋糕底层，右杯仍空；同一小勺重新装好一勺，停在原盘上方。盘中仍留有余料。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "左杯已有薄蛋糕底层，右杯仍空；同一小勺重新装好一勺，停在原盘上方。盘中仍留有余料。",
+      "start_state": "左杯已有薄蛋糕底层，右杯仍空；同一小勺重新装好一勺，停在原盘上方。盘中仍留有余料。",
+      "action_description": "同一把勺将一勺碎蛋糕转移到右杯；左杯不动。两杯得到相近的底层，盘中余料继续存在，避免“所有蛋糕突然消失”。",
+      "end_state": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。；左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。；右玻璃杯留在原中右位置，内有与左杯相近的浅金色蛋糕底层，无奶油或草莓。；原勺已空，由小林右手握持，已从右杯开口上方退出。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_CAKE",
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_SPOON"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_006",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘平放桌中左，内有装杯后剩余的原蛋糕碎块。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_PRE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "左杯已有浅蛋糕底层，原盘仍有余料，下一小勺已在同一勺中。",
+          "end_description": "同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "从盘中装好第二勺，未向右杯提前加料。"
+        },
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_006",
+          "end_state_id": "STATE_CUP_A_006",
+          "start_description": "左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。",
+          "end_description": "左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_INITIAL",
+          "end_state_id": "STATE_CUP_B_007",
+          "start_description": "空玻璃杯，平放在桌面前部中右，位于左杯右侧。",
+          "end_description": "右玻璃杯留在原中右位置，内有与左杯相近的浅金色蛋糕底层，无奶油或草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_PRE_007",
+          "end_state_id": "STATE_SPOON_007",
+          "start_description": "同一勺重新装了一勺原盘碎蛋糕，仍由小林右手握在原盘上方。",
+          "end_description": "原勺已空，由小林右手握持，已从右杯开口上方退出。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "镜间把原勺移回原盘装好第二勺，材料只来自原盘。"
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] The close tabletop view preserves the arrangement in Picture 1. A\nshallow layer of golden cake crumbs is already visible through the left tumbler. The matching right tumbler is\nempty, and the white plate beside them still holds loose cake pieces. Xiaolin uses the same metal teaspoon,\nnow loaded with another rounded spoonful. Her free hand steadies the lower outside of the right glass. The\ncamera remains fixed as she moves the spoon from above the plate to above the right glass, lowers its bowl\nthrough the open rim and tips the crumbs onto the bottom. She lifts the emptied spoon back out through the rim\nand moves it away from the glass. The right glass now contains a shallow layer comparable to the left one.\nBoth clear glass walls remain visible; leftover cake pieces remain on the plate.\n\noverall_soundscape: Crumbs make a soft patter inside the glass, with one faint spoon-to-rim touch. Her sleeve\nrustles as she withdraws the spoon.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U006",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "把碎蛋糕舀入右杯",
+      "script_excerpt": "将碎蛋糕一层层装进杯子",
+      "on_screen_text": [],
+      "source_preview_sha256": "1d259ce033534b57945be55eac14a77cfd141bf48fb30a1f76f30026af3b2a7b"
+    },
+    {
+      "shot_id": "U008",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 8000,
+      "timeline_in_ms": 35000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "近景中两只玻璃杯只有蛋糕底层，白奶油全部在旁边的米白碗中；唯一小勺在小林右手。妈妈未回家，不出镜。草莓小碟在画外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "近景中两只玻璃杯只有蛋糕底层，白奶油全部在旁边的米白碗中；唯一小勺在小林右手。妈妈未回家，不出镜。草莓小碟在画外。",
+      "start_state": "近景中两只玻璃杯只有蛋糕底层，白奶油全部在旁边的米白碗中；唯一小勺在小林右手。妈妈未回家，不出镜。草莓小碟在画外。",
+      "action_description": "两次独立取料：从碗中舀奶油→放在左杯蛋糕上→勺返回原碗→重新取料→放到右杯。奶油必须随勺从原碗移动；末尾同一小勺随手退出取景，放回画外原白盘盘沿。",
+      "end_state": "左杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。；右杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。；原奶油碗仍在原位，内有取用后留下的白奶油。；原勺随小林右手从取景左缘退出，已放回画外原白盘右盘沿。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_CREAM_BOWL",
+        "PROP_SPOON"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_006",
+          "end_state_id": "STATE_CUP_A_008",
+          "start_description": "左玻璃杯原位不动，杯内有刚装入的一层浅金色蛋糕碎屑，无奶油或草莓。",
+          "end_description": "左杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_007",
+          "end_state_id": "STATE_CUP_B_008",
+          "start_description": "右玻璃杯留在原中右位置，内有与左杯相近的浅金色蛋糕底层，无奶油或草莓。",
+          "end_description": "右杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_INITIAL",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "原白奶油全部位于米白奶油碗中。",
+          "end_description": "同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_BOWL_INITIAL",
+          "end_state_id": "STATE_CREAM_BOWL_008",
+          "start_description": "原米白深碗位于桌后右侧，内有白奶油。",
+          "end_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": false,
+          "start_state_id": "STATE_SPOON_PRE_008",
+          "end_state_id": "STATE_SPOON_008",
+          "start_description": "同一把空小勺在小林右手，停在原奶油碗附近。",
+          "end_description": "原勺随小林右手从取景左缘退出，已放回画外原白盘右盘沿。",
+          "entry_reason": "",
+          "exit_reason": "同一小勺随右手从左缘离开取景，放到画外原白盘盘沿。",
+          "transition_reason": "镜间把原勺从杯口旁移向原奶油碗，尚未舀奶油。"
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_PLATE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] In the close composition of Picture 1, two transparent tumblers\nrest on the wooden table, each holding a shallow golden cake layer. A small ivory bowl of white whipped cream\nstands beside them. Only Xiaolin's yellow sleeves, apron and hands enter this view. The camera holds still for\nthe eight-second action. Using the single metal teaspoon in her right hand, she scoops a small amount of cream\nfrom the bowl, lifts the loaded spoon over the left glass and lays the cream onto its cake layer. A short\nsweep of the spoon spreads it across the top. She returns the spoon to the same cream bowl, collects a second\nspoonful and repeats the transfer into the right glass. Each glass ends with a distinct white layer above the\ngolden crumbs. The bowl still contains some cream. She withdraws the spoon and her hand together past the left\nedge of the crop, setting it onto the white plate just outside the view. The two glasses remain resting in\ntheir original positions.\n\noverall_soundscape: Soft scooping sounds and two delicate spoon contacts accompany the separate transfers. A\nfinal light metal-on-ceramic tap comes from just outside the left edge as the spoon is set aside.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U007",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "分别给两杯加奶油",
+      "script_excerpt": "抹上剩下的奶油",
+      "on_screen_text": [],
+      "source_preview_sha256": "41704846794821c7819bb20f912816604ef4fb4bc993af48f2276d36d14d9b9e"
+    },
+    {
+      "shot_id": "U009",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 43000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "两杯已有白奶油层，顶上都没有草莓；小碟里恰好两颗红草莓；小勺已在画外白盘上。妈妈不出镜。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "两杯已有白奶油层，顶上都没有草莓；小碟里恰好两颗红草莓；小勺已在画外白盘上。妈妈不出镜。",
+      "start_state": "两杯已有白奶油层，顶上都没有草莓；小碟里恰好两颗红草莓；小勺已在画外白盘上。妈妈不出镜。",
+      "action_description": "每颗草莓都从小碟被手指拿起，再放到对应杯顶；松手后手指退出。结束时每杯一颗，小碟为空，不出现第三颗。",
+      "end_state": "左杯原位，浅金色蛋糕上有白奶油，顶上恰有原来的一颗草莓。；右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；当前可见玻璃杯里，原白奶油层在蛋糕层上方。；原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。；原草莓小碟已经空，仍在原位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_BERRY_DISH"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_008",
+          "end_state_id": "STATE_CUP_A_009",
+          "start_description": "左杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。",
+          "end_description": "左杯原位，浅金色蛋糕上有白奶油，顶上恰有原来的一颗草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_008",
+          "end_state_id": "STATE_CUP_B_009",
+          "start_description": "右杯原位，透明杯壁可见蛋糕浅底层，其上新加白奶油层，无草莓。",
+          "end_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "end_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_INITIAL",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "原来的两颗红草莓均在小碟内。",
+          "end_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRY_DISH_INITIAL",
+          "end_state_id": "STATE_BERRY_DISH_009",
+          "start_description": "原白色小碟在奶油碗旁，碟内恰有两颗草莓。",
+          "end_description": "原草莓小碟已经空，仍在原位。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A static close view begins with the two clear dessert tumblers\nestablished in Picture 1. Golden cake crumbs show beneath a white cream layer in each glass. A small white\ndish beside them contains exactly two whole red strawberries with green leaves. Xiaolin's bare hands enter\nfrom the right. With a gentle thumb-and-finger grip, she lifts the first strawberry from the dish, carries it\nabove the left glass and lowers it onto the cream. She opens her fingertips only after the berry is supported\nby the cream and withdraws her hand. She then takes the remaining strawberry from the same dish and places it\non the right glass in the same way. The shot ends with one strawberry on each cream layer and the original\nsmall dish empty. The two glass bases stay in contact with the tabletop throughout.\n\noverall_soundscape: Quiet indoor ambience accompanies the soft contact of fruit with cream and faint fingertip\nmovement against the small dish.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U008",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "每杯放一颗草莓",
+      "script_excerpt": "放上草莓",
+      "on_screen_text": [],
+      "source_preview_sha256": "13e4f87ea9a11ce65ac776de4795bd2e38a51b732ad67e4145adf2729a2c2c79"
+    },
+    {
+      "shot_id": "U010",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 48000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "两杯均已各有一颗草莓；左杯尚无蜡烛；小林手指捏着唯一一根未点燃蜡烛。点火器尚在画外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "两杯均已各有一颗草莓；左杯尚无蜡烛；小林手指捏着唯一一根未点燃蜡烛。点火器尚在画外。",
+      "start_state": "两杯均已各有一颗草莓；左杯尚无蜡烛；小林手指捏着唯一一根未点燃蜡烛。点火器尚在画外。",
+      "action_description": "蜡烛始终由手指支撑，缓慢插进左杯奶油；固定后才松手。动作结束时仍未点燃，右杯没有蜡烛。",
+      "end_state": "左杯原位，有蛋糕、奶油、一颗草莓及新插入的一根未点燃蜡烛。；右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；当前可见玻璃杯里，原白奶油层在蛋糕层上方。；每只当前可见的甜点杯顶各保留原来的一颗红草莓。；唯一蜡烛已直立固定于左杯奶油层，烛芯仍暗，未点燃。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_009",
+          "end_state_id": "STATE_CUP_A_010",
+          "start_description": "左杯原位，浅金色蛋糕上有白奶油，顶上恰有原来的一颗草莓。",
+          "end_description": "左杯原位，有蛋糕、奶油、一颗草莓及新插入的一根未点燃蜡烛。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_009",
+          "end_state_id": "STATE_CUP_B_009",
+          "start_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "end_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "end_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "end_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_PRE_010",
+          "end_state_id": "STATE_CANDLE_010",
+          "start_description": "唯一未点燃蜡烛已从原桌前缘拿起，竖直捏在小林手指间。",
+          "end_description": "唯一蜡烛已直立固定于左杯奶油层，烛芯仍暗，未点燃。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": "镜间从原桌前缘取同一根蜡烛；烛芯仍暗。"
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A fixed kitchen close-up shows two strawberry cake desserts in\nmatching clear tumblers. Both desserts contain golden cake crumbs, a white cream layer and one red strawberry.\nXiaolin's hand holds the only pale-yellow birthday candle above the left dessert. The candle is not lit. She\ncarefully places the birthday candle in the cream on the left cake, beside its strawberry. Her fingertips hold\nthe candle steady until the cream supports it, then release the candle and withdraw from the frame. This\nsingle food-preparation action ends with one birthday candle standing securely on the left dessert. Its wick\nremains unlit. The right cake dessert stays in its original position and is not touched. The camera and both\nglasses remain still throughout.\n\noverall_soundscape: Quiet kitchen room tone with a faint sleeve rustle and a soft sound as the birthday candle\ntouches the cream.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2.1-kitchen-clarification",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U009",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "只在左杯插蜡烛",
+      "script_excerpt": "她在其中一杯上插好蜡烛",
+      "on_screen_text": [],
+      "source_preview_sha256": "d1ea4dc2aa938b86972a82802e373b5fb85ff94ccf908985370f0455aec6b782"
+    },
+    {
+      "shot_id": "U011",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 53000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "左杯只有一根未点燃蜡烛；小林右手已握着一只长柄点火器，其细长金属嘴停在烛芯旁；右杯无蜡烛。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "左杯只有一根未点燃蜡烛；小林右手已握着一只长柄点火器，其细长金属嘴停在烛芯旁；右杯无蜡烛。",
+      "start_state": "左杯只有一根未点燃蜡烛；小林右手已握着一只长柄点火器，其细长金属嘴停在烛芯旁；右杯无蜡烛。",
+      "action_description": "手先把点火器嘴靠到烛芯旁，再按下开关产生火苗；火苗接触烛芯，烛芯燃烧后才松开开关、带着点火器退出画面。此后持续燃烧的是杯中蜡烛。",
+      "end_state": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。；右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；当前可见玻璃杯里，原白奶油层在蛋糕层上方。；每只当前可见的甜点杯顶各保留原来的一颗红草莓。；唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。；原点火器喷嘴火已随松开开关熄灭，随右手退出画面右缘，仍在画外手中。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_IGNITER"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_010",
+          "end_state_id": "STATE_CUP_A_011",
+          "start_description": "左杯原位，有蛋糕、奶油、一颗草莓及新插入的一根未点燃蜡烛。",
+          "end_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_009",
+          "end_state_id": "STATE_CUP_B_009",
+          "start_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "end_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "end_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "end_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_010",
+          "end_state_id": "STATE_CANDLE_011",
+          "start_description": "唯一蜡烛已直立固定于左杯奶油层，烛芯仍暗，未点燃。",
+          "end_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_IGNITER",
+          "start_visible": true,
+          "end_visible": false,
+          "start_state_id": "STATE_IGNITER_PRE_011",
+          "end_state_id": "STATE_IGNITER_011",
+          "start_description": "唯一原点火器由小林右手握持，金属嘴靠近未点燃烛芯，开关未按下，喷嘴无火。",
+          "end_description": "原点火器喷嘴火已随松开开关熄灭，随右手退出画面右缘，仍在画外手中。",
+          "entry_reason": "从原画外准备位置由小林持有入画，明确为已登记的唯一点火器。",
+          "exit_reason": "点火器喷嘴熄火后随右手从画面右缘退出。",
+          "transition_reason": "该道具已登记为制作补充，从桌右画外取入；首帧已手持，不凭空生成。"
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A fixed close view begins with the two glass desserts in Picture\n1. Each has golden cake, white cream and one red strawberry. One pale-yellow candle stands upright beside the\nstrawberry in the left glass; its wick is dark. Xiaolin's right hand already holds a single long-neck kitchen\nlighter, with its metal nozzle near but not touching the wick. She brings the nozzle alongside the wick and\npresses the trigger. A small flame appears at the lighter nozzle, held steadily against the wick. The wick\ncatches and develops its own small flame. Only then does she release the trigger, extinguishing the nozzle\nflame, and draw the lighter away together with her hand through the right edge of the frame. The candle's\nflame continues burning above the left dessert while the right dessert remains still. Her hand pauses briefly\nat the edge before leaving the view.\n\noverall_soundscape: One dry trigger click is followed by a faint ignition sound. Quiet room tone and a small\nbreath remain after the lighter is withdrawn.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U010",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "用可见火源点燃蜡烛",
+      "script_excerpt": "紧张地等着",
+      "on_screen_text": [],
+      "source_preview_sha256": "c68a5f201fe9595cc58b50ff8613d1582298cdbbb1773c8f6b8cd30b38b9eab4"
+    },
+    {
+      "shot_id": "U012",
+      "scene_id": "SCENE_002",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 58000,
+      "camera": {
+        "shot_size": "玄关人物中全景",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "妈妈穿原浅蓝衬衫、深灰长裤，空手站在已打开的玄关门口；餐桌和小林在画外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "妈妈穿原浅蓝衬衫、深灰长裤，空手站在已打开的玄关门口；餐桌和小林在画外。",
+      "start_state": "妈妈穿原浅蓝衬衫、深灰长裤，空手站在已打开的玄关门口；餐桌和小林在画外。",
+      "action_description": "她从门外跨进玄关，脚掌落地后转移重心，再停住看向画外餐区。画面不同时跳到餐桌，也不补出提包或钥匙。",
+      "end_state": "妈妈空手进入玄关站定，看向画外餐区。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [],
+      "objects": [],
+      "no_objects_reason": "只见妈妈和固定玄关门框/场景结构，妈妈空手，餐桌物品在画外。",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] Picture 1 establishes a quiet home entrance lit by the same warm\ninterior light as the kitchen. Xiaolin's mother, with a low black ponytail, a pale-blue blouse and dark-grey\ntrousers, stands just beyond the open doorway with both hands empty. The camera holds a steady medium-full\nview of the doorway and the clear floor inside. She takes two natural steps across the threshold, placing each\nfoot on the floor before transferring her weight. Her free arms move slightly with her steps. Once inside, she\nslows to a stop and turns her head toward the dining area outside the left edge of the composition. Her\nexpression changes from a tired, neutral look to attentive curiosity. She remains standing in the entrance at\nthe end of the shot, looking toward the room beyond.\n\noverall_soundscape: Two soft footsteps and a faint rustle of her blouse are heard over the subdued ambience of\nthe entrance. The footsteps stop as she turns her head.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "scene_change",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U011",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "妈妈回家",
+      "script_excerpt": "妈妈回家",
+      "on_screen_text": [],
+      "source_preview_sha256": "bcd2a3cc083b7653ce5978a96dad9cd8a69b7ad5b40875f7698b281d45a54e89"
+    },
+    {
+      "shot_id": "U013",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 63000,
+      "camera": {
+        "shot_size": "中广景，保持原房间和桌椅布局",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "已切回餐桌；妈妈站左、小林站右，都未坐下。左杯单根蜡烛在燃烧；右杯尚未移到小林最终座位前。后排原工具和容器按原位置保留。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "已切回餐桌；妈妈站左、小林站右，都未坐下。左杯单根蜡烛在燃烧；右杯尚未移到小林最终座位前。后排原工具和容器按原位置保留。",
+      "start_state": "已切回餐桌；妈妈站左、小林站右，都未坐下。左杯单根蜡烛在燃烧；右杯尚未移到小林最终座位前。后排原工具和容器按原位置保留。",
+      "action_description": "妈妈的视线从两杯甜点移到白盘碎屑和空模具，再回到小林；只有眼神与表情变化。两人不提前坐下，也不伸手搬动餐具。",
+      "end_state": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。；右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。；同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。；同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。；原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。；唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。；原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；原模具已空，正放在白盘后左侧桌面。；原勺随小林右手从取景左缘退出，已放回画外原白盘右盘沿。；原奶油碗仍在原位，内有取用后留下的白奶油。；原草莓小碟已经空，仍在原位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_SPOON",
+        "PROP_CREAM_BOWL",
+        "PROP_BERRY_DISH"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_011",
+          "end_state_id": "STATE_CUP_A_011",
+          "start_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "end_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_009",
+          "end_state_id": "STATE_CUP_B_009",
+          "start_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "end_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。",
+          "end_description": "同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。",
+          "end_description": "同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "end_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_011",
+          "end_state_id": "STATE_CANDLE_011",
+          "start_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "end_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_007",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_002",
+          "end_state_id": "STATE_MOLD_002",
+          "start_description": "原模具已空，正放在白盘后左侧桌面。",
+          "end_description": "原模具已空，正放在白盘后左侧桌面。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_008",
+          "end_state_id": "STATE_SPOON_008",
+          "start_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "end_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_BOWL_008",
+          "end_state_id": "STATE_CREAM_BOWL_008",
+          "start_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "end_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRY_DISH_009",
+          "end_state_id": "STATE_BERRY_DISH_009",
+          "start_description": "原草莓小碟已经空，仍在原位。",
+          "end_description": "原草莓小碟已经空，仍在原位。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A steady medium-wide view continues from Picture 1 at the wooden\nkitchen table. The mother in her pale-blue blouse stands on the left; Xiaolin in her yellow T-shirt and ivory\napron stands on the right. Two matching clear glass desserts rest between them, with golden cake, white cream\nand one strawberry in each. A single candle burns in the left dessert. The right dessert is still near the\nmiddle-right part of the table. Along the rear edge sit the original white plate with leftover cake pieces and\ncrumbs, its one metal teaspoon, the empty silver mold, the partly used cream bowl and the empty small\nstrawberry dish. The mother first looks down at the two desserts, then lets her eyes travel to the used plate\nand mold. She raises her gaze to Xiaolin, and the corners of her mouth soften into a small smile. Both women\nremain standing with their hands clear of the objects. Only the candle flame moves gently above the stationary\nleft glass.\n\noverall_soundscape: Low kitchen room tone continues with a slight rustle of clothing as the mother turns her\nhead. The tabletop objects remain quiet.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "scene_change",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U012",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "妈妈看见甜点和使用过的材料",
+      "script_excerpt": "看见桌上的蛋糕和厨房里的一片狼藉",
+      "on_screen_text": [],
+      "source_preview_sha256": "bf0ab0a04f8dd579950e85fc9418ef386dfb90b63d3dd89c5cae7b8e226108c0"
+    },
+    {
+      "shot_id": "U014",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 68000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "中近景取两人上半身与下缘的原白盘；盘内仍有碎块/碎屑，唯一小勺在盘沿。两杯甜点和其他材料在本取景之外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "中近景取两人上半身与下缘的原白盘；盘内仍有碎块/碎屑，唯一小勺在盘沿。两杯甜点和其他材料在本取景之外。",
+      "start_state": "中近景取两人上半身与下缘的原白盘；盘内仍有碎块/碎屑，唯一小勺在盘沿。两杯甜点和其他材料在本取景之外。",
+      "action_description": "小林看一眼碎蛋糕，伸手示意白盘，轻轻耸肩后抬眼看妈妈；妈妈安静看着她。原剧本没有对白原句，这里不擅自编写台词。",
+      "end_state": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；原白盘里保留装杯后剩余的碎块和细屑。；原勺随小林右手从取景左缘退出，已放回画外原白盘右盘沿。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_PLATE",
+        "PROP_CAKE",
+        "PROP_SPOON"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_007",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "原白盘里保留装杯后剩余的碎块和细屑。",
+          "end_description": "原白盘里保留装杯后剩余的碎块和细屑。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_008",
+          "end_state_id": "STATE_SPOON_008",
+          "start_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "end_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A still medium-close composition matches Picture 1, framing\nXiaolin at the right and her mother at the left. At the lower edge of the frame, the original white plate\nholds irregular cake fragments and crumbs, with the single metal teaspoon resting against its right rim.\nXiaolin lowers her eyes to the broken pieces, draws in her shoulders slightly and turns one open hand toward\nthe plate. She makes a small, apologetic shrug, then looks up at her mother's face. Her hand remains above the\nplate without touching or pushing the fragments. Her mother follows the gesture with her eyes and watches her\nwith a relaxed, patient expression. Xiaolin lowers her hand at the end. The two remain silent, and the plate,\ncake pieces and teaspoon stay where they were established in the opening frame.\n\noverall_soundscape: A small inhale and a light apron rustle are audible in the quiet room. There is no\nintelligible speech.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U013",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "小林不好意思地解释",
+      "script_excerpt": "小林不好意思地解释，自己没能做好那个完整的蛋糕",
+      "on_screen_text": [],
+      "source_preview_sha256": "53ca7efdf0bf1a51f856242c25df4b40d772b52c1127b12301121ab0a347798a"
+    },
+    {
+      "shot_id": "U015",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 73000,
+      "camera": {
+        "shot_size": "固定近景，裁取本镜声明的手部和桌面物品，完整人物不入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "操作近景可见两杯；左杯有燃烧中的唯一蜡烛，右杯无蜡烛并位于桌面中右部；妈妈的手在右杯旁，尚未移动杯子。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "操作近景可见两杯；左杯有燃烧中的唯一蜡烛，右杯无蜡烛并位于桌面中右部；妈妈的手在右杯旁，尚未移动杯子。",
+      "start_state": "操作近景可见两杯；左杯有燃烧中的唯一蜡烛，右杯无蜡烛并位于桌面中右部；妈妈的手在右杯旁，尚未移动杯子。",
+      "action_description": "妈妈握住右杯靠底部的杯壁，沿桌面平稳滑动一小段，停到小林座位前后才松手。杯底始终接触桌面，左杯固定。",
+      "end_state": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。；原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；当前可见玻璃杯里，原白奶油层在蛋糕层上方。；每只当前可见的甜点杯顶各保留原来的一颗红草莓。；唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_011",
+          "end_state_id": "STATE_CUP_A_011",
+          "start_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "end_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_009",
+          "end_state_id": "STATE_CUP_B_015",
+          "start_description": "右杯原位，浅金色蛋糕上有白奶油，顶上恰有另一颗原草莓。",
+          "end_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "end_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "end_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_011",
+          "end_state_id": "STATE_CANDLE_011",
+          "start_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "end_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_PLATE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] The static close view begins with the two glass desserts shown in\nPicture 1. Both have the same golden cake base, white cream and one red strawberry. The left glass remains at\nthe mother's place with its single candle burning. The candle-free right glass stands nearer the middle-right\nof the table. The mother's right hand, identifiable by her pale-blue sleeve, approaches the lower outside wall\nof that right glass. Her thumb and fingers close around its solid exterior near the base. Keeping the base\nsupported by the wooden surface, she slides the glass slowly to the right until it rests directly in front of\nXiaolin's place. She stops the glass before opening her fingers and lifting her hand away. The cream and\nstrawberry move with their glass and settle in it. The left glass and its candle remain at their original\nposition throughout.\n\noverall_soundscape: A soft, continuous glass-base scrape follows the short slide across the wood, then stops\nas the mother releases the glass. Quiet room tone remains underneath.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U014",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "妈妈把无蜡烛的那杯移到小林面前",
+      "script_excerpt": "妈妈把另一杯摆到小林的位置上",
+      "on_screen_text": [],
+      "source_preview_sha256": "e4b0d1c90abbb818fbeb914d56e282432d6b06faa77938bb93bf8fa839edf3ab"
+    },
+    {
+      "shot_id": "U016",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 78000,
+      "camera": {
+        "shot_size": "中广景，保持原房间和桌椅布局",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "妈妈左、小林右，各站在自己的原椅子前；椅座就在身体后方。两杯已在各自座位前，左杯烛火亮着。两人牵手的位置在桌外侧的空隙，不能穿过桌板或餐具。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "妈妈左、小林右，各站在自己的原椅子前；椅座就在身体后方。两杯已在各自座位前，左杯烛火亮着。两人牵手的位置在桌外侧的空隙，不能穿过桌板或餐具。",
+      "start_state": "妈妈左、小林右，各站在自己的原椅子前；椅座就在身体后方。两杯已在各自座位前，左杯烛火亮着。两人牵手的位置在桌外侧的空隙，不能穿过桌板或餐具。",
+      "action_description": "妈妈轻握一下小林的手，随后两人松手，各自屈膝坐到身后已有的椅子上。杯子和原工具不随人移动。",
+      "end_state": "妈妈左、小林右在原椅子上坐定。左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。；原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。；同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。；同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。；原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。；唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。；原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；原模具已空，正放在白盘后左侧桌面。；原勺随小林右手从取景左缘退出，已放回画外原白盘右盘沿。；原奶油碗仍在原位，内有取用后留下的白奶油。；原草莓小碟已经空，仍在原位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_SPOON",
+        "PROP_CREAM_BOWL",
+        "PROP_BERRY_DISH"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_011",
+          "end_state_id": "STATE_CUP_A_011",
+          "start_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "end_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_015",
+          "end_state_id": "STATE_CUP_B_015",
+          "start_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "end_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。",
+          "end_description": "同一批蛋糕在两杯底部各形成相近的浅底层，原盘仍有剩余碎块。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。",
+          "end_description": "同一份奶油分布在两杯顶层及原碗中，碗中仍有剩余。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "end_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_011",
+          "end_state_id": "STATE_CANDLE_011",
+          "start_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "end_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_007",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_002",
+          "end_state_id": "STATE_MOLD_002",
+          "start_description": "原模具已空，正放在白盘后左侧桌面。",
+          "end_description": "原模具已空，正放在白盘后左侧桌面。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_008",
+          "end_state_id": "STATE_SPOON_008",
+          "start_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "end_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_BOWL_008",
+          "end_state_id": "STATE_CREAM_BOWL_008",
+          "start_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "end_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRY_DISH_009",
+          "end_state_id": "STATE_BERRY_DISH_009",
+          "start_description": "原草莓小碟已经空，仍在原位。",
+          "end_description": "原草莓小碟已经空，仍在原位。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A static medium-wide view frames the mother on the left and\nXiaolin on the right, each standing directly in front of an existing wooden chair as established in Picture 1.\nTheir adjacent hands meet in the clear space beside the table edge. The two glass desserts are already placed\nin front of their respective seats; only the mother's left-side glass carries the burning candle. The used\nwhite plate, its single teaspoon, the empty mold, cream bowl and empty strawberry dish remain along the rear\npart of the table. The mother gives Xiaolin's hand a brief, gentle squeeze, then they release each other. Each\nbends her own knees and lowers her body toward the chair immediately behind her. Their weight settles onto the\nvisible seats before their upper bodies relax. They finish seated at the same left and right positions,\nlooking toward the desserts. The chairs and all tabletop objects keep their places.\n\noverall_soundscape: Soft fabric movement and a restrained wooden-chair creak accompany their weight settling\ninto the seats. The room stays quiet around them.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U015",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "母女一起坐下",
+      "script_excerpt": "拉着她一起坐下",
+      "on_screen_text": [],
+      "source_preview_sha256": "6fa34c31f70889d1ade9f773ac647642dc7224549369d91a661b3bb5fe0c13c6"
+    },
+    {
+      "shot_id": "U017",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 83000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "母女已坐定，妈妈左、小林右；两杯在各自面前，左杯靠二人之间的唯一烛火亮着。人物嘴部与烛火同时在画面内。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "母女已坐定，妈妈左、小林右；两杯在各自面前，左杯靠二人之间的唯一烛火亮着。人物嘴部与烛火同时在画面内。",
+      "start_state": "母女已坐定，妈妈左、小林右；两杯在各自面前，左杯靠二人之间的唯一烛火亮着。人物嘴部与烛火同时在画面内。",
+      "action_description": "两人略微前倾，嘴唇轻拢后一起呼气；火苗先偏向一侧，再熄灭并留下细烟。变化仅发生在火焰，蜡烛和杯子不消失、不移动。",
+      "end_state": "原左杯仍在妈妈面前，蛋糕、奶油和草莓未动，唯一蜡烛已经熄灭。；原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。；当前可见玻璃杯底部保持原来的浅金色蛋糕层。；当前可见玻璃杯里，原白奶油层在蛋糕层上方。；每只当前可见的甜点杯顶各保留原来的一颗红草莓。；唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_011",
+          "end_state_id": "STATE_CUP_A_017",
+          "start_description": "左杯原位，有蛋糕、奶油、一颗草莓和一根燃烧中的蜡烛。",
+          "end_description": "原左杯仍在妈妈面前，蛋糕、奶油和草莓未动，唯一蜡烛已经熄灭。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_015",
+          "end_state_id": "STATE_CUP_B_015",
+          "start_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "end_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_007",
+          "start_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "end_description": "当前可见玻璃杯底部保持原来的浅金色蛋糕层。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_008",
+          "start_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "end_description": "当前可见玻璃杯里，原白奶油层在蛋糕层上方。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "end_description": "每只当前可见的甜点杯顶各保留原来的一颗红草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_011",
+          "end_state_id": "STATE_CANDLE_017",
+          "start_description": "唯一蜡烛仍立在左杯，已由可见点火器点燃，只有烛芯小火焰持续。",
+          "end_description": "唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_PLATE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A steady medium-close view matches Picture 1, with the mother\nseated on the left and Xiaolin on the right. Both clear dessert glasses rest in the foreground, their golden\ncrumbs, white cream and single strawberries visible. One small flame burns on the candle standing in the\nmother's glass, positioned between their faces but closer to her. They lean forward slightly and bring their\nlips into a gentle blowing shape. Their visible exhalation action coincides with the flame bending away from\nthem, shrinking and going out. A thin thread of smoke rises from the dark wick. The pale-yellow candle remains\nupright in the cream, and both glass bases stay on the table. The women stop blowing and lift their faces\nslightly, remaining close as they look at the extinguished candle.\n\noverall_soundscape: Two soft breaths blend into a brief blowing sound, followed by quiet room tone. Their\nclothing shifts lightly as they lean and settle.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U016",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "一起吹灭唯一的蜡烛",
+      "script_excerpt": "两人共同吹灭蜡烛",
+      "on_screen_text": [],
+      "source_preview_sha256": "f08db260790ad69535a8edf86fb4402ae186c7667fa567398a1c78aa05b98487"
+    },
+    {
+      "shot_id": "U018",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 6000,
+      "timeline_in_ms": 88000,
+      "camera": {
+        "shot_size": "固定中近景，人物及本镜声明的白盘/杯子入画",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "妈妈面前的左杯烛火已灭，草莓仍在杯顶；同一把金属小勺还放在原白盘盘沿、位于手边。杯子尚未被拿起，右杯在本近景之外。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "妈妈面前的左杯烛火已灭，草莓仍在杯顶；同一把金属小勺还放在原白盘盘沿、位于手边。杯子尚未被拿起，右杯在本近景之外。",
+      "start_state": "妈妈面前的左杯烛火已灭，草莓仍在杯顶；同一把金属小勺还放在原白盘盘沿、位于手边。杯子尚未被拿起，右杯在本近景之外。",
+      "action_description": "明确展示取勺、越过杯口、从草莓旁取一小口、送入口中，再把手降回。只有被勺取走的位置留下小缺口，草莓、熄灭蜡烛和杯子保持原位。",
+      "end_state": "原左杯仍在桌上妈妈面前，奶油和蛋糕少一小口，草莓与熄灭蜡烛留在原位。；原白盘余料保留；妈妈杯中蛋糕已被尝去一小口。；妈妈杯顶白奶油在取勺处少一小口。；妈妈杯顶保留原来的一颗红草莓。；唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。；原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；原小勺由妈妈右手握着，完成品尝后放低，勺头已从口中退出。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_PLATE",
+        "PROP_SPOON"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_017",
+          "end_state_id": "STATE_CUP_A_018",
+          "start_description": "原左杯仍在妈妈面前，蛋糕、奶油和草莓未动，唯一蜡烛已经熄灭。",
+          "end_description": "原左杯仍在桌上妈妈面前，奶油和蛋糕少一小口，草莓与熄灭蜡烛留在原位。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_007",
+          "end_state_id": "STATE_CAKE_018",
+          "start_description": "原白盘仍有剩余碎块；妈妈杯中是原来的蛋糕底层。",
+          "end_description": "原白盘余料保留；妈妈杯中蛋糕已被尝去一小口。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_008",
+          "end_state_id": "STATE_CREAM_018",
+          "start_description": "妈妈杯顶原白奶油保持原状。",
+          "end_description": "妈妈杯顶白奶油在取勺处少一小口。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "妈妈杯顶保留原来的一颗红草莓。",
+          "end_description": "妈妈杯顶保留原来的一颗红草莓。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": "取景改变，本镜仅描述同一物品的当前可见部分，未引入物理状态跳变。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_017",
+          "end_state_id": "STATE_CANDLE_017",
+          "start_description": "唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+          "end_description": "唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+          "entry_reason": "",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_007",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_008",
+          "end_state_id": "STATE_SPOON_018",
+          "start_description": "同一金属小勺静置在原白盘右盘沿，勺头带少量奶油。",
+          "end_description": "原小勺由妈妈右手握着，完成品尝后放低，勺头已从口中退出。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_CUP_B",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] The close composition begins with the mother in her pale-blue\nblouse seated behind her clear dessert glass. Its single strawberry remains on the white cream, and the candle\nbeside it has a dark, extinguished wick. The original white plate with remaining cake crumbs sits within\nreach, with one metal teaspoon resting on its rim as shown in Picture 1. The camera stays fixed for the\nsix-second action. She closes her right fingers around the spoon handle and lifts that same spoon from the\nplate. She carries its bowl above the open glass rim and lowers it into the cream beside the strawberry,\nscooping a small amount of cream and cake. The loaded spoon rises back through the open top and travels to her\nmouth. She tastes the spoonful, withdraws the spoon and lowers it in the same hand. A small bite-sized gap\nremains in the dessert. The strawberry and unlit candle stay in place, and the glass remains supported by the\ntable.\n\noverall_soundscape: One faint spoon contact at the plate is followed by soft contact with the dessert and a\nsmall natural breath as she tastes. Quiet indoor ambience continues.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U017",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "妈妈取原小勺，尝一口",
+      "script_excerpt": "妈妈尝了一口",
+      "on_screen_text": [],
+      "source_preview_sha256": "909ef80b353449bec8ed2a829768d1bbd1e0f8a9fd06a68c1603ef65cc42eb68"
+    },
+    {
+      "shot_id": "U019",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 94000,
+      "camera": {
+        "shot_size": "固定人物近景，手和桌面物品均在画外",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "全程固定",
+        "composition": "人物近景；妈妈刚尝完，小林在右侧紧张地看着她。手和餐具位于取景下缘之外，不要求本镜同时移动勺子或杯子。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "人物近景；妈妈刚尝完，小林在右侧紧张地看着她。手和餐具位于取景下缘之外，不要求本镜同时移动勺子或杯子。",
+      "start_state": "人物近景；妈妈刚尝完，小林在右侧紧张地看着她。手和餐具位于取景下缘之外，不要求本镜同时移动勺子或杯子。",
+      "action_description": "妈妈咽下这一口，抬眼与小林对视，嘴角慢慢上扬，轻轻点一次头。小林开始放松。",
+      "end_state": "妈妈微笑点头，小林开始放松，人物位置保持。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [],
+      "objects": [],
+      "no_objects_reason": "只取人物面部/肩部，手与桌面物品均不在画内。",
+      "framing_exclusions": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "reason": "切换为当前声明的近景/人物取景，原对象留在画外原位，未在世界中删除。"
+        }
+      ],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] A fixed close two-person composition continues from Picture 1,\nshowing the mother on the left after tasting the dessert and Xiaolin on the right watching her anxiously.\nTheir faces and shoulders occupy the frame, with the warm kitchen background softly out of focus. The mother\nfinishes the small mouth movement of tasting, raises her eyes to Xiaolin and lets a gentle smile develop.\nMaintaining eye contact, she makes one small downward-and-upward nod. Xiaolin's brows relax slightly in\nresponse, although she is still waiting for the moment to settle. Their heads remain at the same relative\npositions; the mother does not speak. The shot holds briefly on her warm smile and Xiaolin's easing\nexpression.\n\noverall_soundscape: Subdued room tone, one quiet breath and slight clothing movement accompany the exchange.\nThere is no intelligible dialogue.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U018",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "妈妈笑着点头认可",
+      "script_excerpt": "笑着点头",
+      "on_screen_text": [],
+      "source_preview_sha256": "87e0dd6c8070700e9dc1b702da4e27af533788e0394193feb70b34b9675df23d"
+    },
+    {
+      "shot_id": "U020",
+      "scene_id": "SCENE_001",
+      "visible_characters": [
+        {
+          "character_id": "CHAR_001",
+          "variant_id": null
+        },
+        {
+          "character_id": "CHAR_002",
+          "variant_id": null
+        }
+      ],
+      "duration_ms": 5000,
+      "timeline_in_ms": 99000,
+      "camera": {
+        "shot_size": "中广景，保持原房间和桌椅布局",
+        "angle": "沿用场景参考的空间方向；操作近景轻微俯视，人物镜头平视",
+        "movement": "缓慢、小幅后移",
+        "composition": "母女已坐在原位；两杯均在桌上，左杯少一小口、蜡烛已灭，右杯未吃。妈妈仍持原小勺。；只包含当前可见对象。左窗暮光、房间布局与人物身份不改变。"
+      },
+      "first_frame_description": "母女已坐在原位；两杯均在桌上，左杯少一小口、蜡烛已灭，右杯未吃。妈妈仍持原小勺。",
+      "start_state": "母女已坐在原位；两杯均在桌上，左杯少一小口、蜡烛已灭，右杯未吃。妈妈仍持原小勺。",
+      "action_description": "小林轻呼气，肩膀放松，迎着妈妈的笑容也笑起来。镜头缓慢、小幅后移；人物不端杯、喂食或新增动作。",
+      "end_state": "原左杯仍在桌上妈妈面前，奶油和蛋糕少一小口，草莓与熄灭蜡烛留在原位。；原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。；原左杯中的蛋糕被尝去一小口，右杯蛋糕未动，原盘保留余料。；原左杯奶油被尝去少量，右杯顶层未动，原碗仍有残留。；原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。；唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。；原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。；原模具已空，正放在白盘后左侧桌面。；原小勺由妈妈右手握着，完成品尝后放低，勺头已从口中退出。；原奶油碗仍在原位，内有取用后留下的白奶油。；原草莓小碟已经空，仍在原位。",
+      "audio": {
+        "dialogue": [],
+        "sound_effects": [],
+        "music": null
+      },
+      "continuity_notes": [
+        "仅核对相邻分镜起止状态；改变取景时明确登记画外排除，不把画外当成物品消失。",
+        "本镜视频提示词为已审阅的完整H3 I2VA文本，逐字使用，不附加内部对象表、未来用途或中文模板。"
+      ],
+      "focus_prop_ids": [
+        "PROP_CUP_A",
+        "PROP_CUP_B",
+        "PROP_CAKE",
+        "PROP_CREAM",
+        "PROP_BERRIES",
+        "PROP_CANDLE",
+        "PROP_PLATE",
+        "PROP_MOLD",
+        "PROP_SPOON",
+        "PROP_CREAM_BOWL",
+        "PROP_BERRY_DISH"
+      ],
+      "objects": [
+        {
+          "prop_id": "PROP_CUP_A",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_A_018",
+          "end_state_id": "STATE_CUP_A_018",
+          "start_description": "原左杯仍在桌上妈妈面前，奶油和蛋糕少一小口，草莓与熄灭蜡烛留在原位。",
+          "end_description": "原左杯仍在桌上妈妈面前，奶油和蛋糕少一小口，草莓与熄灭蜡烛留在原位。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CUP_B",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CUP_B_015",
+          "end_state_id": "STATE_CUP_B_015",
+          "start_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "end_description": "原右杯被妈妈沿桌面移到右侧小林座位前；蛋糕、奶油和一颗草莓仍在杯内。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CAKE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CAKE_018",
+          "end_state_id": "STATE_CAKE_018",
+          "start_description": "原左杯中的蛋糕被尝去一小口，右杯蛋糕未动，原盘保留余料。",
+          "end_description": "原左杯中的蛋糕被尝去一小口，右杯蛋糕未动，原盘保留余料。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_018",
+          "end_state_id": "STATE_CREAM_018",
+          "start_description": "原左杯奶油被尝去少量，右杯顶层未动，原碗仍有残留。",
+          "end_description": "原左杯奶油被尝去少量，右杯顶层未动，原碗仍有残留。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRIES",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRIES_009",
+          "end_state_id": "STATE_BERRIES_009",
+          "start_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "end_description": "原来的两颗草莓已经各在一杯奶油顶上，每杯恰一颗。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CANDLE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CANDLE_017",
+          "end_state_id": "STATE_CANDLE_017",
+          "start_description": "唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+          "end_description": "唯一蜡烛仍立在左杯，火焰被母女吹灭，烛芯暗且有细烟。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_PLATE",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_PLATE_007",
+          "end_state_id": "STATE_PLATE_007",
+          "start_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "end_description": "原白盘在桌中左，仍有两次取料后留下的蛋糕碎块和碎屑。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_MOLD",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_MOLD_002",
+          "end_state_id": "STATE_MOLD_002",
+          "start_description": "原模具已空，正放在白盘后左侧桌面。",
+          "end_description": "原模具已空，正放在白盘后左侧桌面。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_SPOON",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_SPOON_018",
+          "end_state_id": "STATE_SPOON_018",
+          "start_description": "原小勺由妈妈右手握着，完成品尝后放低，勺头已从口中退出。",
+          "end_description": "原小勺由妈妈右手握着，完成品尝后放低，勺头已从口中退出。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_CREAM_BOWL",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_CREAM_BOWL_008",
+          "end_state_id": "STATE_CREAM_BOWL_008",
+          "start_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "end_description": "原奶油碗仍在原位，内有取用后留下的白奶油。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        },
+        {
+          "prop_id": "PROP_BERRY_DISH",
+          "start_visible": true,
+          "end_visible": true,
+          "start_state_id": "STATE_BERRY_DISH_009",
+          "end_state_id": "STATE_BERRY_DISH_009",
+          "start_description": "原草莓小碟已经空，仍在原位。",
+          "end_description": "原草莓小碟已经空，仍在原位。",
+          "entry_reason": "取景切换，重新看见原来一直存在的同一物品；位置状态按本镜声明。",
+          "exit_reason": "",
+          "transition_reason": ""
+        }
+      ],
+      "no_objects_reason": "",
+      "framing_exclusions": [],
+      "first_frame_reference_policy": "planned_frame",
+      "video_prompt": "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\nintegrated_multimodal_description: [Shot 1] The final kitchen view begins with the mother seated at the left\nand Xiaolin at the right in the positions shown in Picture 1. Their two transparent desserts rest on the\ntable: the mother's glass has a small tasted gap beside its strawberry and one extinguished candle, while\nXiaolin's glass remains untouched with its own single strawberry. The mother still holds the same teaspoon low\nabove the used white plate. The empty silver mold, partly used cream bowl and empty small strawberry dish\nremain behind the desserts. Xiaolin releases a quiet breath, her shoulders drop naturally and her tense mouth\nsoftens into a smile. She looks toward her mother, who smiles back. The camera pulls out with small amplitude\nat slow speed, gently widening the shared view while their bodies and the tabletop arrangement stay settled.\nThe shot ends on their exchanged smiles, with both desserts still on the table and the candle wick dark.\n\noverall_soundscape: Xiaolin's soft relieved exhale and a light rustle of clothing are heard over the same calm\nroom tone. The sounds fade naturally into the final held moment.\n\nnon_diegetic_music: N/A",
+      "video_prompt_version": "minimax-h3-i2va-v2",
+      "transition_from_previous": "same_scene",
+      "reference_plan": {
+        "strategy": "continue_from_previous",
+        "based_on_shot_id": "U019",
+        "notes": "严格以前镜视频完成后提取的实际尾帧为参考；当前取景与声明优先，画外对象不因尾帧存在而强行入画。"
+      },
+      "narrative_purpose": "小林松一口气，也笑起来",
+      "script_excerpt": "小林终于松了一口气，也笑了起来",
+      "on_screen_text": [],
+      "source_preview_sha256": "fa3bde75e04cb7d9e7efe511e864e3cae2a8b4fdc08c5c1d9a21775faab601ab"
+    }
+  ],
+  "open_questions": [
+    "剧本未给出直接对白，U014没有擅自编造对白，若需要清晰表达具体句子，后续需提供或确认对白。",
+    "规划是本次助手依据剧本撰写的外部输入，未调用配置的文本API，未声称生成了实际画面。"
+  ],
+  "story_summary": "小林为妈妈准备的生日蛋糕脱模失败，她把碎蛋糕改成两杯甜点，母女一起庆生。",
+  "design_additions": [
+    "U011唯一长柄点火器提供可见火源，用后退出画面。",
+    "U008为8秒，U018为6秒，其余5秒，总104秒。",
+    "近景之外的对象通过framing_exclusions登记，不把上一镜画外物品强行画入本镜。"
+  ],
+  "planning_source": {
+    "method": "Adopted user-reviewed H3 I2VA prompt preview v2; first-frame/object/framing declarations aligned before any generation."
+  }
+}

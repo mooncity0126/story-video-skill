@@ -1,0 +1,153 @@
+{
+  "schema_version": "character_bible.v1",
+  "status": "ok",
+  "characters": [
+    {
+      "character_id": "CHAR_001",
+      "name": "小林",
+      "aliases": [],
+      "character_type": "human",
+      "presence": "on_screen",
+      "requires_visual_design": true,
+      "role_in_story": "女儿",
+      "script_facts": [
+        {
+          "fact": "想为妈妈制作生日蛋糕",
+          "evidence": "小林想在妈妈下班回家前，亲手做好一个生日蛋糕"
+        }
+      ],
+      "appearance": {
+        "apparent_age": "约16岁（设计建议）",
+        "gender_presentation": "女性外观（设计建议）",
+        "build": "自然匀称",
+        "face": "自然鹅蛋脸，五官比例柔和",
+        "hair_or_surface": "黑色齐肩直发，耳侧发丝收拢",
+        "distinctive_features": [],
+        "base_costume": "浅黄色圆领短袖、米白色无图案围裙、深蓝色长裤"
+      },
+      "visual_description": "小林采用写实电影人物设计，自然匀称体型，约16岁（设计建议），自然鹅蛋脸，五官比例柔和，不夸张美化。黑色齐肩直发，耳侧发丝收拢。穿着浅黄色圆领短袖、米白色无图案围裙、深蓝色长裤，衣料具有自然褶皱，无额外首饰、标志或复杂装饰。保持自然肤色与身体比例，基础表情平静，所有未由剧本指定的外观均为可修改设计建议。",
+      "consistency_anchors": [
+        "黑色齐肩直发，耳侧发丝收拢",
+        "浅黄色圆领短袖、米白色无图案围裙、深蓝色长裤",
+        "自然鹅蛋脸，五官比例柔和"
+      ],
+      "variants": [],
+      "personality_and_behavior": "在困境中尝试解决问题",
+      "design_additions": [
+        {
+          "field": "appearance.apparent_age",
+          "proposed_value": "约16岁（设计建议）",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.gender_presentation",
+          "proposed_value": "女性外观（设计建议）",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.build",
+          "proposed_value": "自然匀称",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.face",
+          "proposed_value": "自然鹅蛋脸，五官比例柔和",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.hair_or_surface",
+          "proposed_value": "黑色齐肩直发，耳侧发丝收拢",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.base_costume",
+          "proposed_value": "浅黄色圆领短袖、米白色无图案围裙、深蓝色长裤",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        }
+      ],
+      "relationships": [
+        {
+          "target_character_id": "CHAR_002",
+          "relation": "女儿",
+          "evidence": "小林想在妈妈下班回家前"
+        }
+      ]
+    },
+    {
+      "character_id": "CHAR_002",
+      "name": "妈妈",
+      "aliases": [
+        "母亲"
+      ],
+      "character_type": "human",
+      "presence": "on_screen",
+      "requires_visual_design": true,
+      "role_in_story": "母亲",
+      "script_facts": [
+        {
+          "fact": "小林的母亲，下班回家",
+          "evidence": "妈妈下班回家"
+        }
+      ],
+      "appearance": {
+        "apparent_age": "约40岁（设计建议）",
+        "gender_presentation": "女性外观（设计建议）",
+        "build": "自然匀称",
+        "face": "自然鹅蛋脸，五官比例柔和",
+        "hair_or_surface": "黑色低马尾，脸侧少量自然碎发",
+        "distinctive_features": [],
+        "base_costume": "浅蓝色无图案衬衫、深灰色长裤"
+      },
+      "visual_description": "妈妈采用写实电影人物设计，自然匀称体型，约40岁（设计建议），自然鹅蛋脸，五官比例柔和，不夸张美化。黑色低马尾，脸侧少量自然碎发。穿着浅蓝色无图案衬衫、深灰色长裤，衣料具有自然褶皱，无额外首饰、标志或复杂装饰。保持自然肤色与身体比例，基础表情平静，所有未由剧本指定的外观均为可修改设计建议。",
+      "consistency_anchors": [
+        "黑色低马尾，脸侧少量自然碎发",
+        "浅蓝色无图案衬衫、深灰色长裤",
+        "自然鹅蛋脸，五官比例柔和"
+      ],
+      "variants": [],
+      "personality_and_behavior": "体谅并肯定女儿的心意",
+      "design_additions": [
+        {
+          "field": "appearance.apparent_age",
+          "proposed_value": "约40岁（设计建议）",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.gender_presentation",
+          "proposed_value": "女性外观（设计建议）",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.build",
+          "proposed_value": "自然匀称",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.face",
+          "proposed_value": "自然鹅蛋脸，五官比例柔和",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.hair_or_surface",
+          "proposed_value": "黑色低马尾，脸侧少量自然碎发",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        },
+        {
+          "field": "appearance.base_costume",
+          "proposed_value": "浅蓝色无图案衬衫、深灰色长裤",
+          "reason": "剧本未明确，统一的可修改外观建议"
+        }
+      ],
+      "relationships": [
+        {
+          "target_character_id": "CHAR_001",
+          "relation": "母亲",
+          "evidence": "小林想在妈妈下班回家前"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "两位角色的具体年龄、外观和服装为制作设计建议，非剧本事实。"
+  ]
+}

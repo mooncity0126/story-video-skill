@@ -1,0 +1,176 @@
+{
+  "$defs": {
+    "Character": {
+      "additionalProperties": true,
+      "properties": {
+        "character_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Character Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "character_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "human",
+                "animal",
+                "non_human",
+                "group"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Character Type"
+        },
+        "presence": {
+          "enum": [
+            "on_screen",
+            "off_screen_voice",
+            "mentioned_only"
+          ],
+          "title": "Presence",
+          "type": "string"
+        },
+        "requires_visual_design": {
+          "title": "Requires Visual Design",
+          "type": "boolean"
+        },
+        "appearance": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Appearance"
+        },
+        "visual_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Visual Description"
+        },
+        "consistency_anchors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Consistency Anchors",
+          "type": "array"
+        },
+        "variants": {
+          "items": {
+            "$ref": "#/$defs/Variant"
+          },
+          "title": "Variants",
+          "type": "array"
+        }
+      },
+      "required": [
+        "character_id",
+        "name",
+        "aliases",
+        "presence",
+        "requires_visual_design",
+        "appearance",
+        "visual_description",
+        "consistency_anchors",
+        "variants"
+      ],
+      "title": "Character",
+      "type": "object"
+    },
+    "Variant": {
+      "additionalProperties": true,
+      "properties": {
+        "variant_id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Variant Id",
+          "type": "string"
+        },
+        "trigger": {
+          "title": "Trigger",
+          "type": "string"
+        },
+        "changes": {
+          "additionalProperties": true,
+          "title": "Changes",
+          "type": "object"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "trigger",
+        "changes",
+        "basis"
+      ],
+      "title": "Variant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {
+      "const": "character_bible.v1",
+      "default": "character_bible.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "needs_input",
+        "needs_review"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "characters": {
+      "items": {
+        "$ref": "#/$defs/Character"
+      },
+      "title": "Characters",
+      "type": "array"
+    },
+    "open_questions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Open Questions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "characters"
+  ],
+  "title": "Characters",
+  "type": "object"
+}
