@@ -40,6 +40,7 @@ def block_live_network(monkeypatch):
 @pytest.fixture
 def config(monkeypatch):
     cfg = copy.deepcopy(BASE)
+    cfg.pop("workflow_preferences_file", None)  # Exercise pre-setup project snapshots here.
     cfg.pop("credentials_file", None)  # Fixtures use isolated test keys, never the user's file.
     cfg["providers"]["media"].update(base_url="https://fixture.media.test", key_env="STORY_SKILL_TEST_KEY")
     monkeypatch.setenv("STORY_SKILL_TEST_KEY", "test-only-key")
@@ -47,6 +48,7 @@ def config(monkeypatch):
     cfg["models"]["edit"].update(model_cls="gpt-image-2.5-flare", parameters={"resolution_level": "1080p"})
     cfg["models"]["video"].update(model_cls="LTX-2.3", parameters={"resolution_level": "720p"})
     cfg["rewriter"]["enabled"] = False
+    cfg["review"]["require_material_approval"] = False  # Existing tests isolate other workflow behavior.
     cfg["execution"].update(budget_credits=100, retries=0, request_interval_seconds=0)
     return cfg
 
@@ -74,16 +76,281 @@ def image_request(job_id="image_1"):
     return {"job_id": job_id, "role": "image", "prompt": "A quiet empty room."}
 
 
-def test_default_config_and_offline_doctor(tmp_path):
-    assert BASE["rewriter"]["enabled"] is True
+def review_request(root):
+    frame = root / "assets/review-first.png"
+    Image.new("RGB", (108, 192), "blue").save(frame)
+    return {"job_id": "video_review", "role": "video", "shot_id": "S001", "duration_ms": 5000,
+            "prompt": "A woman says hello, then holds her gaze.", "inputs": {"input_image": [str(frame)]}}
+
+
+def user_approval(config, root, request):
+    recipe = ops.request_data(config, request, root)
+    ops.save(root / "material-approvals.json", {"shots": {"S001": {
+        "actor": "user", "decision": "approved", "fingerprint": ops.material_fingerprint(config, recipe)}}})
+
+
+def test_paid_video_requires_user_material_approval_before_any_remote_call(config, root, monkeypatch):
+    config["review"]["require_material_approval"] = True
+    request = review_request(root)
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Unapproved video must not instantiate a cloud client")
+    monkeypatch.setattr(ops, "make_client", forbidden)
+    with pytest.raises(ValueError, match="Material review required"):
+        ops.submit_job(config, root, request, root, execute=True)
+    assert not list((root / "jobs").iterdir())
+
+
+def test_approved_video_and_quotes_preserve_existing_idempotency(config, root, cloud, client):
+    config["review"]["require_material_approval"] = True
+    request = review_request(root)
+    assert ops.submit_job(config, root, request, root, client=client)["status"] == "quoted"
+    assert not cloud.submissions
+    user_approval(config, root, request)
+    first = ops.submit_job(config, root, request, root, execute=True, client=client)
+    (root / "material-approvals.json").unlink()
+    assert ops.submit_job(config, root, request, root, execute=True, client=client) == first
+    assert len(cloud.submissions) == 1
+
+
+@pytest.mark.parametrize("changed", ["prompt", "image", "duration", "model", "aspect", "provider"])
+def test_material_changes_invalidate_user_approval(config, root, changed):
+    config["review"]["require_material_approval"] = True
+    request = review_request(root)
+    user_approval(config, root, request)
+    if changed == "prompt":
+        request["prompt"] += " She steps back."
+    elif changed == "image":
+        Image.new("RGB", (108, 192), "red").save(request["inputs"]["input_image"][0])
+    elif changed == "duration":
+        request["duration_ms"] = 6000
+    elif changed == "model":
+        config["models"]["video"]["parameters"]["resolution_level"] = "1080p"
+    elif changed == "aspect":
+        config["production"]["aspect_ratio"] = "16:9"
+    else:
+        config["providers"]["media"]["base_url"] = "https://changed.fixture.test"
+    with pytest.raises(ValueError, match="outdated"):
+        ops.submit_job(config, root, request, root, execute=True)
+
+
+def test_approval_does_not_override_pause_or_pending_user_input(config, root):
+    config["review"]["require_material_approval"] = True
+    request = review_request(root)
+    user_approval(config, root, request)
+    (root / "PAUSE_REQUESTED").write_text("user pause", encoding="utf-8")
+    with pytest.raises(ValueError, match="Project paused"):
+        ops.submit_job(config, root, request, root, execute=True)
+    (root / "PAUSE_REQUESTED").unlink()  # Isolated fixture only.
+    ops.save(root / "workflow-inbox.json", {"status": "pending_planning"})
+    with pytest.raises(ValueError, match="await planning"):
+        ops.submit_job(config, root, request, root, execute=True)
+    assert not list((root / "jobs").iterdir())
+
+
+def test_machine_decision_cannot_stand_in_for_user_approval(config, root):
+    config["review"]["require_material_approval"] = True
+    request = review_request(root)
+    user_approval(config, root, request)
+    path = root / "material-approvals.json"
+    record = ops.read(path)
+    record["shots"]["S001"]["actor"] = "agent"
+    ops.save(path, record)
+    with pytest.raises(ValueError, match="Material review required"):
+        ops.submit_job(config, root, request, root, execute=True)
+
+
+def test_first_use_cli_and_per_film_snapshots(config, tmp_path):
+    template = tmp_path / "template.json"
+    ops.save(template, config)
+    args = ["--config", str(template)]
+    run = tmp_path / "first-movie"
+    status = ops.main([*args, "setup"])
+    assert not status["configured"] and status["values"]["scheduling"] == "serial"
+    assert all(item.get("impact") or all(o["impact"] for o in item["choices"]) for item in status["fields"])
+    with pytest.raises(ops.SetupRequired):
+        ops.main([*args, "init", "--output", str(run)])
+    assert not run.exists()
+    blocked = subprocess.run([sys.executable, "-B", "-X", "utf8", str(Path(ops.__file__)), *args, "init", "--output", str(run)],
+                             capture_output=True, text=True, encoding="utf-8")
+    assert blocked.returncode == 2 and "工作流设置" in json.loads(blocked.stderr)["error"] and not run.exists()
+    answers = tmp_path / "answers.json"
+    ops.save(answers, status["values"])
+    ops.main([*args, "setup", "--answers", str(answers)])
+    ops.main([*args, "init", "--output", str(run)])
+    snapshot = (run / "settings.json").read_bytes()
+    first = ops.load_settings(run / "settings.json")
+    assert first["execution"]["budget_credits"] is None
+    assert first["production"]["scheduling"] == "serial" and "workflow_preferences_file" not in first
+    ops.save(answers, {**status["values"], "scheduling": "dependency_parallel", "writer": "text_api", "repairs": "0"})
+    ops.main([*args, "setup", "--answers", str(answers)])
+    second = tmp_path / "second-movie"
+    ops.main([*args, "init", "--output", str(second)])
+    saved = ops.load_settings(second / "settings.json")
+    assert saved["production"]["writer"] == "text_api" and saved["review"]["max_content_repairs_per_shot"] == 0
+    assert snapshot == (run / "settings.json").read_bytes()
+    with pytest.raises(ValueError, match="快照"):
+        ops.main(["--config", str(template), "--run", str(run), "status"])
+
+
+def test_separate_video_endpoint_and_key_do_not_change_images(config, tmp_path, monkeypatch):
+    config["workflow_preferences_file"] = str(tmp_path / "workflow-preferences.local.json")
+    values = ops.setup_options(config)[1]
+    url = "https://video.example.test"
+    with pytest.raises(ValueError, match="专属"):
+        ops.profile_settings(config, {**values, "api_url": url})
+    effective = ops.profile_settings(config, {**values, "api_url": url, "key_name": "ALT_VIDEO_KEY"})
+    custom = effective["providers"][effective["models"]["video"]["provider"]]
+    assert custom["base_url"] == url and effective["models"]["image"]["provider"] == "media"
+    dedicated = Path(custom["credentials_file"])
+    assert dedicated.parent == tmp_path
+    ops.save(dedicated, {"ALT_VIDEO_KEY": "fixture-secret"})
+    monkeypatch.delenv("ALT_VIDEO_KEY", raising=False)
+    with ops.credential_environment(effective):
+        assert os.environ["ALT_VIDEO_KEY"] == "fixture-secret"
+    assert "ALT_VIDEO_KEY" not in os.environ and "fixture-secret" not in json.dumps(effective)
+
+
+@pytest.mark.parametrize("mode,flag", [("direct", False), ("online", True)])
+def test_first_use_selection_reaches_gateway(config, root, cloud, client, mode, flag):
+    config["models"]["video"] = copy.deepcopy(BASE["models"]["video"])
+    values = {**ops.setup_options(config)[1], "prompt_mode": mode, "scheduling": "dependency_parallel"}
+    effective = ops.profile_settings(config, values)
+    effective["execution"]["budget_credits"] = 50
+    ops.save(root / "settings.json", effective)
+    request = review_request(root)
+    user_approval(effective, root, request)
+    ops.submit_job(effective, root, request, root, execute=True, client=client)
+    assert cloud.submissions[-1]["enhance_prompt"] is flag
+    assert cloud.submissions[-1]["prompt"] == request["prompt"]
+    assert not list((root / "prompt_rewrites").iterdir())
+
+
+def test_online_requires_explicit_capability_and_no_double_rewrite(config, root, client, cloud):
+    config["models"]["video"] = copy.deepcopy(BASE["models"]["video"])
+    effective = ops.profile_settings(config, {**ops.setup_options(config)[1], "prompt_mode": "online"})
+    effective["execution"]["budget_credits"] = 50
+    _, contract = ops.get_contract(effective, root, "video", client)
+    assert contract.params["enhance_prompt"]["type"] == "boolean"
+    cached = next((root / "contracts").glob("*.json"))
+    data = ops.read(cached)
+    del data["spec"]["parameters"]["enhance_prompt"]
+    ops.save(cached, data)
+    request = review_request(root)
+    with pytest.raises(ValueError, match="在线提示词优化"):
+        ops.submit_job(effective, root, request, root, client=client)
+    assert not cloud.quote_bodies and not cloud.submissions
+    effective["rewriter"]["enabled"] = True
+    f = root / "invalid.json"
+    ops.save(f, effective)
+    with pytest.raises(ValueError, match="Inconsistent"):
+        ops.load_settings(f)
+
+
+def test_serial_overrules_all_independent_and_retains_secondary_tail(config, root):
+    def shot(sid):
+        return {"shot_id": sid, "generation_plan": {"relation": "independent", "confidence": "high", "reason": "独立镜头"}}
+    board = {"shots": [shot("A"), shot("B"), shot("C")], "playback_order": ["B", "A", "C"]}
+    ops.save(root / "storyboard.json", board)
+    ops.save(root / "dependencies.json", {"shots": [{"shot_id": "C", "relation": "continuous",
+        "requires": [{"kind": "actual_tail", "source_id": "B", "reason": "更早的道具交接"}]}]})
+    config["production"]["scheduling"] = "serial"
+    ops.save(root / "settings.json", config)
+    graph = ops.shot_dependencies(root)
+    assert [i["source_id"] for i in graph["A"]["requires"]] == ["B"]
+    assert {i["source_id"] for i in graph["C"]["requires"]} == {"A","B"}
+    assert ops.concurrency_status(config, [])["limits"]["video"] == 1
+    with pytest.raises(ValueError, match="实际尾帧"):
+        ops.require_continuity(config, root, {"role": "image", "shot_id": "A"})
+    with pytest.raises(ValueError, match="等待 B"):
+        ops.require_continuity(config, root, {"role": "video", "shot_id": "A", "input_hashes": {}})
+    config["production"]["scheduling"] = "dependency_parallel"
+    ops.save(root / "settings.json", config)
+    graph = ops.shot_dependencies(root)
+    assert graph["A"]["requires"] == [] and [i["source_id"] for i in graph["C"]["requires"]] == ["B"]
+
+
+def test_selected_checks_bound_to_current_inputs(config, root):
+    config["production"].update(scheduling="dependency_parallel", writer="agent")
+    config["review"].update(frame_check="off", prompt_check="always")
+    req = review_request(root)
+    recipe = ops.request_data(config, req, root)
+    checked = ops.planned_prechecks(config, root, recipe)
+    assert set(checked) == {"prompt"}
+    with pytest.raises(ValueError, match="提示词"):
+        ops.require_prechecks(config, root, recipe)
+    ops.save(root / "checks/S001-prompt.json", {"enabled": True, "round": 1, "outcome": "pass", "source_hashes": checked["prompt"]})
+    ops.require_prechecks(config, root, recipe)
+    with pytest.raises(ValueError, match="提示词"):
+        ops.require_prechecks(config, root, {**recipe, "prompt": "changed"})
+    with pytest.raises(ValueError, match="外部文字 API 已关闭"):
+        ops.text_call(config, root, "text", "example", "unsubmitted")
+
+
+def test_default_config_and_offline_doctor():
+    assert BASE["rewriter"]["enabled"] is False
+    assert BASE["models"]["video"]["parameters"]["enhance_prompt"] is False
+    assert BASE["review"]["require_material_approval"] is True
     assert BASE["production"]["target_end_frames"] == "adaptive"
     assert BASE["review"]["max_content_repairs_per_shot"] == 1
-    settings = copy.deepcopy(BASE)
-    settings.pop("credentials_file", None)
-    path = tmp_path / "offline-settings.json"
-    ops.save(path, settings)
-    result = ops.main(["--config", str(path), "doctor"])
+    result = ops.main(["doctor"])
     assert result["ffmpeg"] and result["ffprobe"]
+    assert result["prompt_mode"] == "direct"
+    assert result["local_rewriter_files_present"] is None
+
+
+def test_direct_mode_needs_no_local_model_installation(config, tmp_path):
+    config["rewriter"] = {"enabled": False}
+    config["models"]["video"] = copy.deepcopy(BASE["models"]["video"])
+    settings = tmp_path / "settings.json"
+    ops.save(settings, config)
+    result = ops.main(["--config", str(settings), "doctor"])
+    assert result["prompt_mode"] == "direct"
+    assert result["local_rewriter_files_present"] is None
+
+
+@pytest.mark.parametrize("enhancement", [True, None])
+def test_direct_h3_requires_explicit_server_enhancement_off(config, tmp_path, enhancement):
+    config["models"]["video"] = copy.deepcopy(BASE["models"]["video"])
+    params = config["models"]["video"]["parameters"]
+    if enhancement is None:
+        params.pop("enhance_prompt")
+    else:
+        params["enhance_prompt"] = enhancement
+    settings = tmp_path / "settings.json"
+    ops.save(settings, config)
+    with pytest.raises(ValueError, match="enhance_prompt=false"):
+        ops.load_settings(settings)
+
+
+def test_direct_prompt_reaches_media_submission_verbatim(config, root, cloud, client):
+    config["models"]["video"] = copy.deepcopy(BASE["models"]["video"])
+    first = root / "first.png"
+    Image.new("RGB", (108, 192), "blue").save(first)
+    prompt = (
+        "For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.\n\n"
+        "integrated_multimodal_description: [Shot 1] Live-action, a static medium close-up. "
+        "The man with a low, slightly husky Mandarin voice (S1) meets her gaze. His jaw tightens; "
+        "he speaks firmly from 0.30 seconds, with one brief pause: "
+        "<d>[Chinese] 这笔钱是我拿的，和她没有关系。</d> "
+        "His line ends by 3.80 seconds; his mouth then closes. Allow at least 0.90 seconds after the line.\n\n"
+        "overall_soundscape: Quiet room tone and a brief sleeve rustle beneath the clear dialogue.\n\n"
+        "non_diegetic_music: N/A\n"
+    )
+    prompt_file = root / "S001-h3.txt"
+    prompt_file.write_text(prompt, encoding="utf-8")
+    request = {"job_id": "video_direct", "role": "video", "shot_id": "S001", "duration_ms": 5000,
+               "prompt_file": prompt_file.name, "inputs": {"input_image": [first.name]}}
+    job = ops.submit_job(config, root, request, root, execute=True, client=client)
+    assert job["recipe"]["prompt"] == prompt
+    assert cloud.submissions[-1]["prompt"] == prompt
+    assert cloud.submissions[-1]["model_cls"] == "MiniMax-H3"
+    assert cloud.submissions[-1]["enhance_prompt"] is False
+    assert cloud.submissions[-1]["video_duration_seconds"] == 5
+    assert not list((root / "prompt_rewrites").iterdir())
+    assert not (root / "text_requests").exists()
+    # A stale rewrite record must not silently replace an authored prompt.
+    with pytest.raises(ValueError, match="Direct prompt mode"):
+        ops.request_data(config, {**request, "rewriter_record": "old/record.json"}, root)
 
 
 def test_config_uses_custom_host_and_credential(config):
@@ -118,6 +385,8 @@ def test_file_keys_reach_all_services_without_entering_records(file_credentials,
     cfg = ops.load_settings(settings)
     previous = {name: os.environ.get(name) for name in values}
     root = tmp_path / "file-key-run"
+    template = {**cfg, "workflow_preferences_file": str(settings.with_name("workflow-preferences.local.json"))}
+    ops.save_setup(template, ops.setup_options(template)[1])
     ops.main(["--config", str(settings), "init", "--output", str(root)])
     assert ops.read(root / "settings.json")["credentials_file"] == str(keys.resolve())
     report = ops.main(["--run", str(root), "doctor"])
@@ -317,6 +586,7 @@ def test_known_failure_has_one_explicit_technical_retry(config, root, client):
 
 def test_local_rewriter_binding_validation_without_inference(tmp_path):
     config = copy.deepcopy(BASE)
+    config["rewriter"]["enabled"] = True
     first, wrong = tmp_path / "first.png", tmp_path / "wrong.png"
     Image.new("RGB", (64, 96), "blue").save(first)
     Image.new("RGB", (64, 96), "red").save(wrong)
@@ -499,6 +769,30 @@ def test_serious_finding_blocks_propagation_and_limits_repair(config, root, test
     ops.submit_job(config, root, request, root, execute=True, client=client)
     with pytest.raises(ValueError, match="repair limit"):
         ops.submit_job(config, root, {**request, "job_id": "video_3"}, root, execute=True, client=client)
+
+
+def test_extra_repair_requires_explicit_matching_run_and_budget(config, root, test_video, client):
+    first = seed_video(config, root, test_video)
+    second = seed_video(config, root, test_video, "video_2")
+    second["recipe"]["repair_of"] = "video_1"
+    ops.save(root / "jobs/video_2.json", second)
+    ops.record_review(root, "video_1", review(first, "serious"))
+    ops.record_review(root, "video_2", review(second, "serious"))
+    image = root / "frame.png"
+    Image.new("RGB", (108, 192), "blue").save(image)
+    request = {"job_id": "video_3", "role": "video", "shot_id": "S001", "duration_ms": 5000,
+               "prompt": "One continuous action", "inputs": {"input_image": [str(image)]}, "repair_of": "video_2"}
+    budget = config["execution"]["budget_credits"]
+    auth = {"status": "authorized", "run_id": root.name, "budget_credits": budget,
+            "allow_additional_content_repairs": True}
+    for override in ({"run_id": "other"}, {"budget_credits": budget + 1}, {"allow_additional_content_repairs": False}):
+        ops.save(root / "budget-authorization.json", {**auth, **override})
+        with pytest.raises(ValueError, match="repair limit"):
+            ops.submit_job(config, root, request, root, execute=True, client=client)
+    ops.save(root / "budget-authorization.json", auth)
+    assert ops.submit_job(config, root, request, root, execute=True, client=client)["status"] == "submitted"
+    with pytest.raises(ValueError, match="repair limit"):
+        ops.submit_job(config, root, {**request, "job_id": "video_4"}, root, execute=True, client=client)
 
 
 def test_stale_review_and_changed_timeline_are_rejected(config, root, test_video):

@@ -30,7 +30,10 @@ def environment_commands(component):
     commands = []
     if not python.is_file():
         commands.append([sys.executable, "-m", "venv", str(folder / ".venv")])
-    commands.append([str(python), "-m", "pip", "install", "-r", str(folder / "requirements-lock.txt")])
+    requirements = ["-r", str(folder / "requirements-lock.txt")]
+    if component == "video-harness":
+        requirements.extend(["-r", str(ROOT / "workbench/requirements.txt")])
+    commands.append([str(python), "-m", "pip", "install", *requirements])
     if component == "video-harness":
         commands.append([str(python), "-m", "pip", "install", "--no-deps", "-e", str(folder)])
     commands.append([str(python), "-m", "pip", "check"])

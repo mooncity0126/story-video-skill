@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf6ec">
+  <title>剧情视频 · 制作工作台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1730'/%3E%3Cpath d='m25 19 23 13-23 13z' fill='%23faf6ec'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css?v=production-controls-2">
+  <link rel="stylesheet" href="/workflow-settings.css?v=1">
+  <script defer src="/workflow-settings.js?v=1"></script>
+  <script defer src="/app.js?v=first-use-1"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="剧情视频工作台">场<span>↗</span></a>
+    <div class="project-picker"><label for="project-select" class="sr-only">选择项目</label><select id="project-select" aria-label="选择项目"></select><span id="version-label" class="version"></span></div>
+    <span class="top-divider"></span><span class="local-label"><i></i>本地工作台</span>
+    <div class="top-actions"><label class="search-wrap"><span data-icon="search"></span><input id="search" placeholder="搜索台词、分镜、素材…" aria-label="搜索台词、分镜、素材"><kbd>Ctrl K</kbd></label><button class="icon-button" id="theme-toggle" aria-label="切换深色模式" data-icon="moon"></button><button class="button subtle" id="workflow-settings">工作流设置</button><button class="button subtle" id="new-project"><span data-icon="plus"></span>新建</button></div>
+  </header>
+  <nav class="tabs" aria-label="制作导航" id="tabs"></nav>
+  <section id="production-controls" class="production-controls" aria-label="生成控制" hidden>
+    <span class="production-state" role="status" id="production-status"></span>
+    <span class="production-buttons">
+      <button class="button green" type="button" id="start-generation"><span data-icon="play"></span><span>开始生成</span></button>
+      <button class="button" type="button" id="pause-generation"><span data-icon="pause"></span>暂停生成</button>
+    </span>
+  </section>
+  <main id="main"><div class="loading"><span class="spinner"></span>正在读取本地项目…</div></main>
+  <footer class="page-footer"><span><i class="status-dot"></i><span id="connection-state">连接本地项目</span></span><span>素材确认后，仍按已授权的制作流程继续</span></footer>
+  <div id="modal-root"></div><div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

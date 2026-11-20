@@ -35,3 +35,5 @@ Python 第三方包通过各自包仓库安装，版本分别锁定在两套环�
 本仓库的 `produce-story-video` 在原有创作步骤中改编了 [zenstory-ai/drama-skills](https://github.com/zenstory-ai/drama-skills) 的剧本、对白、场景声音、整场分镜和空间调度方法，参考 revision 为 `8cf7404981b7095b498e061832bb3c9ffd6a42be`。
 
 上游采用 MIT 许可证，`Copyright (c) 2026 drama-skills contributors`。完整许可证随可单独安装的 skill 保存在 [.agents/skills/produce-story-video/licenses/drama-skills-MIT.txt](.agents/skills/produce-story-video/licenses/drama-skills-MIT.txt)，逐项来源及适配范围见 [skill 来源说明](.agents/skills/produce-story-video/references/provenance.md)。本次整合不引入上游运行依赖或外部服务。
+
+本次发布还采用 `zenstory-ai/drama-skills` 中的 `short-drama-video-prompts`，参考版本为 `37232f6d22e174c36e321d2e3a1a3ae871e7d602`。它提供镜头内表演、对白、运镜和声音的写作方法。MiniMax-H3 接口格式的来源见 [H3 提示词说明](.agents/skills/produce-story-video/references/minimax-h3.md)。

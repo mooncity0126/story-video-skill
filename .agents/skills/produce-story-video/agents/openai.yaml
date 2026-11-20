@@ -1,3 +1,3 @@
 interface:
   display_name: "剧情视频制作"
-  short_description: "AI 编排剧情视频，4 路视频并行，按候选检查 1 次、抽取 6 帧"
+  short_description: "首次设置串行或按依赖并行、视频 API 与提示词处理，按对白拆镜并继承实际尾帧"

@@ -27,3 +27,4 @@ deployment/
 LOCAL_SETUP.md
 config/skill-location.json
 *.local.json
+workbench/.state/

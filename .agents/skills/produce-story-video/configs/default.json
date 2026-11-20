@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "workflow_preferences_file": "../../../../config/workflow-preferences.local.json",
   "credentials_file": "../../../../config/api-keys.local.json",
   "runtime": {
     "harness_root": "../../../../runtime/video-harness",
@@ -70,7 +71,7 @@
     }
   },
   "rewriter": {
-    "enabled": true,
+    "enabled": false,
     "compatible_models": [
       "MiniMax-H3"
     ],
@@ -100,6 +101,7 @@
     "maximum_parallel_image_jobs": 2
   },
   "review": {
+    "require_material_approval": true,
     "mode": "agent",
     "vision_provider": "vision",
     "content_check_rounds": 1,

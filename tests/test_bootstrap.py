@@ -44,6 +44,10 @@ class BootstrapTests(unittest.TestCase):
             self.assertEqual(before, sorted(str(path) for path in root.rglob("*")))
             plan = json.loads(output.getvalue())
             self.assertEqual(set(plan["components"]), {"video-harness", "prompt-rewriter"})
+            web_requirements = str(root / "workbench/requirements.txt")
+            installers = [cmd for cmd in plan["commands"] if web_requirements in cmd]
+            self.assertEqual(len(installers), 1)
+            self.assertIn(str(root / "runtime/video-harness/requirements-lock.txt"), installers[0])
             self.assertFalse(plan["loads_models"])
 
     def test_archive_hash_and_selected_member_extraction(self):

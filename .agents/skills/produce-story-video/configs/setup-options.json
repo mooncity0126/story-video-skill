@@ -1,0 +1,129 @@
+[
+  {
+    "id": "scheduling",
+    "label": "视频生成方式",
+    "choices": [
+      {
+        "value": "serial",
+        "label": "逐镜串行",
+        "impact": "按照播放顺序制作。后一镜等前一镜的视频检查并选定后，使用实际尾帧准备首帧。连续性优先，整片等待较久。"
+      },
+      {
+        "value": "dependency_parallel",
+        "label": "按依赖并行",
+        "impact": "只有独立或仅共享外观的镜头可以同时制作。有动作、站位或道具承接时仍等实际尾帧。通常更快，依赖标错会放大跳变或返工。"
+      }
+    ]
+  },
+  {
+    "id": "prompt_mode",
+    "label": "视频提示词处理",
+    "choices": [
+      {
+        "value": "direct",
+        "label": "AI 直写",
+        "impact": "当前 AI 对照实际素材写正文，提交原文。对白、表演和音效指令最容易核对。"
+      },
+      {
+        "value": "local",
+        "label": "本地 Prompt Rewriter",
+        "impact": "用本机模型结合首帧和所选尾帧改写，确认时可看到改写结果。需要兼容权重和本地算力，增加等待，措辞可能变化。"
+      },
+      {
+        "value": "online",
+        "label": "服务端在线优化",
+        "impact": "生成请求显式开启服务端增强。可省去本地模型，服务端可能调整对白与情绪措辞，提交前只能看到送出的原文。"
+      }
+    ]
+  },
+  {
+    "id": "writer",
+    "label": "剧本与设定的执笔者",
+    "choices": [
+      {
+        "value": "agent",
+        "label": "当前 AI",
+        "impact": "由当前对话中的 AI 完成设定和剧本。"
+      },
+      {
+        "value": "text_api",
+        "label": "外部文字模型",
+        "impact": "将文字材料发送给配置的文字 API，使用其调用额度。最终视频提示词继续按上方选择处理。"
+      }
+    ]
+  },
+  {
+    "id": "frame_check",
+    "label": "首帧与目标尾帧检查",
+    "choices": [
+      {
+        "value": "on_demand",
+        "label": "按需",
+        "impact": "仅在身份、构图或物品状态有疑问时检查画面，通常更快。"
+      },
+      {
+        "value": "always",
+        "label": "每个候选",
+        "impact": "每份新画面都检查一次，准备时间增加。"
+      },
+      {
+        "value": "off",
+        "label": "关闭",
+        "impact": "跳过这项可选检查，素材仍交给你确认。"
+      }
+    ]
+  },
+  {
+    "id": "prompt_check",
+    "label": "提示词一致性检查",
+    "choices": [
+      {
+        "value": "on_demand",
+        "label": "按需",
+        "impact": "仅在多人对白或动作承接有疑问时检查提示词，通常更快。"
+      },
+      {
+        "value": "always",
+        "label": "每个候选",
+        "impact": "每份新提示词都检查一次，准备时间增加。"
+      },
+      {
+        "value": "off",
+        "label": "关闭",
+        "impact": "跳过这项可选检查，素材仍交给你确认。"
+      }
+    ]
+  },
+  {
+    "id": "review_mode",
+    "label": "画面检查由谁执行",
+    "choices": [
+      {
+        "value": "agent",
+        "label": "当前 AI",
+        "impact": "由当前 AI 查看已抽取的画面，复用当前会话的判断。"
+      },
+      {
+        "value": "vision_api",
+        "label": "外部视觉 API",
+        "impact": "将检查用的画面发送到已配置的视觉服务，增加网络调用和可能的费用。沿用每候选一次的检查次数。"
+      }
+    ]
+  },
+  {
+    "id": "repairs",
+    "label": "每镜严重内容问题的返工额度",
+    "choices": [
+      {
+        "value": "1",
+        "label": "允许一次",
+        "impact": "可在本片已授权的预算内重做一次，保留原候选。返工可能额外计费。"
+      },
+      {
+        "value": "0",
+        "label": "先交给用户",
+        "impact": "记录严重问题并等待处理，避免自动花费额外生成积分。"
+      }
+    ]
+  }
+]

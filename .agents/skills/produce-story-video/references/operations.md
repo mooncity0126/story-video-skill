@@ -3,18 +3,17 @@
 AI 根据已完成的产物选择下一条命令；每条命令完成一次具体操作。使用配置指定的 Python：
 
 ```powershell
-# 在仓库根目录执行；已部署项目也可以指定自己的配置与 skill 绝对路径。
-$videoProject = (Get-Location).Path
-$videoSkill = Join-Path $videoProject '.agents\skills\produce-story-video'
-$videoPython = Join-Path $videoProject 'runtime\video-harness\.venv\Scripts\python.exe'
-$videoTool = Join-Path $videoSkill 'scripts\media_tools.py'
-$videoRun = Join-Path $videoProject 'runs\short-story-01'
-$videoConfig = Join-Path $videoProject 'config\local-settings.json'
-& $videoPython $videoTool --config $videoConfig doctor
-& $videoPython $videoTool --config $videoConfig init --output $videoRun
+$projectRoot = (Get-Location).Path
+$videoPython = Join-Path $projectRoot 'runtime\video-harness\.venv\Scripts\python.exe'
+$videoTool = Join-Path $projectRoot 'scripts\media.py'
+$videoRun = Join-Path $projectRoot 'runs\short-story-01'
+& $videoPython $videoTool doctor
+& $videoPython $videoTool setup
+# 首次在工作台保存偏好后建片
+& $videoPython $videoTool init --output $videoRun
 ```
 
-`doctor` 检查配置、工具路径与凭据变量是否存在。`init` 创建项目目录和 `settings.json`。AI 填入已确定的预算与规格，并保存剧本、分镜、每镜用时依据、依赖和检查选择；纯配置与文档验证使用这些本地操作。
+新片首次先执行 `setup`，向用户展示选项及影响，取得确认再写入偏好。完整用法见[首次设置](first-use.md)。`doctor` 检查所读配置、工具路径与凭据是否存在，并返回当前提示词模式；停用本地改写时不检查其环境或权重。`init` 创建项目目录和 `settings.json`。AI 填入已确定的预算与规格，并保存剧本、分镜、每镜用时依据、依赖和检查选择；纯配置与文档验证使用这些本地操作。
 
 ## 模型规格、提交与查询
 
@@ -34,7 +33,7 @@ $videoConfig = Join-Path $videoProject 'config\local-settings.json'
 | `poll` | 已知 job_id | 查询一次；完成时下载素材、保存媒体信息 |
 | `status` | 本项目任务目录 | 各任务状态、积分、分类并发占用/上限/可用名额 |
 
-`image` 与 `edit` 共用 2 个并发名额，`video` 使用 4 个，总上限 6 个。AI 在云端运行期间准备其他就绪镜头，并在任一名额释放后提交下一个就绪任务。同一 job_id 与相同输入返回已有记录。
+`image` 与 `edit` 共用 2 个并发名额，视频串行上限 1 个且须逐镜承接实际尾帧，按依赖并行时默认最多 4 个，总上限 6 个。AI 在云端运行期间准备其他就绪镜头，并在任一名额释放后提交下一个就绪任务。同一 job_id 与相同输入返回已有记录。
 
 请求中的图片、提示词文件与改写记录路径相对请求 JSON 所在目录解析，也支持绝对路径。首帧图片请求：
 
@@ -50,11 +49,32 @@ $videoConfig = Join-Path $videoProject 'config\local-settings.json'
 
 `image` 生成设定图；`edit` 用参考图生成/编辑首帧或目标尾帧。目标尾帧按关键结束状态生成，通常以本镜首帧为编辑输入。可选帧检查的选择和结果由 AI 按工作流保存。
 
-## 本地改写与视频
+例如第二镜承接第一镜放卡的动作，在第二镜的依赖中填写 `{"kind":"actual_tail","source_id":"S001","reason":"黑卡的位置与持有者延续"}`。采用第一镜视频并保存该候选的检查结果，调用 `tail` 取得完整源素材末帧。把返回的图片、本场空景和本镜定妆图一并传给首帧编辑任务。保存实际编辑来源后，将生成的本镜首帧填入视频的 `input_image`。工作台、直接提交和新时间线的合成都核对这些来源。相同历史时间线可使用已交付的候选及其检查记录重新合成。
 
-实际制作进入改写节点时，使用：
+## AI 最终提示词与视频（默认）
 
-源提示词包含动作起止状态、正常速度与必要停顿、说话人和台词原文、环境声及随动作触发的音效。对白与音效沿用视频模型原生生成，不调用独立声音服务，也不增加检查节点。`--duration-ms` 使用本镜规划后的合法时长，普通动作优先从 5000–6000 毫秒估算；同一时长用于改写和视频请求。
+当前 AI 读取 [video-prompts.md](video-prompts.md) 与 [minimax-h3.md](minimax-h3.md)，将定稿分镜、真实首帧/选用的目标尾帧转为 `prompts/S001-h3.txt`。文件只含最终模型正文，逐字对白、情绪表演、说话窗口和句尾余量均写入；时长按实读字数、4.1 字/秒基准、必要停顿与动作重叠计算，不固定为统一镜长。
+
+直写模式下确认本次设置为 `rewriter.enabled: false` 且 H3 参数 `enhance_prompt: false`。视频请求直接引用该文件，不填写 `rewriter_record`：
+
+```json
+{
+  "job_id": "video_S001_v1",
+  "role": "video",
+  "shot_id": "S001",
+  "duration_ms": 5000,
+  "prompt_file": "../prompts/S001-h3.txt",
+  "inputs": {"input_image": ["../assets/frame_S001_v1.image"]}
+}
+```
+
+文件按 UTF-8 读取，正文原样进入报价/提交内容和任务记录，不调用本地模型或外部文字服务。选用目标尾帧时增加 `input_last_frame`，同时使用 H3 首尾帧对齐指令。请求、分镜、实际图片与提示词中时长/起止状态保持一致。完成接口参数和预算校验后沿用 `submit --execute`、`poll`，不增加声音或提示词检查轮次。
+
+在线优化沿用上面的 `prompt_file` 请求，快照中的 `rewriter.mode` 为 `online` 且 `enhance_prompt` 为 `true`，平台在生成时处理。续做读取影片现有快照。
+
+## 选用本地改写时
+
+本片选择本地改写时，`rewriter.enabled` 为 `true`。工作台按实际素材运行改写。对话端可使用以下命令。启用时仍保持 `enhance_prompt: false`，实际图片、时长和画幅必须绑定同一输入。
 
 ```powershell
 & $videoPython $videoTool --run $videoRun rewrite --prompt-file "$videoRun\prompts\S001-source.txt" --duration-ms 5000 --first-frame "$videoRun\assets\frame_S001_v1.image"
@@ -73,7 +93,7 @@ $videoConfig = Join-Path $videoProject 'config\local-settings.json'
 }
 ```
 
-视频正文取自保存的改写记录。选用目标尾帧时提供 `input_last_frame`，与改写时图片保持相同内容哈希。脚本核对图片、时长、画幅和原始改写文件；本地改写由适配器单任务锁执行。Prompt 检查发现严重问题时，AI 修正源输入并重新改写，保存新版本。
+本地模式的视频正文取自保存的改写记录。选用目标尾帧时提供 `input_last_frame`，与改写时图片保持相同内容哈希。脚本核对图片、时长、画幅和原始改写文件；本地改写由适配器单任务锁执行。若已有按需 Prompt 检查发现严重问题，AI 在既有返工额度内修正源输入并保存新版本。
 
 ## 视频采样与结论
 
@@ -139,3 +159,6 @@ AI 按播放顺序写 `timeline.json`，如 `[{"job_id":"video_S001_v1"},{"job_i
 ```powershell
 & $videoPython -m pytest "$videoSkill\scripts\test_media_tools.py" -q
 ```
+# 工作台的生成前确认
+
+`submit --execute` 新建视频任务前要求当前素材版本的用户确认；先按 [material-review.md](material-review.md) 展示本地工作台。图片/报价不受该人工确认限制，但仍受原有暂停及预算规则约束。`workflow-inbox.json` 有待规划输入时也阻止新视频提交。不能代用户确认或自行关闭确认设置。

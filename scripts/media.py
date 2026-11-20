@@ -10,15 +10,17 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def skill_directory(root: Path) -> Path:
+    location_path = root / "config/skill-location.json"
+    location = json.loads(location_path.read_text(encoding="utf-8-sig")) if location_path.is_file() else {}
+    chosen = os.environ.get("STORY_VIDEO_SKILL_DIR") or location.get("skill_root") or ".agents/skills/produce-story-video"
+    return (root / chosen).resolve()
+
+
 def main() -> int:
     settings_path = ROOT / "config/local-settings.json"
     settings = json.loads(settings_path.read_text(encoding="utf-8-sig"))
-    location_path = ROOT / "config/skill-location.json"
-    location = json.loads(location_path.read_text(encoding="utf-8-sig")) if location_path.is_file() else {}
-    skill = Path(os.environ.get("STORY_VIDEO_SKILL_DIR", location.get("skill_root", str(ROOT / ".agents/skills/produce-story-video"))))
-    if not skill.is_absolute():
-        skill = ROOT / skill
-    tool = skill / "scripts/media_tools.py"
+    tool = skill_directory(ROOT) / "scripts/media_tools.py"
     python = Path(settings["runtime"]["python"])
     for path in (python, tool):
         if not path.is_file():
