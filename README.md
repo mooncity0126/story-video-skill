@@ -10,17 +10,18 @@
 
 ## 看成片 · 《实习生的黑卡》
 
-一名实习生被经理当众刁难。集团高层走进办公室，却径直越过经理，向实习生鞠躬。下面两版从同一份故事原稿出发，分别由 **Codex** 和 **DeepSeek Harness** 编排制作，视频都由 **MiniMax-H3** 生成。点击画面可下载带声音的完整 MP4。
+一名实习生被经理当众刁难。集团高层走进办公室，却径直越过经理，向实习生鞠躬。下面两版从同一份故事原稿出发，分别由 **Codex** 和 **DeepSeek Harness** 编排制作，视频都由 **MiniMax-H3** 生成。点下方播放器就能观看完整剧情和片尾，点扬声器图标可以听到对白和音效。
 
 | | Codex · 逐镜串行 | DeepSeek Harness · 按依赖并行 |
 |---|---|---|
+| 在线播放 | https://github.com/user-attachments/assets/d23312c5-bbfd-423f-ae70-8cb922236bb5 | https://github.com/user-attachments/assets/4bca2fe4-20d7-45a6-a3c3-8ce7d5263c1a |
 | 成片选帧 | [![Codex 版，核对运单、递还黑卡、经理的反应](examples/intern-black-card/codex-serial.jpg)](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-codex-serial.mp4) | [![DeepSeek Harness 版，实习生指向资料、张总鞠躬、经理的反应](examples/intern-black-card/deepseek-parallel.jpg)](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-deepseek-parallel.mp4) |
-| 完整成片 | [下载 MP4 · 1 分 32 秒](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-codex-serial.mp4) | [下载 MP4 · 1 分 38 秒](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-deepseek-parallel.mp4) |
+| 下载高清原片 | [下载 MP4 · 1 分 32 秒](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-codex-serial.mp4) | [下载 MP4 · 1 分 38 秒](https://github.com/mooncity0126/story-video-skill/releases/download/story-workflow-2026-11-21/intern-black-card-deepseek-parallel.mp4) |
 | 这一版怎么拍 | 从第二段起，后面九段都等前一段完成，用实际尾帧接着拍。同时在途的视频最多 1 段。 | 十段都规划了独立的起始画面，共用人物定妆照和办公室参考图。同时在途的视频最多 4 段。 |
 | 可以留意 | 约 0:25，杯底压住黑卡的一角。到 1:04 左右，黑卡从桌上回到林凡手里。 | 约 0:24，经理伸手推林凡。到 1:04 左右，张总当面鞠躬，再切到经理听见“林董”的反应。 |
 | 本次制作记录 | 10 个生成片段，6,658 积分，从启动到导出约 3 小时 33 分。[定稿剧本](examples/intern-black-card/codex-script.md) | 10 个生成片段，6,704 积分，从启动到导出约 48 分钟。[定稿剧本](examples/intern-black-card/deepseek-script.md) |
 
-两部片均为 720 × 1280 竖屏，时长包含片尾。两版的定稿和镜头安排各有调整，计时也包含排队、素材返工和等待人工确认。表中数字只描述这两次制作。Codex 和 DeepSeek Harness 都可以选择串行或按依赖并行。
+网页预览为 540 × 960，高清原片为 720 × 1280。两版均保留原声音轨，时长包含片尾。两版的定稿和镜头安排各有调整，计时也包含排队、素材返工和等待人工确认。表中数字只描述这两次制作。Codex 和 DeepSeek Harness 都可以选择串行或按依赖并行。
 
 ## 这套流程解决了什么
 
